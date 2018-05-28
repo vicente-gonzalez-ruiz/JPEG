@@ -1,0 +1,2662 @@
+<!DOCTYPE html> 
+<html> 
+<head> <title>The JPEG standard (ISO/IEC 10918-1)</title> 
+<meta charset="UTF-8" /> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" /> 
+<link rel="stylesheet" type="text/css" href="index.css" /> 
+<script type="text/javascript" 
+src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" 
+></script> 
+<style type="text/css"> 
+.MathJax_MathML {text-indent: 0;} 
+</style> 
+</head><body 
+>
+   <div class="maketitle">
+                                                                  
+
+                                                                  
+                                                                  
+
+                                                                  
+
+<h2 class="titleHead">The JPEG standard (ISO/IEC 10918-1)</h2>
+ <div class="author" ><span 
+class="ecrm-1200">Vicente Gonz</span><span 
+class="ecrm-1200">á</span><span 
+class="ecrm-1200">lez Ruiz</span></div><br />
+<div class="date" ><span 
+class="ecrm-1200">May 28, 2018</span></div>
+   </div>
+   <h3 class="likesectionHead"><a 
+ id="x1-1000"></a>Contents</h3>
+   <div class="tableofcontents">
+   <span class="sectionToc" >1 <a 
+href="#x1-20001" id="QQ2-1-2">Intro</a></span>
+<br />   <span class="sectionToc" >2 <a 
+href="#x1-30002" id="QQ2-1-3">Lossless JPEG [2]</a></span>
+<br />   <span class="sectionToc" >3 <a 
+href="#x1-40003" id="QQ2-1-4">Codec LS-JPEG</a></span>
+<br />    <span class="subsectionToc" >3.1 <a 
+href="#x1-50003.1" id="QQ2-1-5">Compressor</a></span>
+<br />    <span class="subsectionToc" >3.2 <a 
+href="#x1-60003.2" id="QQ2-1-6">Descompressor</a></span>
+<br />   <span class="sectionToc" >4 <a 
+href="#x1-70004" id="QQ2-1-7">Huﬀman encoding in LS-JPEG</a></span>
+<br />   <span class="sectionToc" >5 <a 
+href="#x1-100005" id="QQ2-1-10">Huﬀman decoding in LS-JPEG</a></span>
+<br />   <span class="sectionToc" >6 <a 
+href="#x1-140006" id="QQ2-1-14">Lossy JPEG</a></span>
+<br />   <span class="sectionToc" >7 <a 
+href="#x1-150007" id="QQ2-1-15"><!--l. 16--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mrow ><mo 
+class="MathClass-open">[</mo><mrow><mn>0</mn><mo 
+class="MathClass-punc">,</mo><mn>2</mn><mn>5</mn><mn>5</mn></mrow><mo 
+class="MathClass-close">]</mo></mrow> <mo 
+class="MathClass-rel">→</mo> <mrow ><mo 
+class="MathClass-open">[</mo><mrow><mo 
+class="MathClass-bin">−</mo><mn>1</mn><mn>2</mn><mn>8</mn><mo 
+class="MathClass-punc">,</mo><mn>1</mn><mn>2</mn><mn>7</mn></mrow><mo 
+class="MathClass-close">]</mo></mrow></math></a></span>
+<br />   <span class="sectionToc" >8 <a 
+href="#x1-160008" id="QQ2-1-16">8x8 2D-DCT</a></span>
+<br />   <span class="sectionToc" >9 <a 
+href="#x1-170009" id="QQ2-1-17">Basis functions of the 8x8 2D-DCT</a></span>
+<br />   <span class="sectionToc" >10 <a 
+href="#x1-1800010" id="QQ2-1-18">Advantages of the 8x8 2D-DCT</a></span>
+<br />   <span class="sectionToc" >11 <a 
+href="#x1-1900011" id="QQ2-1-19">Scalar quantization</a></span>
+<br />   <span class="sectionToc" >12 <a 
+href="#x1-2000012" id="QQ2-1-20">Entropy encoding</a></span>
+<br />   <span class="sectionToc" >13 <a 
+href="#x1-2100013" id="QQ2-1-21">Interlacing of the color components</a></span>
+<br />   <span class="sectionToc" >14 <a 
+href="#x1-2600014" id="QQ2-1-26">Entropy encoding of the runs</a></span>
+<br />   <span class="sectionToc" >15 <a 
+href="#x1-2700015" id="QQ2-1-27">Progressive transmission</a></span>
+<br />   <span class="sectionToc" >16 <a 
+href="#x1-2800016" id="QQ2-1-28">The hierarchical algorithm</a></span>
+<br />   <span class="sectionToc" >17 <a 
+href="#x1-2900017" id="QQ2-1-29">Motion JPEG (M-JPEG)</a></span>
+<br />   <span class="sectionToc" >18 <a 
+href="#x1-3700018" id="QQ2-1-37">Lab</a></span>
+   </div>
+                                                                  
+
+                                                                  
+<!--l. 6--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">1   </span> <a 
+ id="x1-20001"></a>Intro</h3>
+     <ul class="itemize1">
+     <li class="itemize">JPEG = Joint Photographic Experts Group.
+     </li>
+     <li class="itemize">Developed in 1992 by the ISO <span class="cite">[<a 
+href="#XCCITT.T81">1</a>]</span>.
+     </li>
+     <li class="itemize">True color (up to 24 bits/pixel) and grayscale (up to 8 bits/pixel) images.
+     </li>
+     <li class="itemize">Eligible compression quality between <!--l. 12--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>0</mn> <mo 
+class="MathClass-bin">−</mo> <mn>1</mn><mn>0</mn><mn>0</mn></math>
+     <span class="cite">[<a 
+href="#XWallace91">3</a>]</span>.
+     </li>
+     <li class="itemize">Visually lossless reconstructions of color images for compression ratios
+     about <!--l. 14--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>1</mn></math>
+     bits/pixel (bpp).
+     </li>
+     <li class="itemize">Based on the Discrete Cosine Transform (DCT).
+     </li>
+     <li class="itemize">Several working modes: lossy, lossless and hierarchical.</li></ul>
+<!--l. 19--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">2   </span> <a 
+ id="x1-30002"></a>Lossless JPEG <span class="cite">[<a 
+href="#XJPEG-LS">2</a>]</span></h3>
+     <ul class="itemize1">
+     <li class="itemize">Lossless.
+     </li>
+     <li class="itemize">Based on an spatial predictor and a 0-order static variable-length encoder
+     (Huﬀman).
+     </li>
+     <li class="itemize">The block diagram is
+     <div class="center" 
+>
+<!--l. 26--><p class="noindent" >
+</p><!--l. 28--><p class="noindent" ><img 
+src="data/LS-JPEG_codec.png" alt="PIC"  
+ /></p></div>
+                                                                  
+
+                                                                  
+     <!--l. 30--><p class="noindent" >where </p>
+     <div class="center" 
+>
+<!--l. 31--><p class="noindent" >
+</p>
+<div class="tabular"> <table id="TBL-2" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-2-1g"><col 
+id="TBL-2-1" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-2-1-"><td  style="text-align:center; white-space:nowrap;" id="TBL-2-1-1"  
+class="td11"> Prediction Context  </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-2-"><td  style="text-align:center; white-space:nowrap;" id="TBL-2-2-1"  
+class="td11"> <img 
+src="data/contexto_prediccion_JPEG.png" alt="PIC"  
+ /></td>
+</tr></table>
+</div> <!--tex4ht:inline--><div class="tabular"> <table id="TBL-3" class="tabular" 
+cellspacing="0" cellpadding="0" rules="groups" 
+><colgroup id="TBL-3-1g"><col 
+id="TBL-3-1" /></colgroup><colgroup id="TBL-3-2g"><col 
+id="TBL-3-2" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-3-1-"><td colspan="2" style="text-align:center; white-space:nowrap;" id="TBL-3-1-1"  
+class="td11">                                                                <div class="multicolumn"  style="text-align:center; white-space:nowrap;">Predictors</div></td></tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-3-2-"><td  style="text-align:right; white-space:nowrap;" id="TBL-3-2-1"  
+class="td11"> <!--l. 41--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><msub><mrow 
+><mi 
+>P</mi></mrow><mrow 
+>
+<mn>0</mn></mrow></msub 
+></math>  </td><td  style="text-align:left; white-space:nowrap;" id="TBL-3-2-2"  
+class="td11"> <!--l. 41--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>ŝ</mi> <mo 
+class="MathClass-rel">←</mo> <mn>0</mn></math>  </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-3-3-"><td  style="text-align:right; white-space:nowrap;" id="TBL-3-3-1"  
+class="td11"> <!--l. 42--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><msub><mrow 
+><mi 
+>P</mi></mrow><mrow 
+>
+<mn>1</mn></mrow></msub 
+></math>  </td><td  style="text-align:left; white-space:nowrap;" id="TBL-3-3-2"  
+class="td11"> <!--l. 42--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>ŝ</mi> <mo 
+class="MathClass-rel">←</mo> <mi 
+>a</mi></math>  </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-3-4-"><td  style="text-align:right; white-space:nowrap;" id="TBL-3-4-1"  
+class="td11"> <!--l. 43--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><msub><mrow 
+><mi 
+>P</mi></mrow><mrow 
+>
+<mn>2</mn></mrow></msub 
+></math>  </td><td  style="text-align:left; white-space:nowrap;" id="TBL-3-4-2"  
+class="td11"> <!--l. 43--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>ŝ</mi> <mo 
+class="MathClass-rel">←</mo> <mi 
+>b</mi></math>  </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-3-5-"><td  style="text-align:right; white-space:nowrap;" id="TBL-3-5-1"  
+class="td11"> <!--l. 44--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><msub><mrow 
+><mi 
+>P</mi></mrow><mrow 
+>
+<mn>3</mn></mrow></msub 
+></math>  </td><td  style="text-align:left; white-space:nowrap;" id="TBL-3-5-2"  
+class="td11"> <!--l. 44--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>ŝ</mi> <mo 
+class="MathClass-rel">←</mo> <mi 
+>c</mi></math>  </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-3-6-"><td  style="text-align:right; white-space:nowrap;" id="TBL-3-6-1"  
+class="td11"> <!--l. 45--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><msub><mrow 
+><mi 
+>P</mi></mrow><mrow 
+>
+<mn>4</mn></mrow></msub 
+></math>  </td><td  style="text-align:left; white-space:nowrap;" id="TBL-3-6-2"  
+class="td11"> <!--l. 45--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>ŝ</mi> <mo 
+class="MathClass-rel">←</mo> <mi 
+>a</mi> <mo 
+class="MathClass-bin">+</mo> <mi 
+>b</mi> <mo 
+class="MathClass-bin">−</mo> <mi 
+>c</mi></math>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-3-7-"><td  style="text-align:right; white-space:nowrap;" id="TBL-3-7-1"  
+class="td11"> <!--l. 46--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><msub><mrow 
+><mi 
+>P</mi></mrow><mrow 
+><mn>5</mn></mrow></msub 
+></math>  </td><td  style="text-align:left; white-space:nowrap;" id="TBL-3-7-2"  
+class="td11"> <!--l. 46--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>ŝ</mi> <mo 
+class="MathClass-rel">←</mo> <mi 
+>a</mi> <mo 
+class="MathClass-bin">+</mo> <mrow ><mo 
+class="MathClass-open">(</mo><mrow><mi 
+>b</mi> <mo 
+class="MathClass-bin">−</mo> <mi 
+>c</mi></mrow><mo 
+class="MathClass-close">)</mo></mrow><mo 
+class="MathClass-bin">∕</mo><mn>2</mn></math>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-3-8-"><td  style="text-align:right; white-space:nowrap;" id="TBL-3-8-1"  
+class="td11"> <!--l. 47--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><msub><mrow 
+><mi 
+>P</mi></mrow><mrow 
+><mn>6</mn></mrow></msub 
+></math>  </td><td  style="text-align:left; white-space:nowrap;" id="TBL-3-8-2"  
+class="td11"> <!--l. 47--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>ŝ</mi> <mo 
+class="MathClass-rel">←</mo> <mi 
+>b</mi> <mo 
+class="MathClass-bin">+</mo> <mrow ><mo 
+class="MathClass-open">(</mo><mrow><mi 
+>a</mi> <mo 
+class="MathClass-bin">−</mo> <mi 
+>c</mi></mrow><mo 
+class="MathClass-close">)</mo></mrow><mo 
+class="MathClass-bin">∕</mo><mn>2</mn></math>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-3-9-"><td  style="text-align:right; white-space:nowrap;" id="TBL-3-9-1"  
+class="td11"> <!--l. 48--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><msub><mrow 
+><mi 
+>P</mi></mrow><mrow 
+><mn>7</mn></mrow></msub 
+></math>  </td><td  style="text-align:left; white-space:nowrap;" id="TBL-3-9-2"  
+class="td11"> <!--l. 48--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>ŝ</mi> <mo 
+class="MathClass-rel">←</mo> <mrow ><mo 
+class="MathClass-open">(</mo><mrow><mi 
+>b</mi> <mo 
+class="MathClass-bin">+</mo> <mi 
+>c</mi></mrow><mo 
+class="MathClass-close">)</mo></mrow><mo 
+class="MathClass-bin">∕</mo><mn>2</mn></math>  </td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-3-10-"><td  style="text-align:right; white-space:nowrap;" id="TBL-3-10-1"  
+class="td11">                                                                    </td></tr></table>
+</div></div>
+     </li></ul>
+<!--l. 54--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">3   </span> <a 
+ id="x1-40003"></a>Codec LS-JPEG</h3>
+<!--l. 55--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">3.1   </span> <a 
+ id="x1-50003.1"></a>Compressor</h4>
+<!--l. 56--><p class="noindent" >
+     </p><ol  class="enumerate1" >
+     <li 
+  class="enumerate" id="x1-5002x1">Generate <!--l. 57--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>ŝ</mi></math>.
+     </li>
+     <li 
+  class="enumerate" id="x1-5004x2">Compute the prediction error <!--l. 58--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>e</mi> <mo 
+class="MathClass-rel">←</mo> <mi 
+>s</mi> <mo 
+class="MathClass-bin">−</mo><mi 
+>ŝ</mi></math>.
+     </li>
+     <li 
+  class="enumerate" id="x1-5006x3">Encode <!--l. 59--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>e</mi></math>.</li></ol>
+                                                                  
+
+                                                                  
+<!--l. 62--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">3.2   </span> <a 
+ id="x1-60003.2"></a>Descompressor</h4>
+<!--l. 63--><p class="noindent" >
+     </p><ol  class="enumerate1" >
+     <li 
+  class="enumerate" id="x1-6002x1">Generate <!--l. 64--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>ŝ</mi></math>
+     (idential to the Step 1 of the compressor).
+     </li>
+     <li 
+  class="enumerate" id="x1-6004x2">Descode <!--l. 65--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>e</mi></math>.
+     </li>
+     <li 
+  class="enumerate" id="x1-6006x3">Compute the pixel value <!--l. 66--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>s</mi> <mo 
+class="MathClass-rel">←</mo> <mi 
+>e</mi> <mo 
+class="MathClass-bin">+</mo> <mi 
+>ŝ</mi></math>.</li></ol>
+<!--l. 69--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">4   </span> <a 
+ id="x1-70004"></a>Huﬀman encoding in LS-JPEG</h3>
+<!--l. 71--><p class="noindent" >
+     </p><ol  class="enumerate1" >
+     <li 
+  class="enumerate" id="x1-7002x1">Search <!--l. 72--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>e</mi></math>
+     in <!--l. 72--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>D</mi><mi 
+>I</mi><mi 
+>F</mi><mi 
+>F</mi></math>
+     and select <!--l. 72--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi></math>.
+     </li>
+     <li 
+  class="enumerate" id="x1-7004x2">Encode <!--l. 73--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi></math>
+     following the base code.
+     </li>
+     <li 
+  class="enumerate" id="x1-7006x3">If <!--l. 74--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>e</mi> <mo 
+class="MathClass-rel">&#x003E;</mo> <mn>0</mn></math>,
+     then:
+         <ol  class="enumerate2" >
+         <li 
+  class="enumerate" id="x1-7008x1">Encode <!--l. 76--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>e</mi></math>
+         using a binary number of <!--l. 76--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi></math>
+         bits. The most signiﬁcant bit of <!--l. 77--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>e</mi></math>
+         will be always 1.</li></ol>
+     </li>
+     <li 
+  class="enumerate" id="x1-7010x4">Else:
+         <ol  class="enumerate2" >
+         <li 
+  class="enumerate" id="x1-7012x1">Encode <!--l. 81--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>e</mi> <mo 
+class="MathClass-bin">−</mo> <mn>1</mn></math>
+         using a binary number of <!--l. 81--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi></math>
+         bits. The most signiﬁcant bit of <!--l. 82--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>e</mi></math>
+         will be always a 0.</li></ol>
+                                                                  
+
+                                                                  
+     </li></ol>
+<!--l. 86--><p class="noindent" >
+</p>
+   <h3 class="likesectionHead"><a 
+ id="x1-80004"></a>Example (<!--l. 86--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>e</mi> <mo 
+class="MathClass-rel">=</mo> <mn>5</mn></math>)</h3>
+     <ul class="itemize1">
+     <li class="itemize"><!--l. 88--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi> <mo 
+class="MathClass-rel">=</mo> <mn>3</mn></math>.
+     </li>
+     <li class="itemize">Output <!--l. 89--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" > <mo 
+class="MathClass-rel">←</mo> <mn>1</mn><mn>0</mn><msub><mrow 
+><mn>0</mn></mrow><mrow 
+><mn>2</mn></mrow></msub 
+></math>.
+     </li>
+     <li class="itemize">Output <!--l. 90--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" > <mo 
+class="MathClass-rel">←</mo> <mn>1</mn><mn>0</mn><msub><mrow 
+><mn>1</mn></mrow><mrow 
+><mn>2</mn></mrow></msub 
+></math>.</li></ul>
+<!--l. 93--><p class="noindent" >
+</p>
+   <h3 class="likesectionHead"><a 
+ id="x1-90004"></a>Example (<!--l. 93--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>e</mi> <mo 
+class="MathClass-rel">=</mo> <mo 
+class="MathClass-bin">−</mo><mn>9</mn></math>)</h3>
+     <ul class="itemize1">
+     <li class="itemize"><!--l. 95--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi> <mo 
+class="MathClass-rel">=</mo> <mn>4</mn></math>.
+     </li>
+     <li class="itemize">Output <!--l. 96--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" > <mo 
+class="MathClass-rel">←</mo> <mn>1</mn><mn>0</mn><msub><mrow 
+><mn>1</mn></mrow><mrow 
+><mn>2</mn></mrow></msub 
+></math>.
+     </li>
+     <li class="itemize">Output <!--l. 97--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" > <mo 
+class="MathClass-rel">←</mo> <mn>0</mn><mn>1</mn><mn>1</mn><msub><mrow 
+><mn>0</mn></mrow><mrow 
+><mn>2</mn></mrow></msub 
+></math>
+     (the four least signiﬁcant bits of the two’s complement of <!--l. 98--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" > <mo 
+class="MathClass-bin">−</mo> <mn>1</mn><msub><mrow 
+><mn>0</mn></mrow><mrow 
+><mn>1</mn><mn>0</mn></mrow></msub 
+></math>).</li></ul>
+<!--l. 179--><p class="noindent" > <!--tex4ht:inline--></p><div class="tabular"> <table id="TBL-4" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-4-1g"><col 
+id="TBL-4-1" /><col 
+id="TBL-4-2" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-4-1-"><td  style="text-align:center; white-space:nowrap;" id="TBL-4-1-1"  
+class="td11">                                                                                                             Category                                                                                                                                                                            </td><td  style="text-align:center; white-space:nowrap;" id="TBL-4-1-2"  
+class="td11">                                     Huﬀman code                                                           </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-4-2-"><td  style="text-align:center; white-space:nowrap;" id="TBL-4-2-1"  
+class="td11"> <!--tex4ht:inline--><div class="tabular"> <table id="TBL-5" class="tabular" 
+cellspacing="0" cellpadding="0" rules="groups" 
+><colgroup id="TBL-5-1g"><col 
+id="TBL-5-1" /></colgroup><colgroup id="TBL-5-2g"><col 
+id="TBL-5-2" /></colgroup><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-1-"><td  style="text-align:right; white-space:nowrap;" id="TBL-5-1-1"  
+class="td11"><!--l. 184--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi></math></td><td  style="text-align:center; white-space:nowrap;" id="TBL-5-1-2"  
+class="td11">                                            <!--l. 184--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>D</mi><mi 
+>I</mi><mi 
+>F</mi><mi 
+>F</mi></math>                                                           </td></tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-2-"><td  style="text-align:right; white-space:nowrap;" id="TBL-5-2-1"  
+class="td11"> 0</td> <td  style="text-align:center; white-space:nowrap;" id="TBL-5-2-2"  
+class="td11"> 0</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-3-"><td  style="text-align:right; white-space:nowrap;" id="TBL-5-3-1"  
+class="td11">                                                                 1</td><td  style="text-align:center; white-space:nowrap;" id="TBL-5-3-2"  
+class="td11">                                                                            -1,1                                                                                                                       </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-4-"><td  style="text-align:right; white-space:nowrap;" id="TBL-5-4-1"  
+class="td11">                                                                 2</td><td  style="text-align:center; white-space:nowrap;" id="TBL-5-4-2"  
+class="td11">                                                                          -3,-2,2,3                                                                                                                    </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-5-"><td  style="text-align:right; white-space:nowrap;" id="TBL-5-5-1"  
+class="td11">                                                                 3</td><td  style="text-align:center; white-space:nowrap;" id="TBL-5-5-2"  
+class="td11">        -7,<!--l. 184--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mo 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-4,4,<!--l. 184--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mo 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,7            </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-6-"><td  style="text-align:right; white-space:nowrap;" id="TBL-5-6-1"  
+class="td11">                                                                 4</td><td  style="text-align:center; white-space:nowrap;" id="TBL-5-6-2"  
+class="td11">       -15,<!--l. 184--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mo 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-8,8,<!--l. 184--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mo 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,15           </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-7-"><td  style="text-align:right; white-space:nowrap;" id="TBL-5-7-1"  
+class="td11">                                                                 5</td><td  style="text-align:center; white-space:nowrap;" id="TBL-5-7-2"  
+class="td11">      -31,<!--l. 184--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mo 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-16,16,<!--l. 184--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mo 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,31         </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-8-"><td  style="text-align:right; white-space:nowrap;" id="TBL-5-8-1"  
+class="td11">                                                                 6</td><td  style="text-align:center; white-space:nowrap;" id="TBL-5-8-2"  
+class="td11">      -63,<!--l. 184--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mo 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-32,32,<!--l. 184--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mo 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,63         </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-9-"><td  style="text-align:right; white-space:nowrap;" id="TBL-5-9-1"  
+class="td11">                                                                 7</td><td  style="text-align:center; white-space:nowrap;" id="TBL-5-9-2"  
+class="td11">     -127,<!--l. 184--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mo 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-64,64,<!--l. 184--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mo 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,127        </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-10-"><td  style="text-align:right; white-space:nowrap;" id="TBL-5-10-1"  
+class="td11">                                                                 8</td><td  style="text-align:center; white-space:nowrap;" id="TBL-5-10-2"  
+class="td11">    -255,<!--l. 184--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mo 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-128,128,<!--l. 184--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mo 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,255      </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-11-"><td  style="text-align:right; white-space:nowrap;" id="TBL-5-11-1"  
+class="td11">                                                                 9</td><td  style="text-align:center; white-space:nowrap;" id="TBL-5-11-2"  
+class="td11">    -511,<!--l. 184--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mo 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-256,256,<!--l. 184--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mo 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,511      </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-12-"><td  style="text-align:right; white-space:nowrap;" id="TBL-5-12-1"  
+class="td11">                                                                10</td><td  style="text-align:center; white-space:nowrap;" id="TBL-5-12-2"  
+class="td11">   -1023,<!--l. 184--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mo 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-512,512,<!--l. 184--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mo 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,1023     </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-13-"><td  style="text-align:right; white-space:nowrap;" id="TBL-5-13-1"  
+class="td11">                                                                11</td><td  style="text-align:center; white-space:nowrap;" id="TBL-5-13-2"  
+class="td11">  -2047,<!--l. 184--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mo 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-1024,1024,<!--l. 184--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mo 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,2043   </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-14-"><td  style="text-align:right; white-space:nowrap;" id="TBL-5-14-1"  
+class="td11">                                                                12</td><td  style="text-align:center; white-space:nowrap;" id="TBL-5-14-2"  
+class="td11">  -4095,<!--l. 184--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mo 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-2048,2048,<!--l. 184--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mo 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,4095   </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-15-"><td  style="text-align:right; white-space:nowrap;" id="TBL-5-15-1"  
+class="td11">                                                                13</td><td  style="text-align:center; white-space:nowrap;" id="TBL-5-15-2"  
+class="td11">  -8191,<!--l. 184--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mo 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-4096,4096,<!--l. 184--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mo 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,8191   </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-16-"><td  style="text-align:right; white-space:nowrap;" id="TBL-5-16-1"  
+class="td11">                                                                14</td><td  style="text-align:center; white-space:nowrap;" id="TBL-5-16-2"  
+class="td11"> -16383,<!--l. 184--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mo 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-8192,8192,<!--l. 184--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mo 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,16383  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-17-"><td  style="text-align:right; white-space:nowrap;" id="TBL-5-17-1"  
+class="td11">                                                                15</td><td  style="text-align:center; white-space:nowrap;" id="TBL-5-17-2"  
+class="td11">-32767,<!--l. 184--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mo 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-16384,16384,<!--l. 184--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mo 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,32767</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-18-"><td  style="text-align:right; white-space:nowrap;" id="TBL-5-18-1"  
+class="td11">                                                                16</td><td  style="text-align:center; white-space:nowrap;" id="TBL-5-18-2"  
+class="td11">                                                                           -32768                                                                                                                     </td></tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-19-"><td  style="text-align:right; white-space:nowrap;" id="TBL-5-19-1"  
+class="td11"> </td> </tr></table></div> </td><td  style="text-align:center; white-space:nowrap;" id="TBL-4-2-2"  
+class="td11"> <!--tex4ht:inline--><div class="tabular"> <table id="TBL-6" class="tabular" 
+cellspacing="0" cellpadding="0" rules="groups" 
+><colgroup id="TBL-6-1g"><col 
+id="TBL-6-1" /></colgroup><colgroup id="TBL-6-2g"><col 
+id="TBL-6-2" /></colgroup><colgroup id="TBL-6-3g"><col 
+id="TBL-6-3" /></colgroup><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-6-1-"><td  style="text-align:right; white-space:nowrap;" id="TBL-6-1-1"  
+class="td11"><!--l. 184--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi></math></td><td  style="text-align:right; white-space:nowrap;" id="TBL-6-1-2"  
+class="td11">     Base code</td></tr><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-6-2-"><td  style="text-align:right; white-space:nowrap;" id="TBL-6-2-1"  
+class="td11"> 0</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-6-2-2"  
+class="td11"> 00</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-6-3-"><td  style="text-align:right; white-space:nowrap;" id="TBL-6-3-1"  
+class="td11">                                                                 1</td><td  style="text-align:right; white-space:nowrap;" id="TBL-6-3-2"  
+class="td11">          010</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-6-4-"><td  style="text-align:right; white-space:nowrap;" id="TBL-6-4-1"  
+class="td11"> 2</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-6-4-2"  
+class="td11"> 011</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-6-5-"><td  style="text-align:right; white-space:nowrap;" id="TBL-6-5-1"  
+class="td11">                                                                 3</td><td  style="text-align:right; white-space:nowrap;" id="TBL-6-5-2"  
+class="td11">          100</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-6-6-"><td  style="text-align:right; white-space:nowrap;" id="TBL-6-6-1"  
+class="td11"> 4</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-6-6-2"  
+class="td11"> 101</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-6-7-"><td  style="text-align:right; white-space:nowrap;" id="TBL-6-7-1"  
+class="td11">                                                                 5</td><td  style="text-align:right; white-space:nowrap;" id="TBL-6-7-2"  
+class="td11">          110</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-6-8-"><td  style="text-align:right; white-space:nowrap;" id="TBL-6-8-1"  
+class="td11"> 6</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-6-8-2"  
+class="td11"> 1110</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-6-9-"><td  style="text-align:right; white-space:nowrap;" id="TBL-6-9-1"  
+class="td11">                                                                 7</td><td  style="text-align:right; white-space:nowrap;" id="TBL-6-9-2"  
+class="td11">         11110</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-6-10-"><td  style="text-align:right; white-space:nowrap;" id="TBL-6-10-1"  
+class="td11"> 8</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-6-10-2"  
+class="td11"> 111110</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-6-11-"><td  style="text-align:right; white-space:nowrap;" id="TBL-6-11-1"  
+class="td11">                                                                 9</td><td  style="text-align:right; white-space:nowrap;" id="TBL-6-11-2"  
+class="td11">       1111110</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-6-12-"><td  style="text-align:right; white-space:nowrap;" id="TBL-6-12-1"  
+class="td11"> 10</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-6-12-2"  
+class="td11"> 11111110</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-6-13-"><td  style="text-align:right; white-space:nowrap;" id="TBL-6-13-1"  
+class="td11">                                                                11</td><td  style="text-align:right; white-space:nowrap;" id="TBL-6-13-2"  
+class="td11">     111111110</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-6-14-"><td  style="text-align:right; white-space:nowrap;" id="TBL-6-14-1"  
+class="td11"> 12</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-6-14-2"  
+class="td11"> 1111111110</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-6-15-"><td  style="text-align:right; white-space:nowrap;" id="TBL-6-15-1"  
+class="td11">                                                                13</td><td  style="text-align:right; white-space:nowrap;" id="TBL-6-15-2"  
+class="td11">   11111111110</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-6-16-"><td  style="text-align:right; white-space:nowrap;" id="TBL-6-16-1"  
+class="td11"> 14</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-6-16-2"  
+class="td11"> 111111111110</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-6-17-"><td  style="text-align:right; white-space:nowrap;" id="TBL-6-17-1"  
+class="td11">                                                                15</td><td  style="text-align:right; white-space:nowrap;" id="TBL-6-17-2"  
+class="td11"> 1111111111110</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-6-18-"><td  style="text-align:right; white-space:nowrap;" id="TBL-6-18-1"  
+class="td11"> 16</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-6-18-2"  
+class="td11">11111111111110</td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-6-19-"><td  style="text-align:right; white-space:nowrap;" id="TBL-6-19-1"  
+class="td11">                                                                  </td> </tr></table>               </div> </td>
+   </tr></table>                                                                                                                                                                                                                                                                                                                          </div>
+<!--l. 186--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">5   </span> <a 
+ id="x1-100005"></a>Huﬀman decoding in LS-JPEG</h3>
+<!--l. 187--><p class="noindent" >
+     </p><ol  class="enumerate1" >
+     <li 
+  class="enumerate" id="x1-10002x1">Decode the <!--l. 188--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi></math>
+     category using the base code.
+                                                                  
+
+                                                                  
+     </li>
+     <li 
+  class="enumerate" id="x1-10004x2">Decode the magnitude. Let <!--l. 189--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>x</mi> <mo 
+class="MathClass-rel">←</mo></math>
+     the next input bit.
+     </li>
+     <li 
+  class="enumerate" id="x1-10006x3">If <!--l. 190--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>x</mi><mo 
+class="MathClass-rel">≠</mo><mn>0</mn></math>,
+     then:
+         <ol  class="enumerate2" >
+         <li 
+  class="enumerate" id="x1-10008x1"><!--l. 192--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>e</mi> <mo 
+class="MathClass-rel">←</mo> <mi 
+>x</mi> <mo 
+class="MathClass-rel">&#x003C;</mo><mo 
+class="MathClass-rel">&#x003C;</mo> <mrow ><mo 
+class="MathClass-open">(</mo><mrow><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi> <mo 
+class="MathClass-bin">−</mo> <mn>1</mn></mrow><mo 
+class="MathClass-close">)</mo></mrow> <mo 
+class="MathClass-bin">+</mo> <mstyle 
+class="text"><mtext  >siguientes</mtext></mstyle><mrow ><mo 
+class="MathClass-open">(</mo><mrow><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi> <mo 
+class="MathClass-bin">−</mo> <mn>1</mn></mrow><mo 
+class="MathClass-close">)</mo></mrow></math>
+         bits.</li></ol>
+     </li>
+     <li 
+  class="enumerate" id="x1-10010x4">Else:
+         <ol  class="enumerate2" >
+         <li 
+  class="enumerate" id="x1-10012x1"><!--l. 196--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>e</mi> <mo 
+class="MathClass-rel">←</mo> <mrow ><mo 
+class="MathClass-open">(</mo><mrow><mo 
+class="MathClass-bin">−</mo><mn>1</mn></mrow><mo 
+class="MathClass-close">)</mo></mrow><mspace width="1em" class="nbsp" /><mstyle 
+class="text"><mtext  >AND</mtext></mstyle><mspace width="1em" class="nbsp" /><mrow ><mo 
+class="MathClass-open">(</mo><mrow><mi 
+>x</mi> <mo 
+class="MathClass-rel">&#x003C;</mo><mo 
+class="MathClass-rel">&#x003C;</mo> <mrow ><mo 
+class="MathClass-open">(</mo><mrow><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi> <mo 
+class="MathClass-bin">−</mo> <mn>1</mn></mrow><mo 
+class="MathClass-close">)</mo></mrow> <mo 
+class="MathClass-bin">+</mo> <mstyle 
+class="text"><mtext  >siguientes</mtext></mstyle><mspace width="1em" class="nbsp" /><mrow ><mo 
+class="MathClass-open">(</mo><mrow><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi> <mo 
+class="MathClass-bin">−</mo> <mn>1</mn></mrow><mo 
+class="MathClass-close">)</mo></mrow><mspace width="1em" class="nbsp" /><mstyle 
+class="text"><mtext  >bits</mtext></mstyle> <mo 
+class="MathClass-bin">+</mo> <mn>1</mn></mrow><mo 
+class="MathClass-close">)</mo></mrow></math>.</li></ol>
+     </li></ol>
+<!--l. 200--><p class="noindent" >
+</p>
+   <h3 class="likesectionHead"><a 
+ id="x1-110005"></a>Example (decode <!--l. 200--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>1</mn><mn>0</mn><mn>0</mn><mn>1</mn><mn>0</mn><mn>1</mn></math>)</h3>
+     <ul class="itemize1">
+     <li class="itemize"><!--l. 202--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi> <mo 
+class="MathClass-rel">←</mo> <mn>3</mn></math>.
+     </li>
+     <li class="itemize"><!--l. 203--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>x</mi> <mo 
+class="MathClass-rel">←</mo> <mn>1</mn></math>.
+     </li>
+     <li class="itemize"><!--l. 204--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>e</mi> <mo 
+class="MathClass-rel">←</mo> <msup><mrow 
+><mn>2</mn></mrow><mrow 
+><mn>2</mn></mrow></msup 
+><mo 
+class="MathClass-bin">+</mo></math>
+     next two input bits (01) <!--l. 204--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" > <mo 
+class="MathClass-rel">=</mo> <mn>1</mn><mn>0</mn><msub><mrow 
+><mn>1</mn></mrow><mrow 
+><mn>2</mn></mrow></msub 
+> <mo 
+class="MathClass-rel">=</mo> <msub><mrow 
+><mn>5</mn></mrow><mrow 
+><mn>1</mn><mn>0</mn></mrow></msub 
+></math>.</li></ul>
+<!--l. 207--><p class="noindent" >
+</p>
+   <h3 class="likesectionHead"><a 
+ id="x1-120005"></a>Example (decode <!--l. 207--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>1</mn><mn>0</mn><mn>1</mn><mn>0</mn><mn>1</mn><mn>1</mn><mn>0</mn></math>)</h3>
+     <ul class="itemize1">
+     <li class="itemize"><!--l. 209--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi> <mo 
+class="MathClass-rel">←</mo> <mn>4</mn></math>.
+     </li>
+     <li class="itemize"><!--l. 210--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>x</mi> <mo 
+class="MathClass-rel">←</mo> <mn>0</mn></math>.
+                                                                  
+
+                                                                  
+     </li>
+     <li class="itemize">(Using 8 bits of precision) <!--l. 211--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>e</mi> <mo 
+class="MathClass-rel">←</mo></math>
+     <!--l. 211--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>1</mn><mn>1</mn><mn>1</mn><mn>1</mn><mn>1</mn><mn>1</mn><mn>1</mn><msub><mrow 
+><mn>1</mn></mrow><mrow 
+><mn>2</mn></mrow></msub 
+></math>
+     AND (<!--l. 212--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>0</mn><mn>0</mn><mn>0</mn><msub><mrow 
+><mn>0</mn></mrow><mrow 
+><mn>2</mn></mrow></msub 
+> <mo 
+class="MathClass-bin">+</mo> <mn>1</mn><mn>1</mn><msub><mrow 
+><mn>0</mn></mrow><mrow 
+><mn>2</mn></mrow></msub 
+> <mo 
+class="MathClass-bin">+</mo> <msub><mrow 
+><mn>1</mn></mrow><mrow 
+><mn>2</mn></mrow></msub 
+></mrow><mo 
+class="MathClass-close">)</mo></mrow> <mo 
+class="MathClass-rel">=</mo> <mn>1</mn><mn>1</mn><mn>1</mn><mn>1</mn><mn>0</mn><mn>1</mn><mn>1</mn><msub><mrow 
+><mn>1</mn></mrow><mrow 
+><mn>2</mn></mrow></msub 
+> <mo 
+class="MathClass-rel">=</mo> <mo 
+class="MathClass-bin">−</mo><msub><mrow 
+><mn>9</mn></mrow><mrow 
+><mn>1</mn><mn>0</mn></mrow></msub 
+></math>
+     (the four least signiﬁcant bits of <!--l. 213--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>0</mn><mn>1</mn><mn>1</mn><msub><mrow 
+><mn>1</mn></mrow><mrow 
+><mn>2</mn></mrow></msub 
+></math>
+     are supposed to be <!--l. 213--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>1</mn></math>.</li></ul>
+<!--l. 216--><p class="noindent" >
+</p>
+   <h3 class="likesectionHead"><a 
+ id="x1-130005"></a>Lab</h3>
+<!--l. 217--><p class="noindent" >
+     </p><ol  class="enumerate1" >
+     <li 
+  class="enumerate" id="x1-13002x1">Download     <a 
+href="ftp.cs.cornell.edu:/pub/multimed/ljpg.tar.Z" class="url" ><span 
+class="ectt-1000">ftp.cs.cornell.edu:/pub/multimed/ljpg.tar.Z</span></a>   and
+     compile it.
+     </li>
+     <li 
+  class="enumerate" id="x1-13004x2">Fill the table
+                                                                  
+
+                                                                  
+     <div class="verbatim" id="verbatim-1">
+       Codec | lena boats pepers zelda Average
+      <br />--------+--------------------------------
+      <br />      : |    :     :      :     :       :
+      <br />ls-jpeg | ....  ....   ....  ....    ....
+</div>
+     <!--l. 226--><p class="nopar" ></p></li></ol>
+<!--l. 229--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">6   </span> <a 
+ id="x1-140006"></a>Lossy JPEG</h3>
+<!--l. 230--><p class="noindent" >Para una imagen RGB, el algoritmo básico consiste en:
+     </p><ol  class="enumerate1" >
+     <li 
+  class="enumerate" id="x1-14002x1">Convertir la imagen al dominio YCbCr.
+     </li>
+     <li 
+  class="enumerate" id="x1-14004x2">Submuestrear la crominancia.
+     </li>
+     <li 
+  class="enumerate" id="x1-14006x3">Desplazar cada componente al rango <!--l. 234--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mrow ><mo 
+class="MathClass-open">[</mo><mrow><mo 
+class="MathClass-bin">−</mo><mn>1</mn><mn>2</mn><mn>8</mn><mo 
+class="MathClass-punc">,</mo><mn>1</mn><mn>2</mn><mn>7</mn></mrow><mo 
+class="MathClass-close">]</mo></mrow></math>.
+     </li>
+     <li 
+  class="enumerate" id="x1-14008x4">Para cada componente (Y, Cb y Cr):
+         <ol  class="enumerate2" >
+         <li 
+  class="enumerate" id="x1-14010x1">Aplicar la (<!--l. 237--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>8</mn> <mo 
+class="MathClass-bin">×</mo> <mn>8</mn></math>)-DCT
+         a cada componente.
+         </li>
+         <li 
+  class="enumerate" id="x1-14012x2">Cuantiﬁcar los coeﬁcientes DCT.
+         </li>
+         <li 
+  class="enumerate" id="x1-14014x3">Codiﬁcar entrópicamente los coeﬁcientes cuantiﬁcados.</li></ol>
+     </li></ol>
+<!--l. 243--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">7   </span> <a 
+ id="x1-150007"></a><!--l. 243--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mrow ><mo 
+class="MathClass-open">[</mo><mrow><mn>0</mn><mo 
+class="MathClass-punc">,</mo><mn>2</mn><mn>5</mn><mn>5</mn></mrow><mo 
+class="MathClass-close">]</mo></mrow> <mo 
+class="MathClass-rel">→</mo> <mrow ><mo 
+class="MathClass-open">[</mo><mrow><mo 
+class="MathClass-bin">−</mo><mn>1</mn><mn>2</mn><mn>8</mn><mo 
+class="MathClass-punc">,</mo><mn>1</mn><mn>2</mn><mn>7</mn></mrow><mo 
+class="MathClass-close">]</mo></mrow></math></h3>
+                                                                  
+
+                                                                  
+     <ul class="itemize1">
+     <li class="itemize">Every component should be 0-average. For this reason, if the values of the
+     Y, Cb and CR components are in the range <!--l. 246--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mrow ><mo 
+class="MathClass-open">[</mo><mrow><mn>0</mn><mo 
+class="MathClass-punc">,</mo><mn>2</mn><mn>5</mn><mn>5</mn></mrow><mo 
+class="MathClass-close">]</mo></mrow></math>,
+     the <!--l. 247--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>1</mn><mn>2</mn><mn>8</mn></math>
+     is substracted (pixel-to-pixel) from each of them.
+     </li>
+     <li class="itemize">This is neccesary to reduce the arithmetic precision of the computation of
+     the next step (the DCT).</li></ul>
+<!--l. 252--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">8   </span> <a 
+ id="x1-160008"></a>8x8 2D-DCT</h3>
+     <ul class="itemize1">
+     <li class="itemize">Every component is <a 
+href="http://www.ual.es/~vruiz/docencia/JPEG/index.html#x1-160008" >DCT-transformed</a> in blocks of <!--l. 256--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>8</mn> <mo 
+class="MathClass-bin">×</mo> <mn>8</mn></math>
+     pixels.</li></ul>
+<!--l. 259--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">9   </span> <a 
+ id="x1-170009"></a>Basis functions of the 8x8 2D-DCT</h3>
+     <ul class="itemize1">
+     <li class="itemize">Every <!--l. 261--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>8</mn> <mo 
+class="MathClass-bin">×</mo> <mn>8</mn></math>-DCT
+     coeﬃcient  represent  the  weight  that  the  corresponding  pattern  has  to
+     reconstruct the block.</li></ul>
+<div class="center" 
+>
+<!--l. 265--><p class="noindent" >
+</p><!--l. 266--><p class="noindent" ><img 
+src="data/8x8_DCT_basis.png" alt="PIC"  
+ /></p></div>
+<!--l. 269--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">10   </span> <a 
+ id="x1-1800010"></a>Advantages of the 8x8 2D-DCT</h3>
+                                                                  
+
+                                                                  
+     <ul class="itemize1">
+     <li class="itemize"><span 
+class="ecbx-1000">A lower total computational cost:</span><br 
+class="newline" />It’s faster the computation of <!--l. 272--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mrow ><mo 
+class="MathClass-open">(</mo><mrow><mfrac><mrow 
+><mi 
+>N</mi></mrow>
+<mrow 
+><mn>8</mn></mrow></mfrac>  <mo 
+class="MathClass-bin">×</mo><mfrac><mrow 
+><mi 
+>N</mi></mrow> 
+<mrow 
+><mn>8</mn></mrow></mfrac> </mrow><mo 
+class="MathClass-close">)</mo></mrow></math>
+     <!--l. 272--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>8</mn> <mo 
+class="MathClass-bin">×</mo> <mn>8</mn></math>-DCTs
+     than only one <!--l. 273--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>N</mi> <mo 
+class="MathClass-bin">×</mo> <mi 
+>N</mi></math>-DCT.
+     </li>
+     <li class="itemize"><span 
+class="ecbx-1000">“In-line” operation:</span><br 
+class="newline" />The compressor process the images using blocks of <!--l. 280--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>8</mn> <mo 
+class="MathClass-bin">×</mo> <mn>8</mn></math>
+     pixels, independiently of the size of the image.</li></ul>
+<!--l. 284--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">11   </span> <a 
+ id="x1-1900011"></a>Scalar quantization</h3>
+     <ul class="itemize1">
+     <li class="itemize">The main objective of the <!--l. 286--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>8</mn> <mo 
+class="MathClass-bin">×</mo> <mn>8</mn></math>-DCT
+     is the spatial compactation of the energy in the image. As a consequence,
+     a small set of coeﬃcients accumulate the most part of this energy.
+     </li>
+     <li class="itemize">After this decorrelating step, the DCT coeﬃents are also very decorrelated.
+     Therefore, scalar quantization is a good choice to quantize the spectral
+     domain in order to reduce de amoun of encoded data.
+     </li>
+     <li class="itemize">The quantization generates a big number of DCT coeﬃcients very close
+     or equal to 0, following a Laplace probability distribution.
+                                                                  
+
+                                                                  
+     </li>
+     <li class="itemize">The quantization step is so important in the result that the JPEG studied
+     and determined the best quantization matrixes (one for the luma and other
+     for the chroma).</li></ul>
+<div class="center" 
+>
+<!--l. 300--><p class="noindent" >
+</p><!--l. 301--><p class="noindent" > <!--tex4ht:inline--></p><div class="tabular"> <table id="TBL-7" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-7-1g"><col 
+id="TBL-7-1" /><col 
+id="TBL-7-2" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-7-1-"><td  style="text-align:center; white-space:nowrap;" id="TBL-7-1-1"  
+class="td11">                             Luminance                                              </td><td  style="text-align:center; white-space:nowrap;" id="TBL-7-1-2"  
+class="td11">                             Chrominance                                             </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-7-2-"><td  style="text-align:center; white-space:nowrap;" id="TBL-7-2-1"  
+class="td11"> <!--tex4ht:inline--><div class="tabular"> <table id="TBL-8" class="tabular" 
+cellspacing="0" cellpadding="0" rules="groups" 
+><colgroup id="TBL-8-1g"><col 
+id="TBL-8-1" /><col 
+id="TBL-8-2" /><col 
+id="TBL-8-3" /><col 
+id="TBL-8-4" /><col 
+id="TBL-8-5" /><col 
+id="TBL-8-6" /><col 
+id="TBL-8-7" /><col 
+id="TBL-8-8" /></colgroup><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-8-1-"><td  style="text-align:right; white-space:nowrap;" id="TBL-8-1-1"  
+class="td11">16</td><td  style="text-align:right; white-space:nowrap;" id="TBL-8-1-2"  
+class="td11">11</td><td  style="text-align:right; white-space:nowrap;" id="TBL-8-1-3"  
+class="td11">10</td><td  style="text-align:right; white-space:nowrap;" id="TBL-8-1-4"  
+class="td11">16</td><td  style="text-align:right; white-space:nowrap;" id="TBL-8-1-5"  
+class="td11"> 24</td><td  style="text-align:right; white-space:nowrap;" id="TBL-8-1-6"  
+class="td11"> 40</td><td  style="text-align:right; white-space:nowrap;" id="TBL-8-1-7"  
+class="td11"> 51</td><td  style="text-align:right; white-space:nowrap;" id="TBL-8-1-8"  
+class="td11"> 61</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-8-2-"><td  style="text-align:right; white-space:nowrap;" id="TBL-8-2-1"  
+class="td11"> 12</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-8-2-2"  
+class="td11">12</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-8-2-3"  
+class="td11">14</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-8-2-4"  
+class="td11">19</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-8-2-5"  
+class="td11"> 26</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-8-2-6"  
+class="td11"> 58</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-8-2-7"  
+class="td11"> 60</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-8-2-8"  
+class="td11"> 55</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-8-3-"><td  style="text-align:right; white-space:nowrap;" id="TBL-8-3-1"  
+class="td11"> 14</td><td  style="text-align:right; white-space:nowrap;" id="TBL-8-3-2"  
+class="td11">13</td><td  style="text-align:right; white-space:nowrap;" id="TBL-8-3-3"  
+class="td11">16</td><td  style="text-align:right; white-space:nowrap;" id="TBL-8-3-4"  
+class="td11">24</td><td  style="text-align:right; white-space:nowrap;" id="TBL-8-3-5"  
+class="td11"> 40</td><td  style="text-align:right; white-space:nowrap;" id="TBL-8-3-6"  
+class="td11"> 57</td><td  style="text-align:right; white-space:nowrap;" id="TBL-8-3-7"  
+class="td11"> 69</td><td  style="text-align:right; white-space:nowrap;" id="TBL-8-3-8"  
+class="td11"> 56</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-8-4-"><td  style="text-align:right; white-space:nowrap;" id="TBL-8-4-1"  
+class="td11"> 14</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-8-4-2"  
+class="td11">17</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-8-4-3"  
+class="td11">22</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-8-4-4"  
+class="td11">29</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-8-4-5"  
+class="td11"> 51</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-8-4-6"  
+class="td11"> 87</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-8-4-7"  
+class="td11"> 80</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-8-4-8"  
+class="td11"> 62</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-8-5-"><td  style="text-align:right; white-space:nowrap;" id="TBL-8-5-1"  
+class="td11"> 18</td><td  style="text-align:right; white-space:nowrap;" id="TBL-8-5-2"  
+class="td11">22</td><td  style="text-align:right; white-space:nowrap;" id="TBL-8-5-3"  
+class="td11">37</td><td  style="text-align:right; white-space:nowrap;" id="TBL-8-5-4"  
+class="td11">56</td><td  style="text-align:right; white-space:nowrap;" id="TBL-8-5-5"  
+class="td11"> 68</td><td  style="text-align:right; white-space:nowrap;" id="TBL-8-5-6"  
+class="td11">109</td><td  style="text-align:right; white-space:nowrap;" id="TBL-8-5-7"  
+class="td11">103</td><td  style="text-align:right; white-space:nowrap;" id="TBL-8-5-8"  
+class="td11"> 77</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-8-6-"><td  style="text-align:right; white-space:nowrap;" id="TBL-8-6-1"  
+class="td11"> 24</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-8-6-2"  
+class="td11">35</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-8-6-3"  
+class="td11">55</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-8-6-4"  
+class="td11">64</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-8-6-5"  
+class="td11"> 81</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-8-6-6"  
+class="td11">104</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-8-6-7"  
+class="td11">113</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-8-6-8"  
+class="td11"> 92</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-8-7-"><td  style="text-align:right; white-space:nowrap;" id="TBL-8-7-1"  
+class="td11"> 49</td><td  style="text-align:right; white-space:nowrap;" id="TBL-8-7-2"  
+class="td11">64</td><td  style="text-align:right; white-space:nowrap;" id="TBL-8-7-3"  
+class="td11">78</td><td  style="text-align:right; white-space:nowrap;" id="TBL-8-7-4"  
+class="td11">87</td><td  style="text-align:right; white-space:nowrap;" id="TBL-8-7-5"  
+class="td11">103</td><td  style="text-align:right; white-space:nowrap;" id="TBL-8-7-6"  
+class="td11">121</td><td  style="text-align:right; white-space:nowrap;" id="TBL-8-7-7"  
+class="td11">120</td><td  style="text-align:right; white-space:nowrap;" id="TBL-8-7-8"  
+class="td11">101</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-8-8-"><td  style="text-align:right; white-space:nowrap;" id="TBL-8-8-1"  
+class="td11"> 72</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-8-8-2"  
+class="td11">92</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-8-8-3"  
+class="td11">95</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-8-8-4"  
+class="td11">98</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-8-8-5"  
+class="td11">112</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-8-8-6"  
+class="td11">100</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-8-8-7"  
+class="td11">103</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-8-8-8"  
+class="td11"> 99</td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-8-9-"><td  style="text-align:right; white-space:nowrap;" id="TBL-8-9-1"  
+class="td11">   </td></tr></table>                                                             </div> </td><td  style="text-align:center; white-space:nowrap;" id="TBL-7-2-2"  
+class="td11"> <!--tex4ht:inline--><div class="tabular"> <table id="TBL-9" class="tabular" 
+cellspacing="0" cellpadding="0" rules="groups" 
+><colgroup id="TBL-9-1g"><col 
+id="TBL-9-1" /><col 
+id="TBL-9-2" /><col 
+id="TBL-9-3" /><col 
+id="TBL-9-4" /><col 
+id="TBL-9-5" /><col 
+id="TBL-9-6" /><col 
+id="TBL-9-7" /><col 
+id="TBL-9-8" /></colgroup><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-9-1-"><td  style="text-align:right; white-space:nowrap;" id="TBL-9-1-1"  
+class="td11">17</td><td  style="text-align:right; white-space:nowrap;" id="TBL-9-1-2"  
+class="td11">18</td><td  style="text-align:right; white-space:nowrap;" id="TBL-9-1-3"  
+class="td11">24</td><td  style="text-align:right; white-space:nowrap;" id="TBL-9-1-4"  
+class="td11">47</td><td  style="text-align:right; white-space:nowrap;" id="TBL-9-1-5"  
+class="td11">99</td><td  style="text-align:right; white-space:nowrap;" id="TBL-9-1-6"  
+class="td11">99</td><td  style="text-align:right; white-space:nowrap;" id="TBL-9-1-7"  
+class="td11">99</td><td  style="text-align:right; white-space:nowrap;" id="TBL-9-1-8"  
+class="td11">99</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-9-2-"><td  style="text-align:right; white-space:nowrap;" id="TBL-9-2-1"  
+class="td11"> 18</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-9-2-2"  
+class="td11">21</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-9-2-3"  
+class="td11">26</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-9-2-4"  
+class="td11">66</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-9-2-5"  
+class="td11">99</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-9-2-6"  
+class="td11">99</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-9-2-7"  
+class="td11">99</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-9-2-8"  
+class="td11">99</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-9-3-"><td  style="text-align:right; white-space:nowrap;" id="TBL-9-3-1"  
+class="td11"> 24</td><td  style="text-align:right; white-space:nowrap;" id="TBL-9-3-2"  
+class="td11">26</td><td  style="text-align:right; white-space:nowrap;" id="TBL-9-3-3"  
+class="td11">56</td><td  style="text-align:right; white-space:nowrap;" id="TBL-9-3-4"  
+class="td11">99</td><td  style="text-align:right; white-space:nowrap;" id="TBL-9-3-5"  
+class="td11">99</td><td  style="text-align:right; white-space:nowrap;" id="TBL-9-3-6"  
+class="td11">99</td><td  style="text-align:right; white-space:nowrap;" id="TBL-9-3-7"  
+class="td11">99</td><td  style="text-align:right; white-space:nowrap;" id="TBL-9-3-8"  
+class="td11">99</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-9-4-"><td  style="text-align:right; white-space:nowrap;" id="TBL-9-4-1"  
+class="td11"> 47</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-9-4-2"  
+class="td11">66</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-9-4-3"  
+class="td11">99</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-9-4-4"  
+class="td11">99</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-9-4-5"  
+class="td11">99</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-9-4-6"  
+class="td11">99</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-9-4-7"  
+class="td11">99</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-9-4-8"  
+class="td11">99</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-9-5-"><td  style="text-align:right; white-space:nowrap;" id="TBL-9-5-1"  
+class="td11"> 99</td><td  style="text-align:right; white-space:nowrap;" id="TBL-9-5-2"  
+class="td11">99</td><td  style="text-align:right; white-space:nowrap;" id="TBL-9-5-3"  
+class="td11">99</td><td  style="text-align:right; white-space:nowrap;" id="TBL-9-5-4"  
+class="td11">99</td><td  style="text-align:right; white-space:nowrap;" id="TBL-9-5-5"  
+class="td11">99</td><td  style="text-align:right; white-space:nowrap;" id="TBL-9-5-6"  
+class="td11">99</td><td  style="text-align:right; white-space:nowrap;" id="TBL-9-5-7"  
+class="td11">99</td><td  style="text-align:right; white-space:nowrap;" id="TBL-9-5-8"  
+class="td11">99</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-9-6-"><td  style="text-align:right; white-space:nowrap;" id="TBL-9-6-1"  
+class="td11"> 99</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-9-6-2"  
+class="td11">99</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-9-6-3"  
+class="td11">99</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-9-6-4"  
+class="td11">99</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-9-6-5"  
+class="td11">99</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-9-6-6"  
+class="td11">99</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-9-6-7"  
+class="td11">99</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-9-6-8"  
+class="td11">99</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-9-7-"><td  style="text-align:right; white-space:nowrap;" id="TBL-9-7-1"  
+class="td11"> 99</td><td  style="text-align:right; white-space:nowrap;" id="TBL-9-7-2"  
+class="td11">99</td><td  style="text-align:right; white-space:nowrap;" id="TBL-9-7-3"  
+class="td11">99</td><td  style="text-align:right; white-space:nowrap;" id="TBL-9-7-4"  
+class="td11">99</td><td  style="text-align:right; white-space:nowrap;" id="TBL-9-7-5"  
+class="td11">99</td><td  style="text-align:right; white-space:nowrap;" id="TBL-9-7-6"  
+class="td11">99</td><td  style="text-align:right; white-space:nowrap;" id="TBL-9-7-7"  
+class="td11">99</td><td  style="text-align:right; white-space:nowrap;" id="TBL-9-7-8"  
+class="td11">99</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-9-8-"><td  style="text-align:right; white-space:nowrap;" id="TBL-9-8-1"  
+class="td11"> 99</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-9-8-2"  
+class="td11">99</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-9-8-3"  
+class="td11">99</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-9-8-4"  
+class="td11">99</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-9-8-5"  
+class="td11">99</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-9-8-6"  
+class="td11">99</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-9-8-7"  
+class="td11">99</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-9-8-8"  
+class="td11">99</td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-9-9-"><td  style="text-align:right; white-space:nowrap;" id="TBL-9-9-1"  
+class="td11">   </td></tr></table>                                                             </div> </td>
+</tr></table>                                                                                                                                            </div></div>
+     <ul class="itemize1">
+     <li class="itemize">At  it  can  be  seen,  there  is  an  overall  tendence  to  preserve  the  low
+     frequencies of the image.
+     <!--l. 336--><p class="noindent" >
+                                                                  
+
+                                                                  
+     </p></li>
+     <li class="itemize">The quantization is described by <table class="equation"><tr><td> <a 
+ id="x1-19001r1"></a>
+     <!--l. 339--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="block" class="equation"><msup><mrow 
+>
+                          <mstyle 
+class="text"><mtext  >2D-DCT</mtext></mstyle></mrow><mrow 
+><mi 
+>′</mi></mrow></msup 
+><mrow ><mo 
+class="MathClass-open">[</mo><mrow><mi 
+>u</mi><mo 
+class="MathClass-punc">,</mo><mi 
+>v</mi></mrow><mo 
+class="MathClass-close">]</mo></mrow> <mo 
+class="MathClass-rel">=</mo> <mstyle 
+class="text"><mtext  >round</mtext></mstyle><mstyle mathsize="1.61em"><mfenced separators="" 
+open="("  close="" ><mrow></mrow></mfenced></mstyle><mfrac><mrow 
+><mn>8</mn> <mo 
+class="MathClass-bin">×</mo> <mn>8</mn><mstyle 
+class="text"><mtext  >-DCT</mtext></mstyle><mrow ><mo 
+class="MathClass-open">[</mo><mrow><mi 
+>u</mi><mo 
+class="MathClass-punc">,</mo><mi 
+>v</mi></mrow><mo 
+class="MathClass-close">]</mo></mrow></mrow> 
+      <mrow 
+><mstyle 
+class="text"><mtext  >Z</mtext></mstyle><mrow ><mo 
+class="MathClass-open">[</mo><mrow><mi 
+>u</mi><mo 
+class="MathClass-punc">,</mo><mi 
+>v</mi></mrow><mo 
+class="MathClass-close">]</mo></mrow></mrow></mfrac>       <mstyle mathsize="1.61em"><mfenced separators="" 
+open=")"  close="" ><mrow></mrow></mfenced></mstyle>
+</math></td><td class="eq-no">(1)</td></tr></table>
+     <!--l. 342--><p class="noindent" >where <!--l. 342--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mstyle 
+class="text"><mtext  >Z</mtext></mstyle><mrow ><mo 
+class="MathClass-open">[</mo><mrow><mo 
+class="MathClass-bin">⋅</mo><mo 
+class="MathClass-punc">,</mo><mo 
+class="MathClass-bin">⋅</mo></mrow><mo 
+class="MathClass-close">]</mo></mrow></math>
+     is the quantization matrix.
+     </p></li>
+     <li class="itemize">It is possible to use diﬀerent quantization matrixes, but they should be sent to
+     the decompressor.</li></ul>
+   <h3 class="sectionHead"><span class="titlemark">12   </span> <a 
+ id="x1-2000012"></a>Entropy encoding</h3>
+<!--l. 348--><p class="noindent" >
+     </p><ol  class="enumerate1" >
+     <li 
+  class="enumerate" id="x1-20002x1">Substract to the DC coeﬃcient the DC coeﬃcient of the last encoded
+     block. This calculus exploits the correlation between blocks.
+     </li>
+     <li 
+  class="enumerate" id="x1-20004x2">Run the coeﬃcients using the zig-zag pattern:
+     <div class="center" 
+>
+<!--l. 353--><p class="noindent" >
+</p><!--l. 354--><p class="noindent" ><img 
+src="data/zigzag.png" alt="PIC"  
+ /></p></div>
+     <!--l. 356--><p class="noindent" >in order to (partially) sorter the coeﬃcients attending to their magnitude.
+     Notice that, after a given coeﬃcient, the remainder ones are zero. This situation
+     if encoded using the EOB (End Of Block) special symbol.
+     </p></li>
+     <li 
+  class="enumerate" id="x1-20006x3">Encode the runs of non-zero coeﬃcients using a variable-length
+     code.<span class="footnote-mark"><a 
+href="index2.html#fn1x0"><sup class="textsuperscript">1</sup></a></span><a 
+ id="x1-20007f1"></a> </li></ol>
+                                                                  
+
+                                                                  
+<!--l. 367--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">13   </span> <a 
+ id="x1-2100013"></a>Interlacing of the color components</h3>
+     <ul class="itemize1">
+     <li class="itemize">Typically, in JPEG the 4:2:0 subsamplig pattern is the most used one (see
+     Section <span 
+class="ecbx-1000">??</span>).
+     </li>
+     <li class="itemize">The color interlacing enables the pipelined (IO and CPU) reconstruction of the
+     images row-by-row.
+         <ol  class="enumerate1" >
+         <li 
+  class="enumerate" id="x1-21002x1">With interlacing:
+         <div class="center" 
+>
+<!--l. 375--><p class="noindent" >
+</p><!--l. 376--><p class="noindent" ><img 
+src="data/JPEG_entrelazamiento_componentes.png" alt="PIC"  
+ /></p></div>
+         <!--l. 378--><p class="noindent" >
+                                                                  
+
+                                                                  
+         </p></li>
+         <li 
+  class="enumerate" id="x1-21004x2">Without interlacing:
+         <div class="center" 
+>
+<!--l. 380--><p class="noindent" >
+</p><!--l. 382--><p class="noindent" ><img 
+src="data/JPEG_no_entrelazamiento_componentes.png" alt="PIC"  
+ /></p></div>
+         </li></ol>
+     </li></ul>
+   <h3 class="likesectionHead"><a 
+ id="x1-2200013"></a>Example</h3>
+     <ul class="itemize1">
+     <li class="itemize">Let’s encode a block of a grayscale image (luminance of “lena”).
+     <div class="center" 
+>
+<!--l. 391--><p class="noindent" >
+</p><!--l. 392--><p class="noindent" ><img 
+src="data/JPEG_codec.png" alt="PIC"  
+ /></p></div>
+     </li></ul>
+<!--l. 396--><p class="noindent" >
+                                                                  
+
+                                                                  
+</p>
+   <h4 class="likesubsectionHead"><a 
+ id="x1-2300013"></a><!--l. 397--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>8</mn> <mo 
+class="MathClass-bin">×</mo> <mn>8</mn></math>-DCT</h4>
+<div class="center" 
+>
+<!--l. 398--><p class="noindent" >
+</p><!--l. 399--><p class="noindent" > <!--tex4ht:inline--></p><div class="tabular"> <table id="TBL-10" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-10-1g"><col 
+id="TBL-10-1" /><col 
+id="TBL-10-2" /><col 
+id="TBL-10-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-10-1-"><td  style="text-align:center; white-space:nowrap;" id="TBL-10-1-1"  
+class="td11"> <!--tex4ht:inline--><div class="tabular"> <table id="TBL-11" class="tabular" 
+cellspacing="0" cellpadding="0" rules="groups" 
+><colgroup id="TBL-11-1g"><col 
+id="TBL-11-1" /><col 
+id="TBL-11-2" /><col 
+id="TBL-11-3" /><col 
+id="TBL-11-4" /><col 
+id="TBL-11-5" /><col 
+id="TBL-11-6" /><col 
+id="TBL-11-7" /><col 
+id="TBL-11-8" /></colgroup><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-11-1-"><td  style="text-align:right; white-space:nowrap;" id="TBL-11-1-1"  
+class="td11">79</td><td  style="text-align:right; white-space:nowrap;" id="TBL-11-1-2"  
+class="td11">75</td><td  style="text-align:right; white-space:nowrap;" id="TBL-11-1-3"  
+class="td11">79</td><td  style="text-align:right; white-space:nowrap;" id="TBL-11-1-4"  
+class="td11">82</td><td  style="text-align:right; white-space:nowrap;" id="TBL-11-1-5"  
+class="td11">82</td><td  style="text-align:right; white-space:nowrap;" id="TBL-11-1-6"  
+class="td11">86</td><td  style="text-align:right; white-space:nowrap;" id="TBL-11-1-7"  
+class="td11">94</td><td  style="text-align:right; white-space:nowrap;" id="TBL-11-1-8"  
+class="td11">94</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-11-2-"><td  style="text-align:right; white-space:nowrap;" id="TBL-11-2-1"  
+class="td11"> 76</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-11-2-2"  
+class="td11">78</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-11-2-3"  
+class="td11">76</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-11-2-4"  
+class="td11">82</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-11-2-5"  
+class="td11">83</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-11-2-6"  
+class="td11">86</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-11-2-7"  
+class="td11">85</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-11-2-8"  
+class="td11">94</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-11-3-"><td  style="text-align:right; white-space:nowrap;" id="TBL-11-3-1"  
+class="td11"> 72</td><td  style="text-align:right; white-space:nowrap;" id="TBL-11-3-2"  
+class="td11">75</td><td  style="text-align:right; white-space:nowrap;" id="TBL-11-3-3"  
+class="td11">67</td><td  style="text-align:right; white-space:nowrap;" id="TBL-11-3-4"  
+class="td11">78</td><td  style="text-align:right; white-space:nowrap;" id="TBL-11-3-5"  
+class="td11">80</td><td  style="text-align:right; white-space:nowrap;" id="TBL-11-3-6"  
+class="td11">78</td><td  style="text-align:right; white-space:nowrap;" id="TBL-11-3-7"  
+class="td11">74</td><td  style="text-align:right; white-space:nowrap;" id="TBL-11-3-8"  
+class="td11">82</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-11-4-"><td  style="text-align:right; white-space:nowrap;" id="TBL-11-4-1"  
+class="td11"> 74</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-11-4-2"  
+class="td11">76</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-11-4-3"  
+class="td11">75</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-11-4-4"  
+class="td11">75</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-11-4-5"  
+class="td11">86</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-11-4-6"  
+class="td11">80</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-11-4-7"  
+class="td11">81</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-11-4-8"  
+class="td11">79</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-11-5-"><td  style="text-align:right; white-space:nowrap;" id="TBL-11-5-1"  
+class="td11"> 73</td><td  style="text-align:right; white-space:nowrap;" id="TBL-11-5-2"  
+class="td11">70</td><td  style="text-align:right; white-space:nowrap;" id="TBL-11-5-3"  
+class="td11">75</td><td  style="text-align:right; white-space:nowrap;" id="TBL-11-5-4"  
+class="td11">67</td><td  style="text-align:right; white-space:nowrap;" id="TBL-11-5-5"  
+class="td11">78</td><td  style="text-align:right; white-space:nowrap;" id="TBL-11-5-6"  
+class="td11">78</td><td  style="text-align:right; white-space:nowrap;" id="TBL-11-5-7"  
+class="td11">79</td><td  style="text-align:right; white-space:nowrap;" id="TBL-11-5-8"  
+class="td11">85</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-11-6-"><td  style="text-align:right; white-space:nowrap;" id="TBL-11-6-1"  
+class="td11"> 69</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-11-6-2"  
+class="td11">63</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-11-6-3"  
+class="td11">68</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-11-6-4"  
+class="td11">69</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-11-6-5"  
+class="td11">75</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-11-6-6"  
+class="td11">78</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-11-6-7"  
+class="td11">82</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-11-6-8"  
+class="td11">80</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-11-7-"><td  style="text-align:right; white-space:nowrap;" id="TBL-11-7-1"  
+class="td11"> 76</td><td  style="text-align:right; white-space:nowrap;" id="TBL-11-7-2"  
+class="td11">76</td><td  style="text-align:right; white-space:nowrap;" id="TBL-11-7-3"  
+class="td11">71</td><td  style="text-align:right; white-space:nowrap;" id="TBL-11-7-4"  
+class="td11">71</td><td  style="text-align:right; white-space:nowrap;" id="TBL-11-7-5"  
+class="td11">67</td><td  style="text-align:right; white-space:nowrap;" id="TBL-11-7-6"  
+class="td11">79</td><td  style="text-align:right; white-space:nowrap;" id="TBL-11-7-7"  
+class="td11">80</td><td  style="text-align:right; white-space:nowrap;" id="TBL-11-7-8"  
+class="td11">83</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-11-8-"><td  style="text-align:right; white-space:nowrap;" id="TBL-11-8-1"  
+class="td11"> 72</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-11-8-2"  
+class="td11">77</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-11-8-3"  
+class="td11">78</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-11-8-4"  
+class="td11">69</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-11-8-5"  
+class="td11">75</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-11-8-6"  
+class="td11">75</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-11-8-7"  
+class="td11">78</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-11-8-8"  
+class="td11">78</td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-11-9-"><td  style="text-align:right; white-space:nowrap;" id="TBL-11-9-1"  
+class="td11">   </td></tr></table>                                                             </div> </td><td  style="text-align:center; white-space:nowrap;" id="TBL-10-1-2"  
+class="td11"> <!--l. 429--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" > <mo 
+class="MathClass-rel">⇔</mo></math> </td><td  style="text-align:center; white-space:nowrap;" id="TBL-10-1-3"  
+class="td11"> <!--tex4ht:inline--><div class="tabular"> <table id="TBL-12" class="tabular" 
+cellspacing="0" cellpadding="0" rules="groups" 
+><colgroup id="TBL-12-1g"><col 
+id="TBL-12-1" /><col 
+id="TBL-12-2" /><col 
+id="TBL-12-3" /><col 
+id="TBL-12-4" /><col 
+id="TBL-12-5" /><col 
+id="TBL-12-6" /><col 
+id="TBL-12-7" /><col 
+id="TBL-12-8" /></colgroup><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-1-"><td  style="text-align:right; white-space:nowrap;" id="TBL-12-1-1"  
+class="td11">619</td><td  style="text-align:right; white-space:nowrap;" id="TBL-12-1-2"  
+class="td11">-29</td><td  style="text-align:right; white-space:nowrap;" id="TBL-12-1-3"  
+class="td11"> 8</td><td  style="text-align:right; white-space:nowrap;" id="TBL-12-1-4"  
+class="td11"> 2</td><td  style="text-align:right; white-space:nowrap;" id="TBL-12-1-5"  
+class="td11"> 1</td><td  style="text-align:right; white-space:nowrap;" id="TBL-12-1-6"  
+class="td11">-3</td><td  style="text-align:right; white-space:nowrap;" id="TBL-12-1-7"  
+class="td11"> 0</td><td  style="text-align:right; white-space:nowrap;" id="TBL-12-1-8"  
+class="td11"> 1</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-2-"><td  style="text-align:right; white-space:nowrap;" id="TBL-12-2-1"  
+class="td11"> 22</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-12-2-2"  
+class="td11"> -6</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-12-2-3"  
+class="td11">-4</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-12-2-4"  
+class="td11"> 0</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-12-2-5"  
+class="td11"> 7</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-12-2-6"  
+class="td11"> 0</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-12-2-7"  
+class="td11">-2</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-12-2-8"  
+class="td11">-3</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-3-"><td  style="text-align:right; white-space:nowrap;" id="TBL-12-3-1"  
+class="td11">  11</td><td  style="text-align:right; white-space:nowrap;" id="TBL-12-3-2"  
+class="td11">  0</td><td  style="text-align:right; white-space:nowrap;" id="TBL-12-3-3"  
+class="td11"> 5</td><td  style="text-align:right; white-space:nowrap;" id="TBL-12-3-4"  
+class="td11">-4</td><td  style="text-align:right; white-space:nowrap;" id="TBL-12-3-5"  
+class="td11">-3</td><td  style="text-align:right; white-space:nowrap;" id="TBL-12-3-6"  
+class="td11"> 4</td><td  style="text-align:right; white-space:nowrap;" id="TBL-12-3-7"  
+class="td11"> 0</td><td  style="text-align:right; white-space:nowrap;" id="TBL-12-3-8"  
+class="td11">-3</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-4-"><td  style="text-align:right; white-space:nowrap;" id="TBL-12-4-1"  
+class="td11"> 2</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-12-4-2"  
+class="td11">-10</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-12-4-3"  
+class="td11"> 5</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-12-4-4"  
+class="td11"> 0</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-12-4-5"  
+class="td11"> 0</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-12-4-6"  
+class="td11"> 7</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-12-4-7"  
+class="td11"> 3</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-12-4-8"  
+class="td11"> 2</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-5-"><td  style="text-align:right; white-space:nowrap;" id="TBL-12-5-1"  
+class="td11">   6</td><td  style="text-align:right; white-space:nowrap;" id="TBL-12-5-2"  
+class="td11">  2</td><td  style="text-align:right; white-space:nowrap;" id="TBL-12-5-3"  
+class="td11">-1</td><td  style="text-align:right; white-space:nowrap;" id="TBL-12-5-4"  
+class="td11">-1</td><td  style="text-align:right; white-space:nowrap;" id="TBL-12-5-5"  
+class="td11">-2</td><td  style="text-align:right; white-space:nowrap;" id="TBL-12-5-6"  
+class="td11"> 0</td><td  style="text-align:right; white-space:nowrap;" id="TBL-12-5-7"  
+class="td11"> 0</td><td  style="text-align:right; white-space:nowrap;" id="TBL-12-5-8"  
+class="td11"> 8</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-6-"><td  style="text-align:right; white-space:nowrap;" id="TBL-12-6-1"  
+class="td11"> 1</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-12-6-2"  
+class="td11"> 2</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-12-6-3"  
+class="td11"> 1</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-12-6-4"  
+class="td11"> 2</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-12-6-5"  
+class="td11"> 0</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-12-6-6"  
+class="td11"> 2</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-12-6-7"  
+class="td11">-2</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-12-6-8"  
+class="td11">-2</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-7-"><td  style="text-align:right; white-space:nowrap;" id="TBL-12-7-1"  
+class="td11">  -8</td><td  style="text-align:right; white-space:nowrap;" id="TBL-12-7-2"  
+class="td11"> -2</td><td  style="text-align:right; white-space:nowrap;" id="TBL-12-7-3"  
+class="td11">-4</td><td  style="text-align:right; white-space:nowrap;" id="TBL-12-7-4"  
+class="td11"> 1</td><td  style="text-align:right; white-space:nowrap;" id="TBL-12-7-5"  
+class="td11"> 2</td><td  style="text-align:right; white-space:nowrap;" id="TBL-12-7-6"  
+class="td11"> 1</td><td  style="text-align:right; white-space:nowrap;" id="TBL-12-7-7"  
+class="td11">-1</td><td  style="text-align:right; white-space:nowrap;" id="TBL-12-7-8"  
+class="td11"> 1</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-8-"><td  style="text-align:right; white-space:nowrap;" id="TBL-12-8-1"  
+class="td11"> -3</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-12-8-2"  
+class="td11"> 1</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-12-8-3"  
+class="td11"> 5</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-12-8-4"  
+class="td11">-2</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-12-8-5"  
+class="td11"> 1</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-12-8-6"  
+class="td11">-1</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-12-8-7"  
+class="td11"> 1</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-12-8-8"  
+class="td11">-3</td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-9-"><td  style="text-align:right; white-space:nowrap;" id="TBL-12-9-1"  
+class="td11">   </td></tr></table>                                                            </div> </td>
+</tr></table>                                                                                                                                                                                                                   </div></div>
+     <ul class="itemize1">
+     <li class="itemize">Notice  that  the  most  part  of  the  energy  is  concentrated  in  the  DC
+     coeﬃcient and in the AC subrrounding coeﬃcients.</li></ul>
+<!--l. 436--><p class="noindent" >
+</p>
+   <h4 class="likesubsectionHead"><a 
+ id="x1-2400013"></a>Quantization</h4>
+<div class="center" 
+>
+<!--l. 437--><p class="noindent" >
+</p><!--l. 438--><p class="noindent" > <!--tex4ht:inline--></p><div class="tabular"> <table id="TBL-13" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-13-1g"><col 
+id="TBL-13-1" /><col 
+id="TBL-13-2" /><col 
+id="TBL-13-3" /><col 
+id="TBL-13-4" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-13-1-"><td  style="text-align:center; white-space:nowrap;" id="TBL-13-1-1"  
+class="td11"> <!--tex4ht:inline--><div class="tabular"> <table id="TBL-14" class="tabular" 
+cellspacing="0" cellpadding="0" rules="groups" 
+><colgroup id="TBL-14-1g"><col 
+id="TBL-14-1" /><col 
+id="TBL-14-2" /><col 
+id="TBL-14-3" /><col 
+id="TBL-14-4" /><col 
+id="TBL-14-5" /><col 
+id="TBL-14-6" /><col 
+id="TBL-14-7" /><col 
+id="TBL-14-8" /></colgroup><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-14-1-"><td  style="text-align:right; white-space:nowrap;" id="TBL-14-1-1"  
+class="td11">619</td><td  style="text-align:right; white-space:nowrap;" id="TBL-14-1-2"  
+class="td11">-29</td><td  style="text-align:right; white-space:nowrap;" id="TBL-14-1-3"  
+class="td11"> 8</td><td  style="text-align:right; white-space:nowrap;" id="TBL-14-1-4"  
+class="td11"> 2</td><td  style="text-align:right; white-space:nowrap;" id="TBL-14-1-5"  
+class="td11"> 1</td><td  style="text-align:right; white-space:nowrap;" id="TBL-14-1-6"  
+class="td11">-3</td><td  style="text-align:right; white-space:nowrap;" id="TBL-14-1-7"  
+class="td11"> 0</td><td  style="text-align:right; white-space:nowrap;" id="TBL-14-1-8"  
+class="td11"> 1</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-14-2-"><td  style="text-align:right; white-space:nowrap;" id="TBL-14-2-1"  
+class="td11"> 22</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-14-2-2"  
+class="td11"> -6</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-14-2-3"  
+class="td11">-4</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-14-2-4"  
+class="td11"> 0</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-14-2-5"  
+class="td11"> 7</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-14-2-6"  
+class="td11"> 0</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-14-2-7"  
+class="td11">-2</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-14-2-8"  
+class="td11">-3</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-14-3-"><td  style="text-align:right; white-space:nowrap;" id="TBL-14-3-1"  
+class="td11">  11</td><td  style="text-align:right; white-space:nowrap;" id="TBL-14-3-2"  
+class="td11">  0</td><td  style="text-align:right; white-space:nowrap;" id="TBL-14-3-3"  
+class="td11"> 5</td><td  style="text-align:right; white-space:nowrap;" id="TBL-14-3-4"  
+class="td11">-4</td><td  style="text-align:right; white-space:nowrap;" id="TBL-14-3-5"  
+class="td11">-3</td><td  style="text-align:right; white-space:nowrap;" id="TBL-14-3-6"  
+class="td11"> 4</td><td  style="text-align:right; white-space:nowrap;" id="TBL-14-3-7"  
+class="td11"> 0</td><td  style="text-align:right; white-space:nowrap;" id="TBL-14-3-8"  
+class="td11">-3</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-14-4-"><td  style="text-align:right; white-space:nowrap;" id="TBL-14-4-1"  
+class="td11"> 2</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-14-4-2"  
+class="td11">-10</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-14-4-3"  
+class="td11"> 5</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-14-4-4"  
+class="td11"> 0</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-14-4-5"  
+class="td11"> 0</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-14-4-6"  
+class="td11"> 7</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-14-4-7"  
+class="td11"> 3</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-14-4-8"  
+class="td11"> 2</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-14-5-"><td  style="text-align:right; white-space:nowrap;" id="TBL-14-5-1"  
+class="td11">   6</td><td  style="text-align:right; white-space:nowrap;" id="TBL-14-5-2"  
+class="td11">  2</td><td  style="text-align:right; white-space:nowrap;" id="TBL-14-5-3"  
+class="td11">-1</td><td  style="text-align:right; white-space:nowrap;" id="TBL-14-5-4"  
+class="td11">-1</td><td  style="text-align:right; white-space:nowrap;" id="TBL-14-5-5"  
+class="td11">-2</td><td  style="text-align:right; white-space:nowrap;" id="TBL-14-5-6"  
+class="td11"> 0</td><td  style="text-align:right; white-space:nowrap;" id="TBL-14-5-7"  
+class="td11"> 0</td><td  style="text-align:right; white-space:nowrap;" id="TBL-14-5-8"  
+class="td11"> 8</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-14-6-"><td  style="text-align:right; white-space:nowrap;" id="TBL-14-6-1"  
+class="td11"> 1</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-14-6-2"  
+class="td11"> 2</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-14-6-3"  
+class="td11"> 1</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-14-6-4"  
+class="td11"> 2</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-14-6-5"  
+class="td11"> 0</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-14-6-6"  
+class="td11"> 2</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-14-6-7"  
+class="td11">-2</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-14-6-8"  
+class="td11">-2</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-14-7-"><td  style="text-align:right; white-space:nowrap;" id="TBL-14-7-1"  
+class="td11">  -8</td><td  style="text-align:right; white-space:nowrap;" id="TBL-14-7-2"  
+class="td11"> -2</td><td  style="text-align:right; white-space:nowrap;" id="TBL-14-7-3"  
+class="td11">-4</td><td  style="text-align:right; white-space:nowrap;" id="TBL-14-7-4"  
+class="td11"> 1</td><td  style="text-align:right; white-space:nowrap;" id="TBL-14-7-5"  
+class="td11"> 2</td><td  style="text-align:right; white-space:nowrap;" id="TBL-14-7-6"  
+class="td11"> 1</td><td  style="text-align:right; white-space:nowrap;" id="TBL-14-7-7"  
+class="td11">-1</td><td  style="text-align:right; white-space:nowrap;" id="TBL-14-7-8"  
+class="td11"> 1</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-14-8-"><td  style="text-align:right; white-space:nowrap;" id="TBL-14-8-1"  
+class="td11"> -3</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-14-8-2"  
+class="td11"> 1</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-14-8-3"  
+class="td11"> 5</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-14-8-4"  
+class="td11">-2</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-14-8-5"  
+class="td11"> 1</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-14-8-6"  
+class="td11">-1</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-14-8-7"  
+class="td11"> 1</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-14-8-8"  
+class="td11">-3</td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-14-9-"><td  style="text-align:right; white-space:nowrap;" id="TBL-14-9-1"  
+class="td11">   </td></tr></table>                                                            </div> </td><td  style="text-align:center; white-space:nowrap;" id="TBL-13-1-2"  
+class="td11"> div  </td><td  style="text-align:center; white-space:nowrap;" id="TBL-13-1-3"  
+class="td11"> <!--tex4ht:inline--><div class="tabular"> <table id="TBL-15" class="tabular" 
+cellspacing="0" cellpadding="0" rules="groups" 
+><colgroup id="TBL-15-1g"><col 
+id="TBL-15-1" /><col 
+id="TBL-15-2" /><col 
+id="TBL-15-3" /><col 
+id="TBL-15-4" /><col 
+id="TBL-15-5" /><col 
+id="TBL-15-6" /><col 
+id="TBL-15-7" /><col 
+id="TBL-15-8" /></colgroup><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-15-1-"><td  style="text-align:right; white-space:nowrap;" id="TBL-15-1-1"  
+class="td11">16</td><td  style="text-align:right; white-space:nowrap;" id="TBL-15-1-2"  
+class="td11">11</td><td  style="text-align:right; white-space:nowrap;" id="TBL-15-1-3"  
+class="td11">10</td><td  style="text-align:right; white-space:nowrap;" id="TBL-15-1-4"  
+class="td11">16</td><td  style="text-align:right; white-space:nowrap;" id="TBL-15-1-5"  
+class="td11"> 24</td><td  style="text-align:right; white-space:nowrap;" id="TBL-15-1-6"  
+class="td11"> 40</td><td  style="text-align:right; white-space:nowrap;" id="TBL-15-1-7"  
+class="td11"> 51</td><td  style="text-align:right; white-space:nowrap;" id="TBL-15-1-8"  
+class="td11"> 61</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-15-2-"><td  style="text-align:right; white-space:nowrap;" id="TBL-15-2-1"  
+class="td11"> 12</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-15-2-2"  
+class="td11">12</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-15-2-3"  
+class="td11">14</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-15-2-4"  
+class="td11">19</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-15-2-5"  
+class="td11"> 26</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-15-2-6"  
+class="td11"> 58</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-15-2-7"  
+class="td11"> 60</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-15-2-8"  
+class="td11"> 55</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-15-3-"><td  style="text-align:right; white-space:nowrap;" id="TBL-15-3-1"  
+class="td11"> 14</td><td  style="text-align:right; white-space:nowrap;" id="TBL-15-3-2"  
+class="td11">13</td><td  style="text-align:right; white-space:nowrap;" id="TBL-15-3-3"  
+class="td11">16</td><td  style="text-align:right; white-space:nowrap;" id="TBL-15-3-4"  
+class="td11">24</td><td  style="text-align:right; white-space:nowrap;" id="TBL-15-3-5"  
+class="td11"> 40</td><td  style="text-align:right; white-space:nowrap;" id="TBL-15-3-6"  
+class="td11"> 57</td><td  style="text-align:right; white-space:nowrap;" id="TBL-15-3-7"  
+class="td11"> 69</td><td  style="text-align:right; white-space:nowrap;" id="TBL-15-3-8"  
+class="td11"> 56</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-15-4-"><td  style="text-align:right; white-space:nowrap;" id="TBL-15-4-1"  
+class="td11"> 14</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-15-4-2"  
+class="td11">17</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-15-4-3"  
+class="td11">22</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-15-4-4"  
+class="td11">29</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-15-4-5"  
+class="td11"> 51</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-15-4-6"  
+class="td11"> 87</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-15-4-7"  
+class="td11"> 80</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-15-4-8"  
+class="td11"> 62</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-15-5-"><td  style="text-align:right; white-space:nowrap;" id="TBL-15-5-1"  
+class="td11"> 18</td><td  style="text-align:right; white-space:nowrap;" id="TBL-15-5-2"  
+class="td11">22</td><td  style="text-align:right; white-space:nowrap;" id="TBL-15-5-3"  
+class="td11">37</td><td  style="text-align:right; white-space:nowrap;" id="TBL-15-5-4"  
+class="td11">56</td><td  style="text-align:right; white-space:nowrap;" id="TBL-15-5-5"  
+class="td11"> 68</td><td  style="text-align:right; white-space:nowrap;" id="TBL-15-5-6"  
+class="td11">109</td><td  style="text-align:right; white-space:nowrap;" id="TBL-15-5-7"  
+class="td11">103</td><td  style="text-align:right; white-space:nowrap;" id="TBL-15-5-8"  
+class="td11"> 77</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-15-6-"><td  style="text-align:right; white-space:nowrap;" id="TBL-15-6-1"  
+class="td11"> 24</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-15-6-2"  
+class="td11">35</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-15-6-3"  
+class="td11">55</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-15-6-4"  
+class="td11">64</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-15-6-5"  
+class="td11"> 81</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-15-6-6"  
+class="td11">104</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-15-6-7"  
+class="td11">113</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-15-6-8"  
+class="td11"> 92</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-15-7-"><td  style="text-align:right; white-space:nowrap;" id="TBL-15-7-1"  
+class="td11"> 49</td><td  style="text-align:right; white-space:nowrap;" id="TBL-15-7-2"  
+class="td11">64</td><td  style="text-align:right; white-space:nowrap;" id="TBL-15-7-3"  
+class="td11">78</td><td  style="text-align:right; white-space:nowrap;" id="TBL-15-7-4"  
+class="td11">87</td><td  style="text-align:right; white-space:nowrap;" id="TBL-15-7-5"  
+class="td11">103</td><td  style="text-align:right; white-space:nowrap;" id="TBL-15-7-6"  
+class="td11">121</td><td  style="text-align:right; white-space:nowrap;" id="TBL-15-7-7"  
+class="td11">120</td><td  style="text-align:right; white-space:nowrap;" id="TBL-15-7-8"  
+class="td11">101</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-15-8-"><td  style="text-align:right; white-space:nowrap;" id="TBL-15-8-1"  
+class="td11"> 72</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-15-8-2"  
+class="td11">92</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-15-8-3"  
+class="td11">95</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-15-8-4"  
+class="td11">98</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-15-8-5"  
+class="td11">112</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-15-8-6"  
+class="td11">100</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-15-8-7"  
+class="td11">103</td> <td  style="text-align:right; white-space:nowrap;" id="TBL-15-8-8"  
+class="td11"> 99</td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-15-9-"><td  style="text-align:right; white-space:nowrap;" id="TBL-15-9-1"  
+class="td11">   </td></tr></table>                                                             </div> =  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-13-2-"><td  style="text-align:center; white-space:nowrap;" id="TBL-13-2-1"  
+class="td11">                                                                     </td><td  style="text-align:center; white-space:nowrap;" id="TBL-13-2-2"  
+class="td11">     </td><td  style="text-align:center; white-space:nowrap;" id="TBL-13-2-3"  
+class="td11">                                                                      </td><td  style="text-align:center; white-space:nowrap;" id="TBL-13-2-4"  
+class="td11">  </td></tr></table></div>
+<!--tex4ht:inline--><div class="tabular"> <table id="TBL-16" class="tabular" 
+cellspacing="0" cellpadding="0" rules="groups" 
+><colgroup id="TBL-16-1g"><col 
+id="TBL-16-1" /><col 
+id="TBL-16-2" /><col 
+id="TBL-16-3" /><col 
+id="TBL-16-4" /><col 
+id="TBL-16-5" /><col 
+id="TBL-16-6" /><col 
+id="TBL-16-7" /><col 
+id="TBL-16-8" /></colgroup><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-16-1-"><td  style="text-align:right; white-space:nowrap;" id="TBL-16-1-1"  
+class="td11"> 39  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-1-2"  
+class="td11"> -3  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-1-3"  
+class="td11"> 1  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-1-4"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-1-5"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-1-6"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-1-7"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-1-8"  
+class="td11"> 0  </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-16-2-"><td  style="text-align:right; white-space:nowrap;" id="TBL-16-2-1"  
+class="td11"> 2 </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-2-2"  
+class="td11"> -1 </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-2-3"  
+class="td11"> 0 </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-2-4"  
+class="td11"> 0 </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-2-5"  
+class="td11"> 0 </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-2-6"  
+class="td11"> 0 </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-2-7"  
+class="td11"> 0 </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-2-8"  
+class="td11"> 0</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-16-3-"><td  style="text-align:right; white-space:nowrap;" id="TBL-16-3-1"  
+class="td11">   1  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-3-2"  
+class="td11">  0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-3-3"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-3-4"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-3-5"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-3-6"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-3-7"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-3-8"  
+class="td11"> 0  </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-16-4-"><td  style="text-align:right; white-space:nowrap;" id="TBL-16-4-1"  
+class="td11"> 0 </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-4-2"  
+class="td11"> -1 </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-4-3"  
+class="td11"> 0 </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-4-4"  
+class="td11"> 0 </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-4-5"  
+class="td11"> 0 </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-4-6"  
+class="td11"> 0 </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-4-7"  
+class="td11"> 0 </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-4-8"  
+class="td11"> 0</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-16-5-"><td  style="text-align:right; white-space:nowrap;" id="TBL-16-5-1"  
+class="td11">   0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-5-2"  
+class="td11">  0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-5-3"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-5-4"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-5-5"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-5-6"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-5-7"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-5-8"  
+class="td11"> 0  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-16-6-"><td  style="text-align:right; white-space:nowrap;" id="TBL-16-6-1"  
+class="td11">   0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-6-2"  
+class="td11">  0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-6-3"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-6-4"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-6-5"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-6-6"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-6-7"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-6-8"  
+class="td11"> 0  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-16-7-"><td  style="text-align:right; white-space:nowrap;" id="TBL-16-7-1"  
+class="td11">   0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-7-2"  
+class="td11">  0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-7-3"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-7-4"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-7-5"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-7-6"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-7-7"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-7-8"  
+class="td11"> 0  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-16-8-"><td  style="text-align:right; white-space:nowrap;" id="TBL-16-8-1"  
+class="td11">   0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-8-2"  
+class="td11">  0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-8-3"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-8-4"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-8-5"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-8-6"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-8-7"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-16-8-8"  
+class="td11"> 0  </td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-16-9-"><td  style="text-align:right; white-space:nowrap;" id="TBL-16-9-1"  
+class="td11">     </td></tr></table></div></div>
+     <ul class="itemize1">
+     <li class="itemize">Notice that the high frecuencies have been erased.</li></ul>
+<!--l. 488--><p class="noindent" >
+</p>
+   <h4 class="likesubsectionHead"><a 
+ id="x1-2500013"></a>EOB generation</h4>
+     <ul class="itemize1">
+     <li class="itemize">The coeﬁcients of the matrix
+                                                                  
+
+                                                                  
+     <div class="center" 
+>
+<!--l. 491--><p class="noindent" >
+</p>
+<div class="tabular"> <table id="TBL-17" class="tabular" 
+cellspacing="0" cellpadding="0" rules="groups" 
+><colgroup id="TBL-17-1g"><col 
+id="TBL-17-1" /><col 
+id="TBL-17-2" /><col 
+id="TBL-17-3" /><col 
+id="TBL-17-4" /><col 
+id="TBL-17-5" /><col 
+id="TBL-17-6" /><col 
+id="TBL-17-7" /><col 
+id="TBL-17-8" /></colgroup><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-17-1-"><td  style="text-align:right; white-space:nowrap;" id="TBL-17-1-1"  
+class="td11"> 39  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-1-2"  
+class="td11"> -3  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-1-3"  
+class="td11"> 1  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-1-4"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-1-5"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-1-6"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-1-7"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-1-8"  
+class="td11"> 0  </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-17-2-"><td  style="text-align:right; white-space:nowrap;" id="TBL-17-2-1"  
+class="td11"> 2 </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-2-2"  
+class="td11"> -1 </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-2-3"  
+class="td11"> 0 </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-2-4"  
+class="td11"> 0 </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-2-5"  
+class="td11"> 0 </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-2-6"  
+class="td11"> 0 </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-2-7"  
+class="td11"> 0 </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-2-8"  
+class="td11"> 0</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-17-3-"><td  style="text-align:right; white-space:nowrap;" id="TBL-17-3-1"  
+class="td11">   1  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-3-2"  
+class="td11">  0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-3-3"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-3-4"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-3-5"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-3-6"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-3-7"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-3-8"  
+class="td11"> 0  </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-17-4-"><td  style="text-align:right; white-space:nowrap;" id="TBL-17-4-1"  
+class="td11"> 0 </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-4-2"  
+class="td11"> -1 </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-4-3"  
+class="td11"> 0 </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-4-4"  
+class="td11"> 0 </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-4-5"  
+class="td11"> 0 </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-4-6"  
+class="td11"> 0 </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-4-7"  
+class="td11"> 0 </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-4-8"  
+class="td11"> 0</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-17-5-"><td  style="text-align:right; white-space:nowrap;" id="TBL-17-5-1"  
+class="td11">   0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-5-2"  
+class="td11">  0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-5-3"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-5-4"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-5-5"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-5-6"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-5-7"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-5-8"  
+class="td11"> 0  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-17-6-"><td  style="text-align:right; white-space:nowrap;" id="TBL-17-6-1"  
+class="td11">   0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-6-2"  
+class="td11">  0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-6-3"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-6-4"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-6-5"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-6-6"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-6-7"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-6-8"  
+class="td11"> 0  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-17-7-"><td  style="text-align:right; white-space:nowrap;" id="TBL-17-7-1"  
+class="td11">   0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-7-2"  
+class="td11">  0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-7-3"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-7-4"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-7-5"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-7-6"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-7-7"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-7-8"  
+class="td11"> 0  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-17-8-"><td  style="text-align:right; white-space:nowrap;" id="TBL-17-8-1"  
+class="td11">   0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-8-2"  
+class="td11">  0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-8-3"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-8-4"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-8-5"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-8-6"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-8-7"  
+class="td11"> 0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-17-8-8"  
+class="td11"> 0  </td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-17-9-"><td  style="text-align:right; white-space:nowrap;" id="TBL-17-9-1"  
+class="td11">     </td>
+</tr></table></div></div>
+     <!--l. 505--><p class="noindent" >are visited using the zig-zag scan to tind the EOB. The result is </p>
+     <div class="center" 
+>
+<!--l. 506--><p class="noindent" >
+</p>
+<div class="tabular"> <table id="TBL-18" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-18-1g"><col 
+id="TBL-18-1" /><col 
+id="TBL-18-2" /><col 
+id="TBL-18-3" /><col 
+id="TBL-18-4" /><col 
+id="TBL-18-5" /><col 
+id="TBL-18-6" /><col 
+id="TBL-18-7" /><col 
+id="TBL-18-8" /><col 
+id="TBL-18-9" /><col 
+id="TBL-18-10" /><col 
+id="TBL-18-11" /><col 
+id="TBL-18-12" /><col 
+id="TBL-18-13" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-18-1-"><td  style="text-align:center; white-space:nowrap;" id="TBL-18-1-1"  
+class="td11"> 39  </td><td  style="text-align:center; white-space:nowrap;" id="TBL-18-1-2"  
+class="td11"> -3  </td><td  style="text-align:center; white-space:nowrap;" id="TBL-18-1-3"  
+class="td11"> 2  </td><td  style="text-align:center; white-space:nowrap;" id="TBL-18-1-4"  
+class="td11"> 1  </td><td  style="text-align:center; white-space:nowrap;" id="TBL-18-1-5"  
+class="td11"> -1  </td><td  style="text-align:center; white-space:nowrap;" id="TBL-18-1-6"  
+class="td11"> 1  </td><td  style="text-align:center; white-space:nowrap;" id="TBL-18-1-7"  
+class="td11"> 0  </td><td  style="text-align:center; white-space:nowrap;" id="TBL-18-1-8"  
+class="td11"> 0  </td><td  style="text-align:center; white-space:nowrap;" id="TBL-18-1-9"  
+class="td11"> 0  </td><td  style="text-align:center; white-space:nowrap;" id="TBL-18-1-10"  
+class="td11"> 0  </td><td  style="text-align:center; white-space:nowrap;" id="TBL-18-1-11"  
+class="td11"> 0  </td><td  style="text-align:center; white-space:nowrap;" id="TBL-18-1-12"  
+class="td11"> -1  </td><td  style="text-align:center; white-space:nowrap;" id="TBL-18-1-13"  
+class="td11"> EOB  </td>
+</tr></table>
+</div></div>
+     </li></ul>
+<!--l. 513--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">14   </span> <a 
+ id="x1-2600014"></a>Entropy encoding of the runs</h3>
+     <ul class="itemize1">
+     <li class="itemize"><span 
+class="ecbx-1000">Encoding of the DC coeﬃcient. </span>Substract to the DC coeﬃcient the
+     previous one. In the last example, we have <!--l. 517--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>3</mn><mn>9</mn> <mo 
+class="MathClass-bin">−</mo> <mn>3</mn><mn>4</mn> <mo 
+class="MathClass-rel">=</mo> <mn>5</mn></math>.
+     This value is encoded as a residue using the LS-JPEG encoding machinery
+     (see Section <a 
+href="#x1-70004">4<!--tex4ht:ref: sec:compresion_huffman_LS-JPEG --></a>). The result is <!--l. 519--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>1</mn><mn>0</mn><mn>0</mn><mn>1</mn><mn>0</mn><msub><mrow 
+><mn>1</mn></mrow><mrow 
+><mn>2</mn></mrow></msub 
+></math>.
+     </li>
+     <li class="itemize"><span 
+class="ecbx-1000">Encoding of the AC coeﬃcients. </span>We encode the pairs
+     &#x003C;number-of-previous-zeros,non-zero-value&#x003E; in two steps.
+         <ol  class="enumerate1" >
+         <li 
+  class="enumerate" id="x1-26002x1">Find the <!--l. 523--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi></math>
+         category correspoding to the AC coeﬃcient. For example, if the coeﬃcient
+         is <!--l. 524--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" > <mo 
+class="MathClass-bin">−</mo> <mn>3</mn></math>,
+         we determine that <!--l. 525--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi> <mo 
+class="MathClass-rel">←</mo> <mn>2</mn></math>
+         (see Section <a 
+href="#x1-70004">4<!--tex4ht:ref: sec:compresion_huffman_LS-JPEG --></a>).
+                                                                  
+
+                                                                  
+         </li>
+         <li 
+  class="enumerate" id="x1-26004x2">Find the entry &#x003C;number-of-previous-zeros,<!--l. 527--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi></math>&#x003E;
+         in the table of AC codes proposed by the JPEG:
+         <div class="center" 
+>
+<!--l. 529--><p class="noindent" >
+</p>
+<div class="tabular"> <table id="TBL-19" class="tabular" 
+cellspacing="0" cellpadding="0" rules="groups" 
+><colgroup id="TBL-19-1g"><col 
+id="TBL-19-1" /></colgroup><colgroup id="TBL-19-2g"><col 
+id="TBL-19-2" /></colgroup><colgroup id="TBL-19-3g"><col 
+id="TBL-19-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-19-1-"><td colspan="3" style="text-align:right; white-space:nowrap;" id="TBL-19-1-1"  
+class="td11">           <div class="multicolumn"  style="text-align:center; white-space:nowrap;">JPEG AC codes (Luminance)</div>
+</td></tr><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-19-2-"><td  style="text-align:right; white-space:nowrap;" id="TBL-19-2-1"  
+class="td11"> Run/category  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-19-2-2"  
+class="td11"> Longitud  </td><td  style="text-align:left; white-space:nowrap;" id="TBL-19-2-3"  
+class="td11"> Base code                 </td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-19-3-"><td  style="text-align:right; white-space:nowrap;" id="TBL-19-3-1"  
+class="td11">          0/0  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-19-3-2"  
+class="td11">        4  </td><td  style="text-align:left; white-space:nowrap;" id="TBL-19-3-3"  
+class="td11"> 1010 (=EOB)            </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-19-4-"><td  style="text-align:right; white-space:nowrap;" id="TBL-19-4-1"  
+class="td11">          0/1  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-19-4-2"  
+class="td11">        3  </td><td  style="text-align:left; white-space:nowrap;" id="TBL-19-4-3"  
+class="td11"> 00                           </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-19-5-"><td  style="text-align:right; white-space:nowrap;" id="TBL-19-5-1"  
+class="td11">          0/2  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-19-5-2"  
+class="td11">        4  </td><td  style="text-align:left; white-space:nowrap;" id="TBL-19-5-3"  
+class="td11"> 01                           </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-19-6-"><td  style="text-align:right; white-space:nowrap;" id="TBL-19-6-1"  
+class="td11">          0/3  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-19-6-2"  
+class="td11">        6  </td><td  style="text-align:left; white-space:nowrap;" id="TBL-19-6-3"  
+class="td11"> 100                          </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-19-7-"><td  style="text-align:right; white-space:nowrap;" id="TBL-19-7-1"  
+class="td11">            :  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-19-7-2"  
+class="td11">        :  </td><td  style="text-align:left; white-space:nowrap;" id="TBL-19-7-3"  
+class="td11"> :                             </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-19-8-"><td  style="text-align:right; white-space:nowrap;" id="TBL-19-8-1"  
+class="td11">        15/10  </td><td  style="text-align:right; white-space:nowrap;" id="TBL-19-8-2"  
+class="td11">       26  </td><td  style="text-align:left; white-space:nowrap;" id="TBL-19-8-3"  
+class="td11"> 1111 1111 1111 11110  </td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-19-9-"><td  style="text-align:right; white-space:nowrap;" id="TBL-19-9-1"  
+class="td11">              </td></tr></table>
+</div></div>
+         <!--l. 544--><p class="noindent" >and output the base code bits. In our example, we output
+         <!--l. 544--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>0</mn><msub><mrow 
+><mn>1</mn></mrow><mrow 
+><mn>2</mn></mrow></msub 
+></math>.
+         </p></li>
+         <li 
+  class="enumerate" id="x1-26006x3">Execute the Step 3 of the LS-JPEG encoding algorithm taking
+         <!--l. 545--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>e</mi> <mo 
+class="MathClass-rel">=</mo></math>
+         the AC coeﬃent. In our example, we output
+         <!--l. 546--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" > <mo 
+class="MathClass-bin">−</mo> <mn>3</mn> <mo 
+class="MathClass-bin">−</mo> <mn>2</mn> <mo 
+class="MathClass-rel">=</mo> <mo 
+class="MathClass-bin">−</mo><mn>4</mn></math> using a binary
+         number of <!--l. 547--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi><mi 
+>S</mi> <mo 
+class="MathClass-rel">=</mo> <mn>2</mn></math>
+         bits that is <!--l. 547--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>0</mn><msub><mrow 
+><mn>0</mn></mrow><mrow 
+><mn>2</mn></mrow></msub 
+></math>.</li></ol>
+     </li></ul>
+<!--l. 551--><p class="noindent" >The whole bit-stream for our example is: </p>
+<div class="center" 
+>
+<!--l. 552--><p class="noindent" >
+</p>
+<div class="tabular"> <table id="TBL-20" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-20-1g"><col 
+id="TBL-20-1" /><col 
+id="TBL-20-2" /><col 
+id="TBL-20-3" /><col 
+id="TBL-20-4" /><col 
+id="TBL-20-5" /><col 
+id="TBL-20-6" /><col 
+id="TBL-20-7" /><col 
+id="TBL-20-8" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-20-1-"><td  style="text-align:center; white-space:nowrap;" id="TBL-20-1-1"  
+class="td11"> 100101  </td><td  style="text-align:center; white-space:nowrap;" id="TBL-20-1-2"  
+class="td11"> 0100  </td><td  style="text-align:center; white-space:nowrap;" id="TBL-20-1-3"  
+class="td11"> 0110  </td><td  style="text-align:center; white-space:nowrap;" id="TBL-20-1-4"  
+class="td11"> 001  </td><td  style="text-align:center; white-space:nowrap;" id="TBL-20-1-5"  
+class="td11"> 000  </td><td  style="text-align:center; white-space:nowrap;" id="TBL-20-1-6"  
+class="td11"> 001  </td><td  style="text-align:center; white-space:nowrap;" id="TBL-20-1-7"  
+class="td11"> 11110100  </td><td  style="text-align:center; white-space:nowrap;" id="TBL-20-1-8"  
+class="td11"> 1010  </td></tr></table>
+</div></div>
+<!--l. 558--><p class="indent" >   Finally, the block is encoded using only
+<!--l. 558--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>3</mn><mn>5</mn></math>
+bits. Therefore, the compression ratio is 15:1 approximately
+(<!--l. 559--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>0</mn><mo 
+class="MathClass-punc">.</mo><mn>5</mn><mn>5</mn></math>
+bits/pixel).
+</p><!--l. 561--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">15   </span> <a 
+ id="x1-2700015"></a>Progressive transmission</h3>
+                                                                  
+
+                                                                  
+     <ul class="itemize1">
+     <li class="itemize">Very useful when the images are transmited over slow links.
+     </li>
+     <li class="itemize">There are three positilities:
+         <ol  class="enumerate1" >
+         <li 
+  class="enumerate" id="x1-27002x1"><span 
+class="ecbx-1000">Progressive transmission based on spectral selection:</span>
+             <ul class="itemize2">
+             <li class="itemize">All the low frequency coeﬃcients are transmitted before than the
+             rest of them.
+             </li>
+             <li class="itemize">Provides up to 64 scans.</li></ul>
+         </li>
+         <li 
+  class="enumerate" id="x1-27004x2"><span 
+class="ecbx-1000">Progressive transmission based on bit-plane selection:</span>
+             <ul class="itemize2">
+             <li class="itemize">The most signiﬁcant bit-planes of all coeﬃcients are transmitted
+             before than the rest of them.
+             </li>
+             <li class="itemize">Provides up to 11 scans.</li></ul>
+         </li>
+         <li 
+  class="enumerate" id="x1-27006x3"><span 
+class="ecbx-1000">Progressive transmission based on a mixture of the last</span>
+         <span 
+class="ecbx-1000">progressions:</span>
+             <ul class="itemize2">
+             <li class="itemize">11 or even 64 scans could not be enough if the transmission time
+             is big and the computational power of the received is high. In
+             this case, the coeﬃcients can be transmitted by bit-planes, but
+             selecting also the coeﬃcients attenting to their frequency.
+             </li>
+             <li class="itemize">Up to 704 scans.</li></ul>
+         </li></ol>
+     </li></ul>
+<!--l. 591--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">16   </span> <a 
+ id="x1-2800016"></a>The hierarchical algorithm</h3>
+     <ul class="itemize1">
+     <li class="itemize">It is based on building a diﬀerential pyramid and after that, every level of
+     the pyramid (residue image) is compressed using the losy encoder or the
+     lossless encoder.
+                                                                  
+
+                                                                  
+     </li>
+     <li class="itemize">To create the pyramid we can use the following algorithm:
+         <ol  class="enumerate1" >
+         <li 
+  class="enumerate" id="x1-28002x1">Subsample (ﬁltering previously) the image in a factor of 2 in each
+         dimension.
+         </li>
+         <li 
+  class="enumerate" id="x1-28004x2">Interpolate the subsampled image in a factor of 2 in each dimension.
+         </li>
+         <li 
+  class="enumerate" id="x1-28006x3">Substract this image to the original one, obtaining a residue image
+         that is the base of the pyramid (the high frequencies). Notice that if
+         we add this image and the image obtained in the Step 1, we recover
+         the original image.
+         </li>
+         <li 
+  class="enumerate" id="x1-28008x4">Repeat this process considering the subsampled image as the original
+         one.</li></ol>
+     </li>
+     <li class="itemize">This multi-resolution representation is useful in those cases where the
+     original resolution of the image is too large to the actual display/printing
+     system.</li></ul>
+<!--l. 614--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">17   </span> <a 
+ id="x1-2900017"></a>Motion JPEG (M-JPEG)</h3>
+     <ul class="itemize1">
+     <li class="itemize">When each image of a sequece is compressed idependently using JPEG,
+     we are using a Motion JPEG compressor.
+     </li>
+     <li class="itemize">Notice that, if the quality of the compression is constant, the size of each
+     compressed image cound be diﬀerent:</li></ul>
+<div class="center" 
+>
+<!--l. 620--><p class="noindent" >
+</p><!--l. 621--><p class="noindent" ><img 
+src="data/M-JPEG_ir.png" alt="PIC"  
+ /></p></div>
+                                                                  
+
+                                                                  
+<!--l. 624--><p class="noindent" >
+</p>
+   <h3 class="likesectionHead"><a 
+ id="x1-3000017"></a>Lena <!--l. 624--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>5</mn><mn>1</mn><mn>2</mn> <mo 
+class="MathClass-bin">×</mo> <mn>5</mn><mn>1</mn><mn>2</mn></math>
+RGB original</h3>
+<div class="center" 
+>
+<!--l. 625--><p class="noindent" >
+</p><!--l. 626--><p class="noindent" ><img 
+src="data/lena_rgb.png" alt="PIC"  
+ /></p></div>
+<!--l. 629--><p class="noindent" >
+</p>
+   <h3 class="likesectionHead"><a 
+ id="x1-3100017"></a>Lena at <!--l. 629--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>1</mn><mo 
+class="MathClass-punc">.</mo><mn>0</mn></math>
+bpp (<!--l. 629--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mstyle 
+class="text"><mtext  >PSNR</mtext></mstyle> <mo 
+class="MathClass-rel">=</mo> <mn>3</mn><mn>2</mn><mo 
+class="MathClass-punc">.</mo><mn>8</mn><mn>5</mn></math>
+dB)</h3>
+<div class="center" 
+>
+<!--l. 630--><p class="noindent" >
+</p><!--l. 631--><p class="noindent" ><img 
+src="data/lena_10.jpg" alt="PIC"  
+ /></p></div>
+<!--l. 634--><p class="noindent" >
+</p>
+   <h3 class="likesectionHead"><a 
+ id="x1-3200017"></a>Lena at <!--l. 634--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>0</mn><mo 
+class="MathClass-punc">.</mo><mn>5</mn></math>
+bpp (<!--l. 634--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mstyle 
+class="text"><mtext  >PSNR</mtext></mstyle> <mo 
+class="MathClass-rel">=</mo> <mn>3</mn><mn>0</mn><mo 
+class="MathClass-punc">.</mo><mn>9</mn><mn>1</mn></math>
+dB)</h3>
+<div class="center" 
+>
+<!--l. 635--><p class="noindent" >
+</p><!--l. 636--><p class="noindent" ><img 
+src="data/lena_05.jpg" alt="PIC"  
+ /></p></div>
+<!--l. 639--><p class="noindent" >
+</p>
+   <h3 class="likesectionHead"><a 
+ id="x1-3300017"></a>Lena at <!--l. 639--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>0</mn><mo 
+class="MathClass-punc">.</mo><mn>4</mn></math>
+bpp (<!--l. 639--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mstyle 
+class="text"><mtext  >PSNR</mtext></mstyle> <mo 
+class="MathClass-rel">=</mo> <mn>3</mn><mn>0</mn><mo 
+class="MathClass-punc">.</mo><mn>0</mn><mn>9</mn></math>
+dB)</h3>
+                                                                  
+
+                                                                  
+<div class="center" 
+>
+<!--l. 640--><p class="noindent" >
+</p><!--l. 641--><p class="noindent" ><img 
+src="data/lena_04.jpg" alt="PIC"  
+ /></p></div>
+<!--l. 644--><p class="noindent" >
+</p>
+   <h3 class="likesectionHead"><a 
+ id="x1-3400017"></a>Lena at <!--l. 644--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>0</mn><mo 
+class="MathClass-punc">.</mo><mn>3</mn></math>
+bpp (<!--l. 644--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mstyle 
+class="text"><mtext  >PSNR</mtext></mstyle> <mo 
+class="MathClass-rel">=</mo> <mn>2</mn><mn>8</mn><mo 
+class="MathClass-punc">.</mo><mn>9</mn><mn>7</mn></math>
+dB)</h3>
+<div class="center" 
+>
+<!--l. 645--><p class="noindent" >
+</p><!--l. 646--><p class="noindent" ><img 
+src="data/lena_03.jpg" alt="PIC"  
+ /></p></div>
+<!--l. 649--><p class="noindent" >
+</p>
+   <h3 class="likesectionHead"><a 
+ id="x1-3500017"></a>Lena at <!--l. 649--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>0</mn><mo 
+class="MathClass-punc">.</mo><mn>2</mn></math>
+bpp (<!--l. 649--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mstyle 
+class="text"><mtext  >PSNR</mtext></mstyle> <mo 
+class="MathClass-rel">=</mo> <mn>2</mn><mn>6</mn><mo 
+class="MathClass-punc">.</mo><mn>6</mn><mn>4</mn></math>
+dB)</h3>
+<div class="center" 
+>
+<!--l. 650--><p class="noindent" >
+</p><!--l. 651--><p class="noindent" ><img 
+src="data/lena_02.jpg" alt="PIC"  
+ /></p></div>
+<!--l. 654--><p class="noindent" >
+</p>
+   <h3 class="likesectionHead"><a 
+ id="x1-3600017"></a>Lena at <!--l. 654--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>0</mn><mo 
+class="MathClass-punc">.</mo><mn>1</mn></math>
+bpp (<!--l. 654--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mstyle 
+class="text"><mtext  >PSNR</mtext></mstyle> <mo 
+class="MathClass-rel">=</mo> <mn>2</mn><mn>1</mn><mo 
+class="MathClass-punc">.</mo><mn>2</mn><mn>9</mn></math>
+dB)</h3>
+<div class="center" 
+>
+<!--l. 655--><p class="noindent" >
+</p><!--l. 656--><p class="noindent" ><img 
+src="data/lena_01.jpg" alt="PIC"  
+ /></p></div>
+                                                                  
+
+                                                                  
+<!--l. 659--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">18   </span> <a 
+ id="x1-3700018"></a>Lab</h3>
+     <ul class="itemize1">
+     <li class="itemize">Download and compile the <a 
+href="http://www.ace.ual.es/~vruiz/docencia/doctorado/snr.c" ><span 
+class="ectt-1000">snr.c</span></a> command line tool.
+     </li>
+     <li class="itemize">For each image of the <a 
+href="http://www.ace.ual.es/~vruiz/images/" >the Image Compression Corpus</a>, build a table with the
+     structure:
+                                                                  
+
+                                                                  
+     <div class="verbatim" id="verbatim-2">
+     # bpp MSE
+</div>
+     <!--l. 669--><p class="nopar" > where the bpp (bit per pixel) is the result of compute the resulting bit-rate
+     after compress and decompress the images using the command line tools <span 
+class="ectt-1000">cjpeg</span>
+     and <span 
+class="ectt-1000">djpeg</span>.
+     </p></li>
+     <li class="itemize">Use <span 
+class="ectt-1000">gnuplot </span>to draw the rate-distortion curve of JPEG for each of the test
+     images.</li></ul>
+<!--l. 1--><p class="noindent" >
+</p>
+   <h3 class="likesectionHead"><a 
+ id="x1-3800018"></a>References</h3>
+<!--l. 1--><p class="noindent" >
+   </p><div class="thebibliography">
+   <p class="bibitem" ><span class="biblabel">
+ [1]<span class="bibsp">   </span></span><a 
+ id="XCCITT.T81"></a>The  Joint  Photographic  Experts Group  (JPEG).    <span 
+class="ecti-1000">Recommendation</span>
+   <span 
+class="ecti-1000">T.81:  Digital  Compression  and  Coding  of  Continuous-tone  Still  Images</span>.
+   International Telecommunication Union (ITU), September 1992.
+   </p>
+   <p class="bibitem" ><span class="biblabel">
+ [2]<span class="bibsp">   </span></span><a 
+ id="XJPEG-LS"></a>The Joint Photographic Experts Group (JPEG).  <span 
+class="ecti-1000">FCD 14495, Lossless</span>
+   <span 
+class="ecti-1000">and Near-Lossless Coding of Continuous Tone Still Images (JPEG-LS)</span>. The
+   International  Standards  Organization  (ISO)/The  International  Telegraph
+   and Telephone Consultative Committee (CCITT), July 1997.
+   </p>
+   <p class="bibitem" ><span class="biblabel">
+ [3]<span class="bibsp">   </span></span><a 
+ id="XWallace91"></a>G. K.  Wallace.     The  JPEG  Still  Picture  Compression  Standard.
+   <span 
+class="ecti-1000">Communications of the ACM</span>, 34(4):30 – 44, April 1991. Se puede conseguir
+   en ftp://ftp.uu.net/graphics/jpeg/wallace.ps.Z.
+</p>
+   </div>
+    
+</body> 
+</html>
+                                                                  
+
+
