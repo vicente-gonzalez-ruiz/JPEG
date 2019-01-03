@@ -25,14 +25,14 @@
 \item The block diagram is
   \begin{center}
     %\texfigure{0.8\textwidth}{!}{LS-JPEG_codec}
-    \includegraphics[width=0.8\textwidth]{LS-JPEG_codec}
+    \img{graphics/LS-JPEG_codec.svg}
   \end{center}
   where
   \begin{center}
     \begin{tabular}{c}
       Prediction Context \\
       %\texfigure{!}{!}{contexto_prediccion_JPEG}
-      \includegraphics[width=2cm]{contexto_prediccion_JPEG}
+      \img{graphics/contexto_prediccion_JPEG.sg}
     \end{tabular}
     \vspace{3ex}
     \begin{tabular}{|r|l|}
@@ -263,7 +263,7 @@ ls-jpeg | ....  ....   ....  ....    ....
 \end{itemize}
 \vspace{-3ex}
 \begin{center}
-  \includegraphics[height=0.75\textheight]{8x8_DCT_basis}
+  \img{graphics/8x8_DCT_basis.png}
 \end{center}
 
 \section{Advantages of the 8x8 2D-DCT}
@@ -351,7 +351,7 @@ ls-jpeg | ....  ....   ....  ....    ....
   blocks.
 \item Run the coefficients using the zig-zag pattern:
   \begin{center}
-    \includegraphics[width=3cm]{zigzag}
+    \img{graphics/zigzag.svg}
   \end{center}
   in order to (partially) sorter the coefficients attending to their
   magnitude. Notice that, after a given coefficient, the remainder
@@ -373,13 +373,13 @@ ls-jpeg | ....  ....   ....  ....    ....
   \begin{enumerate}
   \item With interlacing:
     \begin{center}
-      \includegraphics[width=8cm]{JPEG_entrelazamiento_componentes}
+      \img{graphics/JPEG_entrelazamiento_componentes.svg}
     \end{center}
     \newpage
   \item Without interlacing:
     \begin{center}
       %\texfigure{!}{!}{JPEG_no_entrelazamiento_componentes}
-      \includegraphics[width=8cm]{JPEG_no_entrelazamiento_componentes}
+      \img{graphics/JPEG_no_entrelazamiento_componentes.svg}
     \end{center}
   \end{enumerate}
 \end{itemize}
@@ -389,7 +389,7 @@ ls-jpeg | ....  ....   ....  ....    ....
 \item Let's encode a block of a grayscale image (luminance of
   ``lena'').
   \begin{center}
-    \includegraphics[width=8cm]{JPEG_codec}
+    \img{graphics/JPEG_codec.svg}
   \end{center}
 \end{itemize}
 
@@ -618,42 +618,42 @@ compression ratio is 15:1 approximately ($0.55$ bits/pixel).
 \item Notice that, if the quality of the compression is constant, the size of each compressed image cound be different:
 \end{itemize}
 \begin{center}
-  \includegraphics[width=0.7\textwidth]{M-JPEG_ir}
+  \img{graphics/M-JPEG_ir.svg}
 \end{center}
 
 \section*{Lena $512\times 512$ RGB original}
 \begin{center}
-  \includegraphics[height=7cm]{lena_rgb}
+  \img{graphics/lena_rgb.png}
 \end{center}
 
 \section*{Lena at $1.0$ bpp ($\text{PSNR}=32.85$ dB)}
 \begin{center}
-  \includegraphics[height=7cm]{lena_10}
+  \img{graphics/lena_10.png}
 \end{center}
 
 \section*{Lena at $0.5$ bpp ($\text{PSNR}=30.91$ dB)}
 \begin{center}
-  \includegraphics[height=7cm]{lena_05}
+  \img{graphics/lena_05.png}
 \end{center}
 
 \section*{Lena at $0.4$ bpp ($\text{PSNR}=30.09$ dB)}
 \begin{center}
-  \includegraphics[height=7cm]{lena_04}
+  \img{graphics/lena_04.png}
 \end{center}
 
 \section*{Lena at $0.3$ bpp ($\text{PSNR}=28.97$ dB)}
 \begin{center}
-  \includegraphics[height=7cm]{lena_03}
+  \img{graphics/lena_03.png}
 \end{center}
 
 \section*{Lena at $0.2$ bpp ($\text{PSNR}=26.64$ dB)}
 \begin{center}
-  \includegraphics[height=7cm]{lena_02}
+  \img{graphics/lena_02.png}
 \end{center}
 
 \section*{Lena at $0.1$ bpp ($\text{PSNR}=21.29$ dB)}
 \begin{center}
-  \includegraphics[height=7cm]{lena_01}
+  \img{graphics/lena_01.png}
 \end{center}
 
 \section{Lab}
@@ -692,5 +692,5 @@ mplayer -loop 0 -fs archivo_video
     player} (\texttt{www.videolan.org}).
 \end{comment}
 
-\bibliographystyle{plain}
+%\bibliographystyle{plain}
 \bibliography{JPEG,image-standards}

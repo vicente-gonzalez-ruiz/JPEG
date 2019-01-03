@@ -5,7 +5,7 @@
 <meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" /> 
 <link rel="stylesheet" type="text/css" href="index.css" /> 
 <script type="text/javascript" 
-src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" 
+src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" 
 ></script> 
 <style type="text/css"> 
 .MathJax_MathML {text-indent: 0;} 
@@ -26,25 +26,46 @@ class="ecrm-1200">Vicente Gonz</span><span
 class="ecrm-1200">á</span><span 
 class="ecrm-1200">lez Ruiz</span></div><br />
 <div class="date" ><span 
-class="ecrm-1200">May 28, 2018</span></div>
+class="ecrm-1200">January 3, 2019</span></div>
    </div>
-   <h3 class="likesectionHead"><a 
- id="x1-1000"></a>Contents</h3>
    <div class="tableofcontents">
-   <span class="sectionToc" >1 <a 
+   <span class="likesectionToc" ><a 
+href="#x1-1000" id="QQ2-1-1">Contents</a></span>
+<br />   <span class="sectionToc" >1 <a 
 href="#x1-20001" id="QQ2-1-2">Intro</a></span>
 <br />   <span class="sectionToc" >2 <a 
 href="#x1-30002" id="QQ2-1-3">Lossless JPEG [2]</a></span>
 <br />   <span class="sectionToc" >3 <a 
 href="#x1-40003" id="QQ2-1-4">Codec LS-JPEG</a></span>
-<br />    <span class="subsectionToc" >3.1 <a 
-href="#x1-50003.1" id="QQ2-1-5">Compressor</a></span>
-<br />    <span class="subsectionToc" >3.2 <a 
-href="#x1-60003.2" id="QQ2-1-6">Descompressor</a></span>
 <br />   <span class="sectionToc" >4 <a 
 href="#x1-70004" id="QQ2-1-7">Huﬀman encoding in LS-JPEG</a></span>
+<br />   <span class="likesectionToc" ><a 
+href="#x1-80004" id="QQ2-1-8">Example (<!--l. 9--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>e</mi> <mo 
+class="MathClass-rel">=</mo> <mn>5</mn></math>)</a></span>
+<br />   <span class="likesectionToc" ><a 
+href="#x1-90004" id="QQ2-1-9">Example (<!--l. 10--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mi 
+>e</mi> <mo 
+class="MathClass-rel">=</mo> <mo 
+class="MathClass-bin">−</mo><mn>9</mn></math>)</a></span>
 <br />   <span class="sectionToc" >5 <a 
 href="#x1-100005" id="QQ2-1-10">Huﬀman decoding in LS-JPEG</a></span>
+<br />   <span class="likesectionToc" ><a 
+href="#x1-110005" id="QQ2-1-11">Example                                                                        (decode
+<!--l. 12--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>1</mn><mn>0</mn><mn>0</mn><mn>1</mn><mn>0</mn><mn>1</mn></math>)</a></span>
+<br />   <span class="likesectionToc" ><a 
+href="#x1-120005" id="QQ2-1-12">Example                                                                        (decode
+<!--l. 13--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>1</mn><mn>0</mn><mn>1</mn><mn>0</mn><mn>1</mn><mn>1</mn><mn>0</mn></math>)</a></span>
+<br />   <span class="likesectionToc" ><a 
+href="#x1-130005" id="QQ2-1-13">Lab</a></span>
 <br />   <span class="sectionToc" >6 <a 
 href="#x1-140006" id="QQ2-1-14">Lossy JPEG</a></span>
 <br />   <span class="sectionToc" >7 <a 
@@ -71,6 +92,8 @@ href="#x1-1900011" id="QQ2-1-19">Scalar quantization</a></span>
 href="#x1-2000012" id="QQ2-1-20">Entropy encoding</a></span>
 <br />   <span class="sectionToc" >13 <a 
 href="#x1-2100013" id="QQ2-1-21">Interlacing of the color components</a></span>
+<br />   <span class="likesectionToc" ><a 
+href="#x1-2200013" id="QQ2-1-22">Example</a></span>
 <br />   <span class="sectionToc" >14 <a 
 href="#x1-2600014" id="QQ2-1-26">Entropy encoding of the runs</a></span>
 <br />   <span class="sectionToc" >15 <a 
@@ -79,8 +102,139 @@ href="#x1-2700015" id="QQ2-1-27">Progressive transmission</a></span>
 href="#x1-2800016" id="QQ2-1-28">The hierarchical algorithm</a></span>
 <br />   <span class="sectionToc" >17 <a 
 href="#x1-2900017" id="QQ2-1-29">Motion JPEG (M-JPEG)</a></span>
+                                                                  
+
+                                                                  
+<br />   <span class="likesectionToc" ><a 
+href="#x1-3000017" id="QQ2-1-30">Lena <!--l. 31--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>5</mn><mn>1</mn><mn>2</mn> <mo 
+class="MathClass-bin">×</mo> <mn>5</mn><mn>1</mn><mn>2</mn></math>
+RGB original</a></span>
+<br />   <span class="likesectionToc" ><a 
+href="#x1-3100017" id="QQ2-1-31">Lena at <!--l. 32--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>1</mn><mo 
+class="MathClass-punc">.</mo><mn>0</mn></math>
+bpp (<!--l. 32--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mstyle 
+class="text"><mtext  >PSNR</mtext></mstyle> <mo 
+class="MathClass-rel">=</mo> <mn>3</mn><mn>2</mn><mo 
+class="MathClass-punc">.</mo><mn>8</mn><mn>5</mn></math> dB)</a></span>
+<br />   <span class="likesectionToc" ><a 
+href="#x1-3200017" id="QQ2-1-32">Lena at <!--l. 33--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>0</mn><mo 
+class="MathClass-punc">.</mo><mn>5</mn></math>
+bpp (<!--l. 33--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mstyle 
+class="text"><mtext  >PSNR</mtext></mstyle> <mo 
+class="MathClass-rel">=</mo> <mn>3</mn><mn>0</mn><mo 
+class="MathClass-punc">.</mo><mn>9</mn><mn>1</mn></math> dB)</a></span>
+<br />   <span class="likesectionToc" ><a 
+href="#x1-3300017" id="QQ2-1-33">Lena at <!--l. 34--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>0</mn><mo 
+class="MathClass-punc">.</mo><mn>4</mn></math>
+bpp (<!--l. 34--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mstyle 
+class="text"><mtext  >PSNR</mtext></mstyle> <mo 
+class="MathClass-rel">=</mo> <mn>3</mn><mn>0</mn><mo 
+class="MathClass-punc">.</mo><mn>0</mn><mn>9</mn></math> dB)</a></span>
+<br />   <span class="likesectionToc" ><a 
+href="#x1-3400017" id="QQ2-1-34">Lena at <!--l. 35--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>0</mn><mo 
+class="MathClass-punc">.</mo><mn>3</mn></math>
+bpp (<!--l. 35--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mstyle 
+class="text"><mtext  >PSNR</mtext></mstyle> <mo 
+class="MathClass-rel">=</mo> <mn>2</mn><mn>8</mn><mo 
+class="MathClass-punc">.</mo><mn>9</mn><mn>7</mn></math> dB)</a></span>
+<br />   <span class="likesectionToc" ><a 
+href="#x1-3500017" id="QQ2-1-35">Lena at <!--l. 36--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>0</mn><mo 
+class="MathClass-punc">.</mo><mn>2</mn></math>
+bpp (<!--l. 36--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mstyle 
+class="text"><mtext  >PSNR</mtext></mstyle> <mo 
+class="MathClass-rel">=</mo> <mn>2</mn><mn>6</mn><mo 
+class="MathClass-punc">.</mo><mn>6</mn><mn>4</mn></math> dB)</a></span>
+<br />   <span class="likesectionToc" ><a 
+href="#x1-3600017" id="QQ2-1-36">Lena at <!--l. 37--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mn>0</mn><mo 
+class="MathClass-punc">.</mo><mn>1</mn></math>
+bpp (<!--l. 37--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mstyle 
+class="text"><mtext  >PSNR</mtext></mstyle> <mo 
+class="MathClass-rel">=</mo> <mn>2</mn><mn>1</mn><mo 
+class="MathClass-punc">.</mo><mn>2</mn><mn>9</mn></math> dB)</a></span>
 <br />   <span class="sectionToc" >18 <a 
 href="#x1-3700018" id="QQ2-1-37">Lab</a></span>
+<br />   <span class="likesectionToc" ><a 
+href="#x1-3800018" id="QQ2-1-38">References</a></span>
+   </div>
+   <h3 class="likesectionHead"><a 
+ id="x1-1000"></a>Contents</h3>
+   <div class="tableofcontents">
+   <span class="sectionToc" >1 <a 
+href="#x1-20001">Intro</a></span>
+<br />   <span class="sectionToc" >2 <a 
+href="#x1-30002">Lossless JPEG [2]</a></span>
+<br />   <span class="sectionToc" >3 <a 
+href="#x1-40003">Codec LS-JPEG</a></span>
+<br />    <span class="subsectionToc" >3.1 <a 
+href="#x1-50003.1" id="QQ2-1-5">Compressor</a></span>
+<br />    <span class="subsectionToc" >3.2 <a 
+href="#x1-60003.2" id="QQ2-1-6">Descompressor</a></span>
+<br />   <span class="sectionToc" >4 <a 
+href="#x1-70004">Huﬀman encoding in LS-JPEG</a></span>
+<br />   <span class="sectionToc" >5 <a 
+href="#x1-100005">Huﬀman decoding in LS-JPEG</a></span>
+<br />   <span class="sectionToc" >6 <a 
+href="#x1-140006">Lossy JPEG</a></span>
+<br />   <span class="sectionToc" >7 <a 
+href="#x1-150007"><!--l. 16--><math 
+ xmlns="http://www.w3.org/1998/Math/MathML"  
+display="inline" ><mrow ><mo 
+class="MathClass-open">[</mo><mrow><mn>0</mn><mo 
+class="MathClass-punc">,</mo><mn>2</mn><mn>5</mn><mn>5</mn></mrow><mo 
+class="MathClass-close">]</mo></mrow> <mo 
+class="MathClass-rel">→</mo> <mrow ><mo 
+class="MathClass-open">[</mo><mrow><mo 
+class="MathClass-bin">−</mo><mn>1</mn><mn>2</mn><mn>8</mn><mo 
+class="MathClass-punc">,</mo><mn>1</mn><mn>2</mn><mn>7</mn></mrow><mo 
+class="MathClass-close">]</mo></mrow></math></a></span>
+<br />   <span class="sectionToc" >8 <a 
+href="#x1-160008">8x8 2D-DCT</a></span>
+<br />   <span class="sectionToc" >9 <a 
+href="#x1-170009">Basis functions of the 8x8 2D-DCT</a></span>
+<br />   <span class="sectionToc" >10 <a 
+href="#x1-1800010">Advantages of the 8x8 2D-DCT</a></span>
+<br />   <span class="sectionToc" >11 <a 
+href="#x1-1900011">Scalar quantization</a></span>
+<br />   <span class="sectionToc" >12 <a 
+href="#x1-2000012">Entropy encoding</a></span>
+<br />   <span class="sectionToc" >13 <a 
+href="#x1-2100013">Interlacing of the color components</a></span>
+<br />   <span class="sectionToc" >14 <a 
+href="#x1-2600014">Entropy encoding of the runs</a></span>
+<br />   <span class="sectionToc" >15 <a 
+href="#x1-2700015">Progressive transmission</a></span>
+<br />   <span class="sectionToc" >16 <a 
+href="#x1-2800016">The hierarchical algorithm</a></span>
+<br />   <span class="sectionToc" >17 <a 
+href="#x1-2900017">Motion JPEG (M-JPEG)</a></span>
+<br />   <span class="sectionToc" >18 <a 
+href="#x1-3700018">Lab</a></span>
    </div>
                                                                   
 
@@ -128,9 +282,7 @@ href="#XJPEG-LS">2</a>]</span></h3>
      <div class="center" 
 >
 <!--l. 26--><p class="noindent" >
-</p><!--l. 28--><p class="noindent" ><img 
-src="data/LS-JPEG_codec.png" alt="PIC"  
- /></p></div>
+</p><!--l. 28--><p class="noindent" > <div style="text-align:center;"> <img src="graphics/LS-JPEG_codec.svg" /> </div>  </p></div>
                                                                   
 
                                                                   
@@ -146,11 +298,9 @@ id="TBL-2-1" /></colgroup><tr
  style="vertical-align:baseline;" id="TBL-2-1-"><td  style="text-align:center; white-space:nowrap;" id="TBL-2-1-1"  
 class="td11"> Prediction Context  </td></tr><tr  
  style="vertical-align:baseline;" id="TBL-2-2-"><td  style="text-align:center; white-space:nowrap;" id="TBL-2-2-1"  
-class="td11"> <img 
-src="data/contexto_prediccion_JPEG.png" alt="PIC"  
- /></td>
+class="td11">  <div style="text-align:center;"> <img src="graphics/contexto_prediccion_JPEG.sg" /> </div> </td>
 </tr></table>
-</div> <!--tex4ht:inline--><div class="tabular"> <table id="TBL-3" class="tabular" 
+</div><!--tex4ht:inline--><div class="tabular"> <table id="TBL-3" class="tabular" 
 cellspacing="0" cellpadding="0" rules="groups" 
 ><colgroup id="TBL-3-1g"><col 
 id="TBL-3-1" /></colgroup><colgroup id="TBL-3-2g"><col 
@@ -216,15 +366,15 @@ class="td11"> <!--l. 44--><math
 display="inline" ><mi 
 >ŝ</mi> <mo 
 class="MathClass-rel">←</mo> <mi 
->c</mi></math>  </td></tr><tr  
+>c</mi></math>  </td>
+</tr><tr  
  style="vertical-align:baseline;" id="TBL-3-6-"><td  style="text-align:right; white-space:nowrap;" id="TBL-3-6-1"  
 class="td11"> <!--l. 45--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><msub><mrow 
 ><mi 
 >P</mi></mrow><mrow 
->
-<mn>4</mn></mrow></msub 
+><mn>4</mn></mrow></msub 
 ></math>  </td><td  style="text-align:left; white-space:nowrap;" id="TBL-3-6-2"  
 class="td11"> <!--l. 45--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
@@ -303,7 +453,8 @@ class="MathClass-bin">∕</mo><mn>2</mn></math>  </td>
 </tr><tr 
 class="hline"><td><hr /></td><td><hr /></td></tr><tr  
  style="vertical-align:baseline;" id="TBL-3-10-"><td  style="text-align:right; white-space:nowrap;" id="TBL-3-10-1"  
-class="td11">                                                                    </td></tr></table>
+class="td11">                                                                    </td>
+</tr></table>
 </div></div>
      </li></ul>
 <!--l. 54--><p class="noindent" >
@@ -1118,9 +1269,7 @@ class="MathClass-bin">×</mo> <mn>8</mn></math>-DCT
 <div class="center" 
 >
 <!--l. 265--><p class="noindent" >
-</p><!--l. 266--><p class="noindent" ><img 
-src="data/8x8_DCT_basis.png" alt="PIC"  
- /></p></div>
+</p><!--l. 266--><p class="noindent" > <div style="text-align:center;"> <img src="graphics/8x8_DCT_basis.png" /> </div>  </p></div>
 <!--l. 269--><p class="noindent" >
 </p>
    <h3 class="sectionHead"><span class="titlemark">10   </span> <a 
@@ -1455,9 +1604,7 @@ class="MathClass-close">]</mo></mrow></math>
      <div class="center" 
 >
 <!--l. 353--><p class="noindent" >
-</p><!--l. 354--><p class="noindent" ><img 
-src="data/zigzag.png" alt="PIC"  
- /></p></div>
+</p><!--l. 354--><p class="noindent" > <div style="text-align:center;"> <img src="graphics/zigzag.svg" /> </div>  </p></div>
      <!--l. 356--><p class="noindent" >in order to (partially) sorter the coeﬃcients attending to their magnitude.
      Notice that, after a given coeﬃcient, the remainder ones are zero. This situation
      if encoded using the EOB (End Of Block) special symbol.
@@ -1487,9 +1634,7 @@ class="ecbx-1000">??</span>).
          <div class="center" 
 >
 <!--l. 375--><p class="noindent" >
-</p><!--l. 376--><p class="noindent" ><img 
-src="data/JPEG_entrelazamiento_componentes.png" alt="PIC"  
- /></p></div>
+</p><!--l. 376--><p class="noindent" > <div style="text-align:center;"> <img src="graphics/JPEG_entrelazamiento_componentes.svg" /> </div>  </p></div>
          <!--l. 378--><p class="noindent" >
                                                                   
 
@@ -1500,9 +1645,7 @@ src="data/JPEG_entrelazamiento_componentes.png" alt="PIC"
          <div class="center" 
 >
 <!--l. 380--><p class="noindent" >
-</p><!--l. 382--><p class="noindent" ><img 
-src="data/JPEG_no_entrelazamiento_componentes.png" alt="PIC"  
- /></p></div>
+</p><!--l. 382--><p class="noindent" > <div style="text-align:center;"> <img src="graphics/JPEG_no_entrelazamiento_componentes.svg" /> </div>  </p></div>
          </li></ol>
      </li></ul>
    <h3 class="likesectionHead"><a 
@@ -1512,9 +1655,7 @@ src="data/JPEG_no_entrelazamiento_componentes.png" alt="PIC"
      <div class="center" 
 >
 <!--l. 391--><p class="noindent" >
-</p><!--l. 392--><p class="noindent" ><img 
-src="data/JPEG_codec.png" alt="PIC"  
- /></p></div>
+</p><!--l. 392--><p class="noindent" > <div style="text-align:center;"> <img src="graphics/JPEG_codec.svg" /> </div>  </p></div>
      </li></ul>
 <!--l. 396--><p class="noindent" >
                                                                   
@@ -2450,9 +2591,7 @@ class="ecbx-1000">progressions:</span>
 <div class="center" 
 >
 <!--l. 620--><p class="noindent" >
-</p><!--l. 621--><p class="noindent" ><img 
-src="data/M-JPEG_ir.png" alt="PIC"  
- /></p></div>
+</p><!--l. 621--><p class="noindent" > <div style="text-align:center;"> <img src="graphics/M-JPEG_ir.svg" /> </div>  </p></div>
                                                                   
 
                                                                   
@@ -2467,9 +2606,7 @@ RGB original</h3>
 <div class="center" 
 >
 <!--l. 625--><p class="noindent" >
-</p><!--l. 626--><p class="noindent" ><img 
-src="data/lena_rgb.png" alt="PIC"  
- /></p></div>
+</p><!--l. 626--><p class="noindent" > <div style="text-align:center;"> <img src="graphics/lena_rgb.png" /> </div>  </p></div>
 <!--l. 629--><p class="noindent" >
 </p>
    <h3 class="likesectionHead"><a 
@@ -2487,9 +2624,7 @@ dB)</h3>
 <div class="center" 
 >
 <!--l. 630--><p class="noindent" >
-</p><!--l. 631--><p class="noindent" ><img 
-src="data/lena_10.jpg" alt="PIC"  
- /></p></div>
+</p><!--l. 631--><p class="noindent" > <div style="text-align:center;"> <img src="graphics/lena_10.png" /> </div>  </p></div>
 <!--l. 634--><p class="noindent" >
 </p>
    <h3 class="likesectionHead"><a 
@@ -2507,9 +2642,7 @@ dB)</h3>
 <div class="center" 
 >
 <!--l. 635--><p class="noindent" >
-</p><!--l. 636--><p class="noindent" ><img 
-src="data/lena_05.jpg" alt="PIC"  
- /></p></div>
+</p><!--l. 636--><p class="noindent" > <div style="text-align:center;"> <img src="graphics/lena_05.png" /> </div>  </p></div>
 <!--l. 639--><p class="noindent" >
 </p>
    <h3 class="likesectionHead"><a 
@@ -2530,9 +2663,7 @@ dB)</h3>
 <div class="center" 
 >
 <!--l. 640--><p class="noindent" >
-</p><!--l. 641--><p class="noindent" ><img 
-src="data/lena_04.jpg" alt="PIC"  
- /></p></div>
+</p><!--l. 641--><p class="noindent" > <div style="text-align:center;"> <img src="graphics/lena_04.png" /> </div>  </p></div>
 <!--l. 644--><p class="noindent" >
 </p>
    <h3 class="likesectionHead"><a 
@@ -2550,9 +2681,7 @@ dB)</h3>
 <div class="center" 
 >
 <!--l. 645--><p class="noindent" >
-</p><!--l. 646--><p class="noindent" ><img 
-src="data/lena_03.jpg" alt="PIC"  
- /></p></div>
+</p><!--l. 646--><p class="noindent" > <div style="text-align:center;"> <img src="graphics/lena_03.png" /> </div>  </p></div>
 <!--l. 649--><p class="noindent" >
 </p>
    <h3 class="likesectionHead"><a 
@@ -2570,9 +2699,7 @@ dB)</h3>
 <div class="center" 
 >
 <!--l. 650--><p class="noindent" >
-</p><!--l. 651--><p class="noindent" ><img 
-src="data/lena_02.jpg" alt="PIC"  
- /></p></div>
+</p><!--l. 651--><p class="noindent" > <div style="text-align:center;"> <img src="graphics/lena_02.png" /> </div>  </p></div>
 <!--l. 654--><p class="noindent" >
 </p>
    <h3 class="likesectionHead"><a 
@@ -2590,9 +2717,7 @@ dB)</h3>
 <div class="center" 
 >
 <!--l. 655--><p class="noindent" >
-</p><!--l. 656--><p class="noindent" ><img 
-src="data/lena_01.jpg" alt="PIC"  
- /></p></div>
+</p><!--l. 656--><p class="noindent" > <div style="text-align:center;"> <img src="graphics/lena_01.png" /> </div>  </p></div>
                                                                   
 
                                                                   
