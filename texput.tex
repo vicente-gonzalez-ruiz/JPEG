@@ -1,5 +1,4 @@
 \title{The JPEG standard (ISO/IEC 10918-1)}
-
 \maketitle
 \tableofcontents
 
@@ -25,14 +24,14 @@
 \item The block diagram is
   \begin{center}
     %\texfigure{0.8\textwidth}{!}{LS-JPEG_codec}
-    \img{graphics/LS-JPEG_codec.svg}
+    \svg{LS-JPEG_codec}{400}
   \end{center}
   where
   \begin{center}
     \begin{tabular}{c}
       Prediction Context \\
       %\texfigure{!}{!}{contexto_prediccion_JPEG}
-      \img{graphics/contexto_prediccion_JPEG.svg}
+      \svg{contexto_prediccion_JPEG}{200}
     \end{tabular}
     \vspace{3ex}
     \begin{tabular}{|r|l|}
@@ -263,7 +262,7 @@ ls-jpeg | ....  ....   ....  ....    ....
 \end{itemize}
 \vspace{-3ex}
 \begin{center}
-  \img{graphics/8x8_DCT_basis.png}
+  \png{8x8_DCT_basis}{600}
 \end{center}
 
 \section{Advantages of the 8x8 2D-DCT}
@@ -292,7 +291,6 @@ ls-jpeg | ....  ....   ....  ....    ....
   data.
 \item The quantization generates a big number of DCT coefficients very
   close or equal to 0, following a Laplace probability distribution.
-\newpage
 \item The quantization step is so important in the result that the
   JPEG studied and determined the best quantization matrixes (one for
   the luma and other for the chroma).
@@ -333,8 +331,6 @@ ls-jpeg | ....  ....   ....  ....    ....
 \item At it can be seen, there is an overall tendence to preserve the
   low frequencies of the image.
 
-\newpage
-
 \item The quantization is described by
   \begin{equation}
     \text{2D-DCT}'[u,v] = \text{round}\Big(\frac{8\times 8\text{-DCT}[u,v]}{\text{Z}[u,v]}\Big)
@@ -351,7 +347,7 @@ ls-jpeg | ....  ....   ....  ....    ....
   blocks.
 \item Run the coefficients using the zig-zag pattern:
   \begin{center}
-    \img{graphics/zigzag.svg}
+    \svg{zigzag}{400}
   \end{center}
   in order to (partially) sorter the coefficients attending to their
   magnitude. Notice that, after a given coefficient, the remainder
@@ -373,13 +369,12 @@ ls-jpeg | ....  ....   ....  ....    ....
   \begin{enumerate}
   \item With interlacing:
     \begin{center}
-      \img{graphics/JPEG_entrelazamiento_componentes.svg}
+      \svg{JPEG_entrelazamiento_componentes}{600}
     \end{center}
-    \newpage
   \item Without interlacing:
     \begin{center}
       %\texfigure{!}{!}{JPEG_no_entrelazamiento_componentes}
-      \img{graphics/JPEG_no_entrelazamiento_componentes.svg}
+      \svg{JPEG_no_entrelazamiento_componentes}{600}
     \end{center}
   \end{enumerate}
 \end{itemize}
@@ -389,11 +384,10 @@ ls-jpeg | ....  ....   ....  ....    ....
 \item Let's encode a block of a grayscale image (luminance of
   ``lena'').
   \begin{center}
-    \img{graphics/JPEG_codec.svg}
+    \svg{JPEG_codec}{400}
   \end{center}
 \end{itemize}
 
-\newpage
 \subsection*{$8\times 8$-DCT}
 \begin{center}
   \resizebox{\textwidth}{!}{
@@ -618,42 +612,42 @@ compression ratio is 15:1 approximately ($0.55$ bits/pixel).
 \item Notice that, if the quality of the compression is constant, the size of each compressed image cound be different:
 \end{itemize}
 \begin{center}
-  \img{graphics/M-JPEG_ir.svg}
+  \svg{M-JPEG_ir}{800}
 \end{center}
 
 \section*{Lena $512\times 512$ RGB original}
 \begin{center}
-  \img{graphics/lena_rgb.png}
+  \png{lena_rgb}
 \end{center}
 
 \section*{Lena at $1.0$ bpp ($\text{PSNR}=32.85$ dB)}
 \begin{center}
-  \img{graphics/lena_10.jpg}
+  \jpg{lena_10}
 \end{center}
 
 \section*{Lena at $0.5$ bpp ($\text{PSNR}=30.91$ dB)}
 \begin{center}
-  \img{graphics/lena_05.jpg}
+  \jpg{lena_05}
 \end{center}
 
 \section*{Lena at $0.4$ bpp ($\text{PSNR}=30.09$ dB)}
 \begin{center}
-  \img{graphics/lena_04.jpg}
+  \jpg{lena_04}
 \end{center}
 
 \section*{Lena at $0.3$ bpp ($\text{PSNR}=28.97$ dB)}
 \begin{center}
-  \img{graphics/lena_03.jpg}
+  \jpg{lena_03}
 \end{center}
 
 \section*{Lena at $0.2$ bpp ($\text{PSNR}=26.64$ dB)}
 \begin{center}
-  \img{graphics/lena_02.jpg}
+  \jpg{lena_02}
 \end{center}
 
 \section*{Lena at $0.1$ bpp ($\text{PSNR}=21.29$ dB)}
 \begin{center}
-  \img{graphics/lena_01.jpg}
+  \jpg{lena_01}
 \end{center}
 
 \section{Lab}
