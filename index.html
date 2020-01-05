@@ -26,7 +26,7 @@ class="ecrm-1200">Vicente Gonz</span><span
 class="ecrm-1200">á</span><span 
 class="ecrm-1200">lez Ruiz</span></div><br />
 <div class="date" ><span 
-class="ecrm-1200">January 1, 2020</span></div>
+class="ecrm-1200">January 5, 2020</span></div>
    </div>
    <h3 class="likesectionHead"><a 
  id="x1-1000"></a>Contents</h3>
@@ -46,9 +46,9 @@ href="#x1-70004" id="QQ2-1-7">Huﬀman encoding in LS-JPEG</a></span>
 <br />   <span class="sectionToc" >5 <a 
 href="#x1-100005" id="QQ2-1-10">Huﬀman decoding in LS-JPEG</a></span>
 <br />   <span class="sectionToc" >6 <a 
-href="#x1-140006" id="QQ2-1-14">Lossy JPEG</a></span>
+href="#x1-130006" id="QQ2-1-13">Lossy JPEG</a></span>
 <br />   <span class="sectionToc" >7 <a 
-href="#x1-150007" id="QQ2-1-15"><!--l. 16--><math 
+href="#x1-140007" id="QQ2-1-14"><!--l. 15--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mrow ><mo 
 class="MathClass-open">[</mo><mrow><mn>0</mn><mo 
@@ -60,29 +60,29 @@ class="MathClass-bin">−</mo><mn>1</mn><mn>2</mn><mn>8</mn><mo
 class="MathClass-punc">,</mo><mn>1</mn><mn>2</mn><mn>7</mn></mrow><mo 
 class="MathClass-close">]</mo></mrow></math></a></span>
 <br />   <span class="sectionToc" >8 <a 
-href="#x1-160008" id="QQ2-1-16">8x8 2D-DCT</a></span>
+href="#x1-150008" id="QQ2-1-15">8x8 2D-DCT</a></span>
 <br />   <span class="sectionToc" >9 <a 
-href="#x1-170009" id="QQ2-1-17">Basis functions of the 8x8 2D-DCT</a></span>
+href="#x1-160009" id="QQ2-1-16">Basis functions of the 8x8 2D-DCT</a></span>
 <br />   <span class="sectionToc" >10 <a 
-href="#x1-1800010" id="QQ2-1-18">Advantages of the 8x8 2D-DCT</a></span>
+href="#x1-1700010" id="QQ2-1-17">Advantages of the 8x8 2D-DCT</a></span>
 <br />   <span class="sectionToc" >11 <a 
-href="#x1-1900011" id="QQ2-1-19">Scalar quantization</a></span>
+href="#x1-1800011" id="QQ2-1-18">Scalar quantization</a></span>
 <br />   <span class="sectionToc" >12 <a 
-href="#x1-2000012" id="QQ2-1-20">Entropy encoding</a></span>
+href="#x1-1900012" id="QQ2-1-19">Entropy encoding</a></span>
 <br />   <span class="sectionToc" >13 <a 
-href="#x1-2100013" id="QQ2-1-21">Interlacing of the color components</a></span>
+href="#x1-2000013" id="QQ2-1-20">Interlacing of the color components</a></span>
 <br />   <span class="sectionToc" >14 <a 
-href="#x1-2600014" id="QQ2-1-26">Entropy encoding of the runs</a></span>
+href="#x1-2500014" id="QQ2-1-25">Entropy encoding of the runs</a></span>
 <br />   <span class="sectionToc" >15 <a 
-href="#x1-2700015" id="QQ2-1-27">Progressive transmission</a></span>
+href="#x1-2600015" id="QQ2-1-26">Progressive transmission</a></span>
 <br />   <span class="sectionToc" >16 <a 
-href="#x1-2800016" id="QQ2-1-28">The hierarchical algorithm</a></span>
+href="#x1-2700016" id="QQ2-1-27">The hierarchical algorithm</a></span>
 <br />   <span class="sectionToc" >17 <a 
-href="#x1-2900017" id="QQ2-1-29">Motion JPEG (M-JPEG)</a></span>
+href="#x1-2800017" id="QQ2-1-28">Motion JPEG (M-JPEG)</a></span>
 <br />   <span class="sectionToc" >18 <a 
-href="#x1-3700018" id="QQ2-1-37">Lab</a></span>
+href="#x1-3600018" id="QQ2-1-36">Lab</a></span>
 <br />   <span class="sectionToc" ><a 
-href="#Q1-1-39">References</a></span>
+href="#Q1-1-38">References</a></span>
    </div>
                                                                   
 
@@ -112,10 +112,14 @@ href="#XWallace91">3</a>]</span>.
 display="inline" ><mn>1</mn></math>
      bits/pixel (bpp).
      </li>
-     <li class="itemize">Based on the Discrete Cosine Transform (DCT).
+     <li class="itemize">Based on the <a 
+href="https://en.wikipedia.org/wiki/Discrete_cosine_transform" >Discrete Cosine Transform (DCT)</a>.
      </li>
-     <li class="itemize">Several working modes: lossy, lossless and hierarchical.</li></ul>
-<!--l. 18--><p class="noindent" >
+     <li class="itemize">Several working modes: <a 
+href="https://en.wikipedia.org/wiki/Lossy_compression" >lossy</a>, <a 
+href="https://en.wikipedia.org/wiki/Lossless_compression" >lossless</a> and <a 
+href="https://www.ece.ucdavis.edu/cerl/reliablejpeg/compression/" >hierarchical</a>.</li></ul>
+<!--l. 24--><p class="noindent" >
 </p>
    <h3 class="sectionHead"><span class="titlemark">2   </span> <a 
  id="x1-30002"></a>Lossless JPEG <span class="cite">[<a 
@@ -129,15 +133,15 @@ href="#XJPEG-LS">2</a>]</span></h3>
      <li class="itemize">The block diagram is
      <div class="center" 
 >
-<!--l. 25--><p class="noindent" >
-</p><!--l. 27--><p class="noindent" ><div style="text-align:center;"> <img width=400 src="graphics/LS-JPEG_codec.svg" /> </div>  </p></div>
+<!--l. 31--><p class="noindent" >
+</p><!--l. 33--><p class="noindent" ><div style="text-align:center;"> <img width=400 src="graphics/LS-JPEG_codec.svg" /> </div>  </p></div>
                                                                   
 
                                                                   
-     <!--l. 29--><p class="noindent" >where </p>
+     <!--l. 35--><p class="noindent" >where </p>
      <div class="center" 
 >
-<!--l. 30--><p class="noindent" >
+<!--l. 36--><p class="noindent" >
 </p>
 <div class="tabular"> <table id="TBL-2" class="tabular" 
 cellspacing="0" cellpadding="0"  
@@ -157,7 +161,7 @@ id="TBL-3-2" /></colgroup><tr
 class="td11">                                                                <div class="multicolumn"  style="text-align:center; white-space:nowrap;">Predictors</div></td></tr><tr 
 class="hline"><td><hr /></td><td><hr /></td></tr><tr  
  style="vertical-align:baseline;" id="TBL-3-2-"><td  style="text-align:right; white-space:nowrap;" id="TBL-3-2-1"  
-class="td11"> <!--l. 40--><math 
+class="td11"> <!--l. 46--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><msub><mrow 
 ><mi 
@@ -165,13 +169,13 @@ display="inline" ><msub><mrow
 >
 <mn>0</mn></mrow></msub 
 ></math>  </td><td  style="text-align:left; white-space:nowrap;" id="TBL-3-2-2"  
-class="td11"> <!--l. 40--><math 
+class="td11"> <!--l. 46--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >ŝ</mi> <mo 
 class="MathClass-rel">←</mo> <mn>0</mn></math>  </td></tr><tr  
  style="vertical-align:baseline;" id="TBL-3-3-"><td  style="text-align:right; white-space:nowrap;" id="TBL-3-3-1"  
-class="td11"> <!--l. 41--><math 
+class="td11"> <!--l. 47--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><msub><mrow 
 ><mi 
@@ -179,14 +183,14 @@ display="inline" ><msub><mrow
 >
 <mn>1</mn></mrow></msub 
 ></math>  </td><td  style="text-align:left; white-space:nowrap;" id="TBL-3-3-2"  
-class="td11"> <!--l. 41--><math 
+class="td11"> <!--l. 47--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >ŝ</mi> <mo 
 class="MathClass-rel">←</mo> <mi 
 >a</mi></math>  </td></tr><tr  
  style="vertical-align:baseline;" id="TBL-3-4-"><td  style="text-align:right; white-space:nowrap;" id="TBL-3-4-1"  
-class="td11"> <!--l. 42--><math 
+class="td11"> <!--l. 48--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><msub><mrow 
 ><mi 
@@ -194,14 +198,14 @@ display="inline" ><msub><mrow
 >
 <mn>2</mn></mrow></msub 
 ></math>  </td><td  style="text-align:left; white-space:nowrap;" id="TBL-3-4-2"  
-class="td11"> <!--l. 42--><math 
+class="td11"> <!--l. 48--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >ŝ</mi> <mo 
 class="MathClass-rel">←</mo> <mi 
 >b</mi></math>  </td></tr><tr  
  style="vertical-align:baseline;" id="TBL-3-5-"><td  style="text-align:right; white-space:nowrap;" id="TBL-3-5-1"  
-class="td11"> <!--l. 43--><math 
+class="td11"> <!--l. 49--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><msub><mrow 
 ><mi 
@@ -209,7 +213,7 @@ display="inline" ><msub><mrow
 >
 <mn>3</mn></mrow></msub 
 ></math>  </td><td  style="text-align:left; white-space:nowrap;" id="TBL-3-5-2"  
-class="td11"> <!--l. 43--><math 
+class="td11"> <!--l. 49--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >ŝ</mi> <mo 
@@ -217,14 +221,14 @@ class="MathClass-rel">←</mo> <mi
 >c</mi></math>  </td>
 </tr><tr  
  style="vertical-align:baseline;" id="TBL-3-6-"><td  style="text-align:right; white-space:nowrap;" id="TBL-3-6-1"  
-class="td11"> <!--l. 44--><math 
+class="td11"> <!--l. 50--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><msub><mrow 
 ><mi 
 >P</mi></mrow><mrow 
 ><mn>4</mn></mrow></msub 
 ></math>  </td><td  style="text-align:left; white-space:nowrap;" id="TBL-3-6-2"  
-class="td11"> <!--l. 44--><math 
+class="td11"> <!--l. 50--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >ŝ</mi> <mo 
@@ -236,14 +240,14 @@ class="MathClass-bin">−</mo> <mi
 >c</mi></math>  </td>
 </tr><tr  
  style="vertical-align:baseline;" id="TBL-3-7-"><td  style="text-align:right; white-space:nowrap;" id="TBL-3-7-1"  
-class="td11"> <!--l. 45--><math 
+class="td11"> <!--l. 51--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><msub><mrow 
 ><mi 
 >P</mi></mrow><mrow 
 ><mn>5</mn></mrow></msub 
 ></math>  </td><td  style="text-align:left; white-space:nowrap;" id="TBL-3-7-2"  
-class="td11"> <!--l. 45--><math 
+class="td11"> <!--l. 51--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >ŝ</mi> <mo 
@@ -258,14 +262,14 @@ class="MathClass-close">)</mo></mrow><mo
 class="MathClass-bin">∕</mo><mn>2</mn></math>  </td>
 </tr><tr  
  style="vertical-align:baseline;" id="TBL-3-8-"><td  style="text-align:right; white-space:nowrap;" id="TBL-3-8-1"  
-class="td11"> <!--l. 46--><math 
+class="td11"> <!--l. 52--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><msub><mrow 
 ><mi 
 >P</mi></mrow><mrow 
 ><mn>6</mn></mrow></msub 
 ></math>  </td><td  style="text-align:left; white-space:nowrap;" id="TBL-3-8-2"  
-class="td11"> <!--l. 46--><math 
+class="td11"> <!--l. 52--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >ŝ</mi> <mo 
@@ -280,14 +284,14 @@ class="MathClass-close">)</mo></mrow><mo
 class="MathClass-bin">∕</mo><mn>2</mn></math>  </td>
 </tr><tr  
  style="vertical-align:baseline;" id="TBL-3-9-"><td  style="text-align:right; white-space:nowrap;" id="TBL-3-9-1"  
-class="td11"> <!--l. 47--><math 
+class="td11"> <!--l. 53--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><msub><mrow 
 ><mi 
 >P</mi></mrow><mrow 
 ><mn>7</mn></mrow></msub 
 ></math>  </td><td  style="text-align:left; white-space:nowrap;" id="TBL-3-9-2"  
-class="td11"> <!--l. 47--><math 
+class="td11"> <!--l. 53--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >ŝ</mi> <mo 
@@ -305,24 +309,24 @@ class="td11">                                                                   
 </tr></table>
 </div></div>
      </li></ul>
-<!--l. 53--><p class="noindent" >
+<!--l. 59--><p class="noindent" >
 </p>
    <h3 class="sectionHead"><span class="titlemark">3   </span> <a 
  id="x1-40003"></a>Codec LS-JPEG</h3>
-<!--l. 54--><p class="noindent" >
+<!--l. 60--><p class="noindent" >
 </p>
    <h4 class="subsectionHead"><span class="titlemark">3.1   </span> <a 
  id="x1-50003.1"></a>Compressor</h4>
-<!--l. 55--><p class="noindent" >
+<!--l. 61--><p class="noindent" >
      </p><ol  class="enumerate1" >
      <li 
-  class="enumerate" id="x1-5002x1">Generate <!--l. 56--><math 
+  class="enumerate" id="x1-5002x1">Generate <!--l. 62--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >ŝ</mi></math>.
      </li>
      <li 
-  class="enumerate" id="x1-5004x2">Compute the prediction error <!--l. 57--><math 
+  class="enumerate" id="x1-5004x2">Compute the prediction error <!--l. 63--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >e</mi> <mo 
@@ -332,34 +336,34 @@ class="MathClass-bin">−</mo><mi
 >ŝ</mi></math>.
      </li>
      <li 
-  class="enumerate" id="x1-5006x3">Encode <!--l. 58--><math 
+  class="enumerate" id="x1-5006x3">Encode <!--l. 64--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >e</mi></math>.</li></ol>
                                                                   
 
                                                                   
-<!--l. 61--><p class="noindent" >
+<!--l. 67--><p class="noindent" >
 </p>
    <h4 class="subsectionHead"><span class="titlemark">3.2   </span> <a 
  id="x1-60003.2"></a>Descompressor</h4>
-<!--l. 62--><p class="noindent" >
+<!--l. 68--><p class="noindent" >
      </p><ol  class="enumerate1" >
      <li 
-  class="enumerate" id="x1-6002x1">Generate <!--l. 63--><math 
+  class="enumerate" id="x1-6002x1">Generate <!--l. 69--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >ŝ</mi></math>
      (idential to the Step 1 of the compressor).
      </li>
      <li 
-  class="enumerate" id="x1-6004x2">Descode <!--l. 64--><math 
+  class="enumerate" id="x1-6004x2">Descode <!--l. 70--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >e</mi></math>.
      </li>
      <li 
-  class="enumerate" id="x1-6006x3">Compute the pixel value <!--l. 65--><math 
+  class="enumerate" id="x1-6006x3">Compute the pixel value <!--l. 71--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >s</mi> <mo 
@@ -367,25 +371,25 @@ class="MathClass-rel">←</mo> <mi
 >e</mi> <mo 
 class="MathClass-bin">+</mo> <mi 
 >ŝ</mi></math>.</li></ol>
-<!--l. 68--><p class="noindent" >
+<!--l. 74--><p class="noindent" >
 </p>
    <h3 class="sectionHead"><span class="titlemark">4   </span> <a 
  id="x1-70004"></a>Huﬀman encoding in LS-JPEG</h3>
-<!--l. 70--><p class="noindent" >
+<!--l. 76--><p class="noindent" >
      </p><ol  class="enumerate1" >
      <li 
-  class="enumerate" id="x1-7002x1">Search <!--l. 71--><math 
+  class="enumerate" id="x1-7002x1">Search <!--l. 77--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >e</mi></math>
-     in <!--l. 71--><math 
+     in <!--l. 77--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >D</mi><mi 
 >I</mi><mi 
 >F</mi><mi 
 >F</mi></math>
-     and select <!--l. 71--><math 
+     and select <!--l. 77--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >S</mi><mi 
@@ -394,7 +398,7 @@ display="inline" ><mi
 >S</mi></math>.
      </li>
      <li 
-  class="enumerate" id="x1-7004x2">Encode <!--l. 72--><math 
+  class="enumerate" id="x1-7004x2">Encode <!--l. 78--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >S</mi><mi 
@@ -404,7 +408,7 @@ display="inline" ><mi
      following the base code.
      </li>
      <li 
-  class="enumerate" id="x1-7006x3">If <!--l. 73--><math 
+  class="enumerate" id="x1-7006x3">If <!--l. 79--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >e</mi> <mo 
@@ -412,18 +416,18 @@ class="MathClass-rel">&#x003E;</mo> <mn>0</mn></math>,
      then:
          <ol  class="enumerate2" >
          <li 
-  class="enumerate" id="x1-7008x1">Encode <!--l. 75--><math 
+  class="enumerate" id="x1-7008x1">Encode <!--l. 81--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >e</mi></math>
-         using a binary number of <!--l. 75--><math 
+         using a binary number of <!--l. 81--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >S</mi><mi 
 >S</mi><mi 
 >S</mi><mi 
 >S</mi></math>
-         bits. The most signiﬁcant bit of <!--l. 76--><math 
+         bits. The most signiﬁcant bit of <!--l. 82--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >e</mi></math>
@@ -433,19 +437,19 @@ display="inline" ><mi
   class="enumerate" id="x1-7010x4">Else:
          <ol  class="enumerate2" >
          <li 
-  class="enumerate" id="x1-7012x1">Encode <!--l. 80--><math 
+  class="enumerate" id="x1-7012x1">Encode <!--l. 86--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >e</mi> <mo 
 class="MathClass-bin">−</mo> <mn>1</mn></math>
-         using a binary number of <!--l. 80--><math 
+         using a binary number of <!--l. 86--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >S</mi><mi 
 >S</mi><mi 
 >S</mi><mi 
 >S</mi></math>
-         bits. The most signiﬁcant bit of <!--l. 81--><math 
+         bits. The most signiﬁcant bit of <!--l. 87--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >e</mi></math>
@@ -454,16 +458,16 @@ display="inline" ><mi
 
                                                                   
      </li></ol>
-<!--l. 85--><p class="noindent" >
+<!--l. 91--><p class="noindent" >
 </p>
    <h3 class="likesectionHead"><a 
- id="x1-80004"></a>Example (<!--l. 85--><math 
+ id="x1-80004"></a>Example (<!--l. 91--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >e</mi> <mo 
 class="MathClass-rel">=</mo> <mn>5</mn></math>)</h3>
      <ul class="itemize1">
-     <li class="itemize"><!--l. 87--><math 
+     <li class="itemize"><!--l. 93--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >S</mi><mi 
@@ -472,7 +476,7 @@ display="inline" ><mi
 >S</mi> <mo 
 class="MathClass-rel">=</mo> <mn>3</mn></math>.
      </li>
-     <li class="itemize">Output <!--l. 88--><math 
+     <li class="itemize">Output <!--l. 94--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" > <mo 
 class="MathClass-rel">←</mo> <mn>1</mn><mn>0</mn><msub><mrow 
@@ -480,24 +484,24 @@ class="MathClass-rel">←</mo> <mn>1</mn><mn>0</mn><msub><mrow
 ><mn>2</mn></mrow></msub 
 ></math>.
      </li>
-     <li class="itemize">Output <!--l. 89--><math 
+     <li class="itemize">Output <!--l. 95--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" > <mo 
 class="MathClass-rel">←</mo> <mn>1</mn><mn>0</mn><msub><mrow 
 ><mn>1</mn></mrow><mrow 
 ><mn>2</mn></mrow></msub 
 ></math>.</li></ul>
-<!--l. 92--><p class="noindent" >
+<!--l. 98--><p class="noindent" >
 </p>
    <h3 class="likesectionHead"><a 
- id="x1-90004"></a>Example (<!--l. 92--><math 
+ id="x1-90004"></a>Example (<!--l. 98--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >e</mi> <mo 
 class="MathClass-rel">=</mo> <mo 
 class="MathClass-bin">−</mo><mn>9</mn></math>)</h3>
      <ul class="itemize1">
-     <li class="itemize"><!--l. 94--><math 
+     <li class="itemize"><!--l. 100--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >S</mi><mi 
@@ -506,7 +510,7 @@ display="inline" ><mi
 >S</mi> <mo 
 class="MathClass-rel">=</mo> <mn>4</mn></math>.
      </li>
-     <li class="itemize">Output <!--l. 95--><math 
+     <li class="itemize">Output <!--l. 101--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" > <mo 
 class="MathClass-rel">←</mo> <mn>1</mn><mn>0</mn><msub><mrow 
@@ -514,21 +518,21 @@ class="MathClass-rel">←</mo> <mn>1</mn><mn>0</mn><msub><mrow
 ><mn>2</mn></mrow></msub 
 ></math>.
      </li>
-     <li class="itemize">Output <!--l. 96--><math 
+     <li class="itemize">Output <!--l. 102--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" > <mo 
 class="MathClass-rel">←</mo> <mn>0</mn><mn>1</mn><mn>1</mn><msub><mrow 
 ><mn>0</mn></mrow><mrow 
 ><mn>2</mn></mrow></msub 
 ></math>
-     (the four least signiﬁcant bits of the two’s complement of <!--l. 97--><math 
+     (the four least signiﬁcant bits of the two’s complement of <!--l. 103--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" > <mo 
 class="MathClass-bin">−</mo> <mn>1</mn><msub><mrow 
 ><mn>0</mn></mrow><mrow 
 ><mn>1</mn><mn>0</mn></mrow></msub 
 ></math>).</li></ul>
-<!--l. 178--><p class="noindent" > <!--tex4ht:inline--></p><div class="tabular"> <table id="TBL-4" class="tabular" 
+<!--l. 184--><p class="noindent" > <!--tex4ht:inline--></p><div class="tabular"> <table id="TBL-4" class="tabular" 
 cellspacing="0" cellpadding="0"  
 ><colgroup id="TBL-4-1g"><col 
 id="TBL-4-1" /><col 
@@ -545,14 +549,14 @@ id="TBL-5-1" /></colgroup><colgroup id="TBL-5-2g"><col
 id="TBL-5-2" /></colgroup><tr 
 class="hline"><td><hr /></td><td><hr /></td></tr><tr  
  style="vertical-align:baseline;" id="TBL-5-1-"><td  style="text-align:right; white-space:nowrap;" id="TBL-5-1-1"  
-class="td11"><!--l. 183--><math 
+class="td11"><!--l. 189--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >S</mi><mi 
 >S</mi><mi 
 >S</mi><mi 
 >S</mi></math></td><td  style="text-align:center; white-space:nowrap;" id="TBL-5-1-2"  
-class="td11">                                            <!--l. 183--><math 
+class="td11">                                            <!--l. 189--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >D</mi><mi 
@@ -574,130 +578,130 @@ class="td11">                                                                   
 </tr><tr  
  style="vertical-align:baseline;" id="TBL-5-5-"><td  style="text-align:right; white-space:nowrap;" id="TBL-5-5-1"  
 class="td11">                                                                 3</td><td  style="text-align:center; white-space:nowrap;" id="TBL-5-5-2"  
-class="td11">        -7,<!--l. 183--><math 
+class="td11">        -7,<!--l. 189--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mo 
-class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-4,4,<!--l. 183--><math 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-4,4,<!--l. 189--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mo 
 class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,7            </td>
 </tr><tr  
  style="vertical-align:baseline;" id="TBL-5-6-"><td  style="text-align:right; white-space:nowrap;" id="TBL-5-6-1"  
 class="td11">                                                                 4</td><td  style="text-align:center; white-space:nowrap;" id="TBL-5-6-2"  
-class="td11">       -15,<!--l. 183--><math 
+class="td11">       -15,<!--l. 189--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mo 
-class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-8,8,<!--l. 183--><math 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-8,8,<!--l. 189--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mo 
 class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,15           </td>
 </tr><tr  
  style="vertical-align:baseline;" id="TBL-5-7-"><td  style="text-align:right; white-space:nowrap;" id="TBL-5-7-1"  
 class="td11">                                                                 5</td><td  style="text-align:center; white-space:nowrap;" id="TBL-5-7-2"  
-class="td11">      -31,<!--l. 183--><math 
+class="td11">      -31,<!--l. 189--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mo 
-class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-16,16,<!--l. 183--><math 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-16,16,<!--l. 189--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mo 
 class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,31         </td>
 </tr><tr  
  style="vertical-align:baseline;" id="TBL-5-8-"><td  style="text-align:right; white-space:nowrap;" id="TBL-5-8-1"  
 class="td11">                                                                 6</td><td  style="text-align:center; white-space:nowrap;" id="TBL-5-8-2"  
-class="td11">      -63,<!--l. 183--><math 
+class="td11">      -63,<!--l. 189--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mo 
-class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-32,32,<!--l. 183--><math 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-32,32,<!--l. 189--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mo 
 class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,63         </td>
 </tr><tr  
  style="vertical-align:baseline;" id="TBL-5-9-"><td  style="text-align:right; white-space:nowrap;" id="TBL-5-9-1"  
 class="td11">                                                                 7</td><td  style="text-align:center; white-space:nowrap;" id="TBL-5-9-2"  
-class="td11">     -127,<!--l. 183--><math 
+class="td11">     -127,<!--l. 189--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mo 
-class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-64,64,<!--l. 183--><math 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-64,64,<!--l. 189--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mo 
 class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,127        </td>
 </tr><tr  
  style="vertical-align:baseline;" id="TBL-5-10-"><td  style="text-align:right; white-space:nowrap;" id="TBL-5-10-1"  
 class="td11">                                                                 8</td><td  style="text-align:center; white-space:nowrap;" id="TBL-5-10-2"  
-class="td11">    -255,<!--l. 183--><math 
+class="td11">    -255,<!--l. 189--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mo 
-class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-128,128,<!--l. 183--><math 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-128,128,<!--l. 189--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mo 
 class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,255      </td>
 </tr><tr  
  style="vertical-align:baseline;" id="TBL-5-11-"><td  style="text-align:right; white-space:nowrap;" id="TBL-5-11-1"  
 class="td11">                                                                 9</td><td  style="text-align:center; white-space:nowrap;" id="TBL-5-11-2"  
-class="td11">    -511,<!--l. 183--><math 
+class="td11">    -511,<!--l. 189--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mo 
-class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-256,256,<!--l. 183--><math 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-256,256,<!--l. 189--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mo 
 class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,511      </td>
 </tr><tr  
  style="vertical-align:baseline;" id="TBL-5-12-"><td  style="text-align:right; white-space:nowrap;" id="TBL-5-12-1"  
 class="td11">                                                                10</td><td  style="text-align:center; white-space:nowrap;" id="TBL-5-12-2"  
-class="td11">   -1023,<!--l. 183--><math 
+class="td11">   -1023,<!--l. 189--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mo 
-class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-512,512,<!--l. 183--><math 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-512,512,<!--l. 189--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mo 
 class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,1023     </td>
 </tr><tr  
  style="vertical-align:baseline;" id="TBL-5-13-"><td  style="text-align:right; white-space:nowrap;" id="TBL-5-13-1"  
 class="td11">                                                                11</td><td  style="text-align:center; white-space:nowrap;" id="TBL-5-13-2"  
-class="td11">  -2047,<!--l. 183--><math 
+class="td11">  -2047,<!--l. 189--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mo 
-class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-1024,1024,<!--l. 183--><math 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-1024,1024,<!--l. 189--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mo 
 class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,2043   </td>
 </tr><tr  
  style="vertical-align:baseline;" id="TBL-5-14-"><td  style="text-align:right; white-space:nowrap;" id="TBL-5-14-1"  
 class="td11">                                                                12</td><td  style="text-align:center; white-space:nowrap;" id="TBL-5-14-2"  
-class="td11">  -4095,<!--l. 183--><math 
+class="td11">  -4095,<!--l. 189--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mo 
-class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-2048,2048,<!--l. 183--><math 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-2048,2048,<!--l. 189--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mo 
 class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,4095   </td>
 </tr><tr  
  style="vertical-align:baseline;" id="TBL-5-15-"><td  style="text-align:right; white-space:nowrap;" id="TBL-5-15-1"  
 class="td11">                                                                13</td><td  style="text-align:center; white-space:nowrap;" id="TBL-5-15-2"  
-class="td11">  -8191,<!--l. 183--><math 
+class="td11">  -8191,<!--l. 189--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mo 
-class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-4096,4096,<!--l. 183--><math 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-4096,4096,<!--l. 189--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mo 
 class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,8191   </td>
 </tr><tr  
  style="vertical-align:baseline;" id="TBL-5-16-"><td  style="text-align:right; white-space:nowrap;" id="TBL-5-16-1"  
 class="td11">                                                                14</td><td  style="text-align:center; white-space:nowrap;" id="TBL-5-16-2"  
-class="td11"> -16383,<!--l. 183--><math 
+class="td11"> -16383,<!--l. 189--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mo 
-class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-8192,8192,<!--l. 183--><math 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-8192,8192,<!--l. 189--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mo 
 class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,16383  </td>
 </tr><tr  
  style="vertical-align:baseline;" id="TBL-5-17-"><td  style="text-align:right; white-space:nowrap;" id="TBL-5-17-1"  
 class="td11">                                                                15</td><td  style="text-align:center; white-space:nowrap;" id="TBL-5-17-2"  
-class="td11">-32767,<!--l. 183--><math 
+class="td11">-32767,<!--l. 189--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mo 
-class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-16384,16384,<!--l. 183--><math 
+class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,-16384,16384,<!--l. 189--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mo 
 class="MathClass-rel">⋯</mo><mspace width="0.3em" class="thinspace"/></math>,32767</td>
@@ -716,7 +720,7 @@ id="TBL-6-2" /></colgroup><colgroup id="TBL-6-3g"><col
 id="TBL-6-3" /></colgroup><tr 
 class="hline"><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
  style="vertical-align:baseline;" id="TBL-6-1-"><td  style="text-align:right; white-space:nowrap;" id="TBL-6-1-1"  
-class="td11"><!--l. 183--><math 
+class="td11"><!--l. 189--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >S</mi><mi 
@@ -789,14 +793,14 @@ class="hline"><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr
  style="vertical-align:baseline;" id="TBL-6-19-"><td  style="text-align:right; white-space:nowrap;" id="TBL-6-19-1"  
 class="td11">                                                                  </td> </tr></table>               </div> </td>
    </tr></table>                                                                                                                                                                                                                                                                                                                          </div>
-<!--l. 185--><p class="noindent" >
+<!--l. 191--><p class="noindent" >
 </p>
    <h3 class="sectionHead"><span class="titlemark">5   </span> <a 
  id="x1-100005"></a>Huﬀman decoding in LS-JPEG</h3>
-<!--l. 186--><p class="noindent" >
+<!--l. 192--><p class="noindent" >
      </p><ol  class="enumerate1" >
      <li 
-  class="enumerate" id="x1-10002x1">Decode the <!--l. 187--><math 
+  class="enumerate" id="x1-10002x1">Decode the <!--l. 193--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >S</mi><mi 
@@ -809,7 +813,7 @@ display="inline" ><mi
                                                                   
      </li>
      <li 
-  class="enumerate" id="x1-10004x2">Decode the magnitude. Let <!--l. 188--><math 
+  class="enumerate" id="x1-10004x2">Decode the magnitude. Let <!--l. 194--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >x</mi> <mo 
@@ -817,7 +821,7 @@ class="MathClass-rel">←</mo></math>
      the next input bit.
      </li>
      <li 
-  class="enumerate" id="x1-10006x3">If <!--l. 189--><math 
+  class="enumerate" id="x1-10006x3">If <!--l. 195--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >x</mi><mo 
@@ -825,7 +829,7 @@ class="MathClass-rel">≠</mo><mn>0</mn></math>,
      then:
          <ol  class="enumerate2" >
          <li 
-  class="enumerate" id="x1-10008x1"><!--l. 191--><math 
+  class="enumerate" id="x1-10008x1"><!--l. 197--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >e</mi> <mo 
@@ -855,7 +859,7 @@ class="MathClass-close">)</mo></mrow></math>
   class="enumerate" id="x1-10010x4">Else:
          <ol  class="enumerate2" >
          <li 
-  class="enumerate" id="x1-10012x1"><!--l. 195--><math 
+  class="enumerate" id="x1-10012x1"><!--l. 201--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >e</mi> <mo 
@@ -888,14 +892,14 @@ class="text"><mtext  >bits</mtext></mstyle> <mo
 class="MathClass-bin">+</mo> <mn>1</mn></mrow><mo 
 class="MathClass-close">)</mo></mrow></math>.</li></ol>
      </li></ol>
-<!--l. 199--><p class="noindent" >
+<!--l. 205--><p class="noindent" >
 </p>
    <h3 class="likesectionHead"><a 
- id="x1-110005"></a>Example (decode <!--l. 199--><math 
+ id="x1-110005"></a>Example (decode <!--l. 205--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mn>1</mn><mn>0</mn><mn>0</mn><mn>1</mn><mn>0</mn><mn>1</mn></math>)</h3>
      <ul class="itemize1">
-     <li class="itemize"><!--l. 201--><math 
+     <li class="itemize"><!--l. 207--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >S</mi><mi 
@@ -904,13 +908,13 @@ display="inline" ><mi
 >S</mi> <mo 
 class="MathClass-rel">←</mo> <mn>3</mn></math>.
      </li>
-     <li class="itemize"><!--l. 202--><math 
+     <li class="itemize"><!--l. 208--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >x</mi> <mo 
 class="MathClass-rel">←</mo> <mn>1</mn></math>.
      </li>
-     <li class="itemize"><!--l. 203--><math 
+     <li class="itemize"><!--l. 209--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >e</mi> <mo 
@@ -919,7 +923,7 @@ class="MathClass-rel">←</mo> <msup><mrow
 ><mn>2</mn></mrow></msup 
 ><mo 
 class="MathClass-bin">+</mo></math>
-     next two input bits (01) <!--l. 203--><math 
+     next two input bits (01) <!--l. 209--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" > <mo 
 class="MathClass-rel">=</mo> <mn>1</mn><mn>0</mn><msub><mrow 
@@ -930,14 +934,14 @@ class="MathClass-rel">=</mo> <msub><mrow
 ><mn>5</mn></mrow><mrow 
 ><mn>1</mn><mn>0</mn></mrow></msub 
 ></math>.</li></ul>
-<!--l. 206--><p class="noindent" >
+<!--l. 212--><p class="noindent" >
 </p>
    <h3 class="likesectionHead"><a 
- id="x1-120005"></a>Example (decode <!--l. 206--><math 
+ id="x1-120005"></a>Example (decode <!--l. 212--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mn>1</mn><mn>0</mn><mn>1</mn><mn>0</mn><mn>1</mn><mn>1</mn><mn>0</mn></math>)</h3>
      <ul class="itemize1">
-     <li class="itemize"><!--l. 208--><math 
+     <li class="itemize"><!--l. 214--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >S</mi><mi 
@@ -946,7 +950,7 @@ display="inline" ><mi
 >S</mi> <mo 
 class="MathClass-rel">←</mo> <mn>4</mn></math>.
      </li>
-     <li class="itemize"><!--l. 209--><math 
+     <li class="itemize"><!--l. 215--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >x</mi> <mo 
@@ -955,18 +959,18 @@ class="MathClass-rel">←</mo> <mn>0</mn></math>.
 
                                                                   
      </li>
-     <li class="itemize">(Using 8 bits of precision) <!--l. 210--><math 
+     <li class="itemize">(Using 8 bits of precision) <!--l. 216--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >e</mi> <mo 
 class="MathClass-rel">←</mo></math>
-     <!--l. 210--><math 
+     <!--l. 216--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mn>1</mn><mn>1</mn><mn>1</mn><mn>1</mn><mn>1</mn><mn>1</mn><mn>1</mn><msub><mrow 
 ><mn>1</mn></mrow><mrow 
 ><mn>2</mn></mrow></msub 
 ></math>
-     AND (<!--l. 211--><math 
+     AND (<!--l. 217--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mn>0</mn><mn>0</mn><mn>0</mn><msub><mrow 
 ><mn>0</mn></mrow><mrow 
@@ -990,53 +994,29 @@ class="MathClass-bin">−</mo><msub><mrow
 ><mn>9</mn></mrow><mrow 
 ><mn>1</mn><mn>0</mn></mrow></msub 
 ></math>
-     (the four least signiﬁcant bits of <!--l. 212--><math 
+     (the four least signiﬁcant bits of <!--l. 218--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mn>0</mn><mn>1</mn><mn>1</mn><msub><mrow 
 ><mn>1</mn></mrow><mrow 
 ><mn>2</mn></mrow></msub 
 ></math>
-     are supposed to be <!--l. 212--><math 
+     are supposed to be <!--l. 218--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mn>1</mn></math>.</li></ul>
-<!--l. 215--><p class="noindent" >
-</p>
-   <h3 class="likesectionHead"><a 
- id="x1-130005"></a>Lab</h3>
-<!--l. 216--><p class="noindent" >
-     </p><ol  class="enumerate1" >
-     <li 
-  class="enumerate" id="x1-13002x1">Download     <a 
-href="ftp.cs.cornell.edu:/pub/multimed/ljpg.tar.Z" class="url" ><span 
-class="ectt-1000">ftp.cs.cornell.edu:/pub/multimed/ljpg.tar.Z</span></a>   and
-     compile it.
-     </li>
-     <li 
-  class="enumerate" id="x1-13004x2">Fill the table
-                                                                  
-
-                                                                  
-     <div class="verbatim" id="verbatim-1">
-       Codec | lena boats pepers zelda Average
-      <br />--------+--------------------------------
-      <br />      : |    :     :      :     :       :
-      <br />ls-jpeg | ....  ....   ....  ....    ....
-</div>
-     <!--l. 225--><p class="nopar" ></p></li></ol>
-<!--l. 228--><p class="noindent" >
+<!--l. 235--><p class="noindent" >
 </p>
    <h3 class="sectionHead"><span class="titlemark">6   </span> <a 
- id="x1-140006"></a>Lossy JPEG</h3>
-<!--l. 229--><p class="noindent" >Para una imagen RGB, el algoritmo básico consiste en:
+ id="x1-130006"></a>Lossy JPEG</h3>
+<!--l. 236--><p class="noindent" >For a RGB image, the baseline algorithm consist of:
      </p><ol  class="enumerate1" >
      <li 
-  class="enumerate" id="x1-14002x1">Convertir la imagen al dominio YCbCr.
+  class="enumerate" id="x1-13002x1">Transform the image from the RGB to the YCbCr domain.
      </li>
      <li 
-  class="enumerate" id="x1-14004x2">Submuestrear la crominancia.
+  class="enumerate" id="x1-13004x2">Subsample the crominance (CrCb).
      </li>
      <li 
-  class="enumerate" id="x1-14006x3">Desplazar cada componente al rango <!--l. 233--><math 
+  class="enumerate" id="x1-13006x3">Shift each color component to the range <!--l. 240--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mrow ><mo 
 class="MathClass-open">[</mo><mrow><mo 
@@ -1045,25 +1025,25 @@ class="MathClass-punc">,</mo><mn>1</mn><mn>2</mn><mn>7</mn></mrow><mo
 class="MathClass-close">]</mo></mrow></math>.
      </li>
      <li 
-  class="enumerate" id="x1-14008x4">Para cada componente (Y, Cb y Cr):
+  class="enumerate" id="x1-13008x4">For each component (Y, Cb y Cr):
          <ol  class="enumerate2" >
          <li 
-  class="enumerate" id="x1-14010x1">Aplicar la (<!--l. 236--><math 
+  class="enumerate" id="x1-13010x1">Apply the (<!--l. 243--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mn>8</mn> <mo 
 class="MathClass-bin">×</mo> <mn>8</mn></math>)-DCT
-         a cada componente.
+         to each component.
          </li>
          <li 
-  class="enumerate" id="x1-14012x2">Cuantiﬁcar los coeﬁcientes DCT.
+  class="enumerate" id="x1-13012x2">Quantize the DCT coeﬃcients.
          </li>
          <li 
-  class="enumerate" id="x1-14014x3">Codiﬁcar entrópicamente los coeﬁcientes cuantiﬁcados.</li></ol>
+  class="enumerate" id="x1-13014x3">Entropy encode the quantized coeﬃcients.</li></ol>
      </li></ol>
-<!--l. 242--><p class="noindent" >
+<!--l. 249--><p class="noindent" >
 </p>
    <h3 class="sectionHead"><span class="titlemark">7   </span> <a 
- id="x1-150007"></a><!--l. 242--><math 
+ id="x1-140007"></a><!--l. 249--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mrow ><mo 
 class="MathClass-open">[</mo><mrow><mn>0</mn><mo 
@@ -1074,41 +1054,41 @@ class="MathClass-open">[</mo><mrow><mo
 class="MathClass-bin">−</mo><mn>1</mn><mn>2</mn><mn>8</mn><mo 
 class="MathClass-punc">,</mo><mn>1</mn><mn>2</mn><mn>7</mn></mrow><mo 
 class="MathClass-close">]</mo></mrow></math></h3>
-                                                                  
-
-                                                                  
      <ul class="itemize1">
      <li class="itemize">Every component should be 0-average. For this reason, if the values of the
-     Y, Cb and CR components are in the range <!--l. 245--><math 
+     Y, Cb and CR components are in the range <!--l. 252--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mrow ><mo 
 class="MathClass-open">[</mo><mrow><mn>0</mn><mo 
 class="MathClass-punc">,</mo><mn>2</mn><mn>5</mn><mn>5</mn></mrow><mo 
 class="MathClass-close">]</mo></mrow></math>,
-     the <!--l. 246--><math 
+     the <!--l. 253--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mn>1</mn><mn>2</mn><mn>8</mn></math>
      is substracted (pixel-to-pixel) from each of them.
+                                                                  
+
+                                                                  
      </li>
      <li class="itemize">This is neccesary to reduce the arithmetic precision of the computation of
      the next step (the DCT).</li></ul>
-<!--l. 251--><p class="noindent" >
+<!--l. 258--><p class="noindent" >
 </p>
    <h3 class="sectionHead"><span class="titlemark">8   </span> <a 
- id="x1-160008"></a>8x8 2D-DCT</h3>
+ id="x1-150008"></a>8x8 2D-DCT</h3>
      <ul class="itemize1">
      <li class="itemize">Every component is <a 
-href="http://www.ual.es/~vruiz/docencia/JPEG/index.html#x1-160008" >DCT-transformed</a> in blocks of <!--l. 255--><math 
+href="https://vicente-gonzalez-ruiz.github.io/image_transformations_for_coding/#x1-2800019" >DCT-transformed</a> in blocks of <!--l. 262--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mn>8</mn> <mo 
 class="MathClass-bin">×</mo> <mn>8</mn></math>
      pixels.</li></ul>
-<!--l. 258--><p class="noindent" >
+<!--l. 265--><p class="noindent" >
 </p>
    <h3 class="sectionHead"><span class="titlemark">9   </span> <a 
- id="x1-170009"></a>Basis functions of the 8x8 2D-DCT</h3>
+ id="x1-160009"></a>Basis functions of the 8x8 2D-DCT</h3>
      <ul class="itemize1">
-     <li class="itemize">Every <!--l. 260--><math 
+     <li class="itemize">Every <!--l. 267--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mn>8</mn> <mo 
 class="MathClass-bin">×</mo> <mn>8</mn></math>-DCT
@@ -1116,19 +1096,16 @@ class="MathClass-bin">×</mo> <mn>8</mn></math>-DCT
      reconstruct the block.</li></ul>
 <div class="center" 
 >
-<!--l. 264--><p class="noindent" >
-</p><!--l. 265--><p class="noindent" ><div style="text-align:center;"> <img src="graphics/8x8_DCT_basis.png" /> </div>  600</p></div>
-<!--l. 268--><p class="noindent" >
+<!--l. 271--><p class="noindent" >
+</p><!--l. 272--><p class="noindent" ><div style="text-align:center;"> <img src="graphics/8x8_DCT_basis.png" /> </div>  600</p></div>
+<!--l. 275--><p class="noindent" >
 </p>
    <h3 class="sectionHead"><span class="titlemark">10   </span> <a 
- id="x1-1800010"></a>Advantages of the 8x8 2D-DCT</h3>
-                                                                  
-
-                                                                  
+ id="x1-1700010"></a>Advantages of the 8x8 2D-DCT</h3>
      <ul class="itemize1">
      <li class="itemize"><span 
 class="ecbx-1000">A lower total computational cost:</span><br 
-class="newline" />It’s faster the computation of <!--l. 271--><math 
+class="newline" />It’s faster the computation of <!--l. 278--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mrow ><mo 
 class="MathClass-open">(</mo><mrow><mfrac><mrow 
@@ -1142,30 +1119,33 @@ class="MathClass-bin">×</mo><mfrac><mrow
 <mrow 
 ><mn>8</mn></mrow></mfrac> </mrow><mo 
 class="MathClass-close">)</mo></mrow></math>
-     <!--l. 271--><math 
+     <!--l. 278--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mn>8</mn> <mo 
 class="MathClass-bin">×</mo> <mn>8</mn></math>-DCTs
-     than only one <!--l. 272--><math 
+     than only one <!--l. 279--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >N</mi> <mo 
 class="MathClass-bin">×</mo> <mi 
 >N</mi></math>-DCT.
+                                                                  
+
+                                                                  
      </li>
      <li class="itemize"><span 
 class="ecbx-1000">“In-line” operation:</span><br 
-class="newline" />The compressor process the images using blocks of <!--l. 279--><math 
+class="newline" />The compressor process the images using blocks of <!--l. 286--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mn>8</mn> <mo 
 class="MathClass-bin">×</mo> <mn>8</mn></math>
      pixels, independiently of the size of the image.</li></ul>
-<!--l. 283--><p class="noindent" >
+<!--l. 290--><p class="noindent" >
 </p>
    <h3 class="sectionHead"><span class="titlemark">11   </span> <a 
- id="x1-1900011"></a>Scalar quantization</h3>
+ id="x1-1800011"></a>Scalar quantization</h3>
      <ul class="itemize1">
-     <li class="itemize">The main objective of the <!--l. 285--><math 
+     <li class="itemize">The main objective of the <!--l. 292--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mn>8</mn> <mo 
 class="MathClass-bin">×</mo> <mn>8</mn></math>-DCT
@@ -1184,8 +1164,8 @@ class="MathClass-bin">×</mo> <mn>8</mn></math>-DCT
      for the chroma).</li></ul>
 <div class="center" 
 >
-<!--l. 298--><p class="noindent" >
-</p><!--l. 299--><p class="noindent" > <!--tex4ht:inline--></p><div class="tabular"> <table id="TBL-7" class="tabular" 
+<!--l. 305--><p class="noindent" >
+</p><!--l. 306--><p class="noindent" > <!--tex4ht:inline--></p><div class="tabular"> <table id="TBL-7" class="tabular" 
 cellspacing="0" cellpadding="0"  
 ><colgroup id="TBL-7-1g"><col 
 id="TBL-7-1" /><col 
@@ -1381,13 +1361,13 @@ class="td11">   </td></tr></table>                                              
      <ul class="itemize1">
      <li class="itemize">At  it  can  be  seen,  there  is  an  overall  tendence  to  preserve  the  low
      frequencies of the image.
+     </li>
+     <li class="itemize">The quantization is described by <table class="equation"><tr><td> <a 
+ id="x1-18001r1"></a>
                                                                   
 
                                                                   
-     </li>
-     <li class="itemize">The quantization is described by <table class="equation"><tr><td> <a 
- id="x1-19001r1"></a>
-     <!--l. 335--><math 
+     <!--l. 342--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="block" class="equation"><msup><mrow 
 >
@@ -1422,7 +1402,7 @@ class="MathClass-punc">,</mo><mi
 class="MathClass-close">]</mo></mrow></mrow></mfrac>       <mstyle mathsize="1.61em"><mfenced separators="" 
 open=")"  close="" ><mrow></mrow></mfenced></mstyle>
 </math></td><td class="eq-no">(1)</td></tr></table>
-     <!--l. 338--><p class="noindent" >where <!--l. 338--><math 
+     <!--l. 345--><p class="noindent" >where <!--l. 345--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mstyle 
 class="text"><mtext  >Z</mtext></mstyle><mrow ><mo 
@@ -1435,38 +1415,38 @@ class="MathClass-close">]</mo></mrow></math>
      </p></li>
      <li class="itemize">It is possible to use diﬀerent quantization matrixes, but they should be sent to
      the decompressor.</li></ul>
-<!--l. 343--><p class="noindent" >
+<!--l. 350--><p class="noindent" >
 </p>
    <h3 class="sectionHead"><span class="titlemark">12   </span> <a 
- id="x1-2000012"></a>Entropy encoding</h3>
-<!--l. 344--><p class="noindent" >
+ id="x1-1900012"></a>Entropy encoding</h3>
+<!--l. 351--><p class="noindent" >
      </p><ol  class="enumerate1" >
      <li 
-  class="enumerate" id="x1-20002x1">Substract to the DC coeﬃcient the DC coeﬃcient of the last encoded
+  class="enumerate" id="x1-19002x1">Substract to the DC coeﬃcient the DC coeﬃcient of the last encoded
      block. This calculus exploits the correlation between blocks.
      </li>
      <li 
-  class="enumerate" id="x1-20004x2">Run the coeﬃcients using the zig-zag pattern:
+  class="enumerate" id="x1-19004x2">Run the coeﬃcients using the zig-zag pattern:
      <div class="center" 
 >
-<!--l. 349--><p class="noindent" >
-</p><!--l. 350--><p class="noindent" ><div style="text-align:center;"> <img width=400 src="graphics/zigzag.svg" /> </div>  </p></div>
-     <!--l. 352--><p class="noindent" >in order to (partially) sorter the coeﬃcients attending to their magnitude.
+<!--l. 356--><p class="noindent" >
+</p><!--l. 357--><p class="noindent" ><div style="text-align:center;"> <img width=400 src="graphics/zigzag.svg" /> </div>  </p></div>
+     <!--l. 359--><p class="noindent" >in order to (partially) sorter the coeﬃcients attending to their magnitude.
      Notice that, after a given coeﬃcient, the remainder ones are zero. This situation
      if encoded using the EOB (End Of Block) special symbol.
+     </p></li>
+     <li 
+  class="enumerate" id="x1-19006x3">Encode the runs of non-zero coeﬃcients using a variable-length
+     code.<span class="footnote-mark"><a 
+href="index2.html#fn1x0"><sup class="textsuperscript">1</sup></a></span><a 
+ id="x1-19007f1"></a> </li></ol>
                                                                   
 
                                                                   
-     </p></li>
-     <li 
-  class="enumerate" id="x1-20006x3">Encode the runs of non-zero coeﬃcients using a variable-length
-     code.<span class="footnote-mark"><a 
-href="index2.html#fn1x0"><sup class="textsuperscript">1</sup></a></span><a 
- id="x1-20007f1"></a> </li></ol>
-<!--l. 363--><p class="noindent" >
+<!--l. 370--><p class="noindent" >
 </p>
    <h3 class="sectionHead"><span class="titlemark">13   </span> <a 
- id="x1-2100013"></a>Interlacing of the color components</h3>
+ id="x1-2000013"></a>Interlacing of the color components</h3>
      <ul class="itemize1">
      <li class="itemize">Typically, in JPEG the 4:2:0 subsamplig pattern is the most used one (see
      Section <span 
@@ -1476,45 +1456,45 @@ class="ecbx-1000">??</span>).
      images row-by-row.
          <ol  class="enumerate1" >
          <li 
-  class="enumerate" id="x1-21002x1">With interlacing:
+  class="enumerate" id="x1-20002x1">With interlacing:
          <div class="center" 
 >
-<!--l. 371--><p class="noindent" >
-</p><!--l. 372--><p class="noindent" ><div style="text-align:center;"> <img width=600 src="graphics/JPEG_entrelazamiento_componentes.svg" /> </div>  </p></div>
+<!--l. 378--><p class="noindent" >
+</p><!--l. 379--><p class="noindent" ><div style="text-align:center;"> <img width=600 src="graphics/JPEG_entrelazamiento_componentes.svg" /> </div>  </p></div>
          </li>
          <li 
-  class="enumerate" id="x1-21004x2">Without interlacing:
+  class="enumerate" id="x1-20004x2">Without interlacing:
          <div class="center" 
 >
-<!--l. 375--><p class="noindent" >
-</p><!--l. 377--><p class="noindent" ><div style="text-align:center;"> <img width=600 src="graphics/JPEG_no_entrelazamiento_componentes.svg" /> </div>  </p></div>
+<!--l. 382--><p class="noindent" >
+</p><!--l. 384--><p class="noindent" ><div style="text-align:center;"> <img width=600 src="graphics/JPEG_no_entrelazamiento_componentes.svg" /> </div>  </p></div>
          </li></ol>
      </li></ul>
-<!--l. 382--><p class="noindent" >
+<!--l. 389--><p class="noindent" >
 </p>
    <h3 class="likesectionHead"><a 
- id="x1-2200013"></a>Example</h3>
-                                                                  
-
-                                                                  
+ id="x1-2100013"></a>Example</h3>
      <ul class="itemize1">
      <li class="itemize">Let’s encode a block of a grayscale image (luminance of “lena”).
      <div class="center" 
 >
-<!--l. 386--><p class="noindent" >
-</p><!--l. 387--><p class="noindent" ><div style="text-align:center;"> <img width=400 src="graphics/JPEG_codec.svg" /> </div>  </p></div>
+<!--l. 393--><p class="noindent" >
+</p><!--l. 394--><p class="noindent" ><div style="text-align:center;"> <img width=400 src="graphics/JPEG_codec.svg" /> </div>  </p></div>
      </li></ul>
-<!--l. 391--><p class="noindent" >
+                                                                  
+
+                                                                  
+<!--l. 398--><p class="noindent" >
 </p>
    <h4 class="likesubsectionHead"><a 
- id="x1-2300013"></a><!--l. 391--><math 
+ id="x1-2200013"></a><!--l. 398--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mn>8</mn> <mo 
 class="MathClass-bin">×</mo> <mn>8</mn></math>-DCT</h4>
 <div class="center" 
 >
-<!--l. 392--><p class="noindent" >
-</p><!--l. 393--><p class="noindent" > <!--tex4ht:inline--></p><div class="tabular"> <table id="TBL-10" class="tabular" 
+<!--l. 399--><p class="noindent" >
+</p><!--l. 400--><p class="noindent" > <!--tex4ht:inline--></p><div class="tabular"> <table id="TBL-10" class="tabular" 
 cellspacing="0" cellpadding="0"  
 ><colgroup id="TBL-10-1g"><col 
 id="TBL-10-1" /><col 
@@ -1612,7 +1592,7 @@ class="td11">78</td>
 class="hline"><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
  style="vertical-align:baseline;" id="TBL-11-9-"><td  style="text-align:right; white-space:nowrap;" id="TBL-11-9-1"  
 class="td11">   </td></tr></table>                                                             </div> </td><td  style="text-align:center; white-space:nowrap;" id="TBL-10-1-2"  
-class="td11"> <!--l. 423--><math 
+class="td11"> <!--l. 430--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" > <mo 
 class="MathClass-rel">⇔</mo></math> </td><td  style="text-align:center; white-space:nowrap;" id="TBL-10-1-3"  
@@ -1711,14 +1691,14 @@ class="td11">   </td></tr></table>                                              
      <ul class="itemize1">
      <li class="itemize">Notice  that  the  most  part  of  the  energy  is  concentrated  in  the  DC
      coeﬃcient and in the AC subrrounding coeﬃcients.</li></ul>
-<!--l. 430--><p class="noindent" >
+<!--l. 437--><p class="noindent" >
 </p>
    <h4 class="likesubsectionHead"><a 
- id="x1-2400013"></a>Quantization</h4>
+ id="x1-2300013"></a>Quantization</h4>
 <div class="center" 
 >
-<!--l. 431--><p class="noindent" >
-</p><!--l. 432--><p class="noindent" > <!--tex4ht:inline--></p><div class="tabular"> <table id="TBL-13" class="tabular" 
+<!--l. 438--><p class="noindent" >
+</p><!--l. 439--><p class="noindent" > <!--tex4ht:inline--></p><div class="tabular"> <table id="TBL-13" class="tabular" 
 cellspacing="0" cellpadding="0"  
 ><colgroup id="TBL-13-1g"><col 
 id="TBL-13-1" /><col 
@@ -2010,18 +1990,18 @@ class="hline"><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><h
 class="td11">     </td></tr></table></div></div>
      <ul class="itemize1">
      <li class="itemize">Notice that the high frecuencies have been erased.</li></ul>
+<!--l. 489--><p class="noindent" >
+</p>
+   <h4 class="likesubsectionHead"><a 
+ id="x1-2400013"></a>EOB generation</h4>
+     <ul class="itemize1">
+     <li class="itemize">The coeﬁcients of the matrix
                                                                   
 
                                                                   
-<!--l. 482--><p class="noindent" >
-</p>
-   <h4 class="likesubsectionHead"><a 
- id="x1-2500013"></a>EOB generation</h4>
-     <ul class="itemize1">
-     <li class="itemize">The coeﬁcients of the matrix
      <div class="center" 
 >
-<!--l. 485--><p class="noindent" >
+<!--l. 492--><p class="noindent" >
 </p>
 <div class="tabular"> <table id="TBL-17" class="tabular" 
 cellspacing="0" cellpadding="0" rules="groups" 
@@ -2117,10 +2097,10 @@ class="hline"><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td><td><h
  style="vertical-align:baseline;" id="TBL-17-9-"><td  style="text-align:right; white-space:nowrap;" id="TBL-17-9-1"  
 class="td11">     </td>
 </tr></table></div></div>
-     <!--l. 499--><p class="noindent" >are visited using the zig-zag scan to tind the EOB. The result is </p>
+     <!--l. 506--><p class="noindent" >are visited using the zig-zag scan to tind the EOB. The result is </p>
      <div class="center" 
 >
-<!--l. 500--><p class="noindent" >
+<!--l. 507--><p class="noindent" >
 </p>
 <div class="tabular"> <table id="TBL-18" class="tabular" 
 cellspacing="0" cellpadding="0"  
@@ -2155,21 +2135,21 @@ class="td11"> EOB  </td>
 </tr></table>
 </div></div>
      </li></ul>
-<!--l. 507--><p class="noindent" >
+<!--l. 514--><p class="noindent" >
 </p>
    <h3 class="sectionHead"><span class="titlemark">14   </span> <a 
- id="x1-2600014"></a>Entropy encoding of the runs</h3>
+ id="x1-2500014"></a>Entropy encoding of the runs</h3>
      <ul class="itemize1">
      <li class="itemize"><span 
 class="ecbx-1000">Encoding of the DC coeﬃcient. </span>Substract to the DC coeﬃcient the
-     previous one. In the last example, we have <!--l. 511--><math 
+     previous one. In the last example, we have <!--l. 518--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mn>3</mn><mn>9</mn> <mo 
 class="MathClass-bin">−</mo> <mn>3</mn><mn>4</mn> <mo 
 class="MathClass-rel">=</mo> <mn>5</mn></math>.
      This value is encoded as a residue using the LS-JPEG encoding machinery
      (see Section <a 
-href="#x1-70004">4<!--tex4ht:ref: sec:compresion_huffman_LS-JPEG --></a>). The result is <!--l. 513--><math 
+href="#x1-70004">4<!--tex4ht:ref: sec:compresion_huffman_LS-JPEG --></a>). The result is <!--l. 520--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mn>1</mn><mn>0</mn><mn>0</mn><mn>1</mn><mn>0</mn><msub><mrow 
 ><mn>1</mn></mrow><mrow 
@@ -2179,12 +2159,9 @@ display="inline" ><mn>1</mn><mn>0</mn><mn>0</mn><mn>1</mn><mn>0</mn><msub><mrow
      <li class="itemize"><span 
 class="ecbx-1000">Encoding of the AC coeﬃcients. </span>We encode the pairs
      &#x003C;number-of-previous-zeros,non-zero-value&#x003E; in two steps.
-                                                                  
-
-                                                                  
          <ol  class="enumerate1" >
          <li 
-  class="enumerate" id="x1-26002x1">Find the <!--l. 517--><math 
+  class="enumerate" id="x1-25002x1">Find the <!--l. 524--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >S</mi><mi 
@@ -2192,11 +2169,11 @@ display="inline" ><mi
 >S</mi><mi 
 >S</mi></math>
          category correspoding to the AC coeﬃcient. For example, if the coeﬃcient
-         is <!--l. 518--><math 
+         is <!--l. 525--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" > <mo 
 class="MathClass-bin">−</mo> <mn>3</mn></math>,
-         we determine that <!--l. 519--><math 
+         we determine that <!--l. 526--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >S</mi><mi 
@@ -2206,9 +2183,12 @@ display="inline" ><mi
 class="MathClass-rel">←</mo> <mn>2</mn></math>
          (see Section <a 
 href="#x1-70004">4<!--tex4ht:ref: sec:compresion_huffman_LS-JPEG --></a>).
+                                                                  
+
+                                                                  
          </li>
          <li 
-  class="enumerate" id="x1-26004x2">Find the entry &#x003C;number-of-previous-zeros,<!--l. 521--><math 
+  class="enumerate" id="x1-25004x2">Find the entry &#x003C;number-of-previous-zeros,<!--l. 528--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >S</mi><mi 
@@ -2218,7 +2198,7 @@ display="inline" ><mi
          in the table of AC codes proposed by the JPEG:
          <div class="center" 
 >
-<!--l. 523--><p class="noindent" >
+<!--l. 530--><p class="noindent" >
 </p>
 <div class="tabular"> <table id="TBL-19" class="tabular" 
 cellspacing="0" cellpadding="0" rules="groups" 
@@ -2226,7 +2206,7 @@ cellspacing="0" cellpadding="0" rules="groups"
 id="TBL-19-1" /></colgroup><colgroup id="TBL-19-2g"><col 
 id="TBL-19-2" /></colgroup><colgroup id="TBL-19-3g"><col 
 id="TBL-19-3" /></colgroup><tr  
- style="vertical-align:baseline;" id="TBL-19-1-"><td colspan="3" style="text-align:right; white-space:nowrap;" id="TBL-19-1-1"  
+ style="vertical-align:baseline;" id="TBL-19-1-"><td colspan="3" style="text-align:center; white-space:nowrap;" id="TBL-19-1-1"  
 class="td11">           <div class="multicolumn"  style="text-align:center; white-space:nowrap;">JPEG AC codes (Luminance)</div>
 </td></tr><tr 
 class="hline"><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
@@ -2270,8 +2250,8 @@ class="hline"><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr
  style="vertical-align:baseline;" id="TBL-19-9-"><td  style="text-align:right; white-space:nowrap;" id="TBL-19-9-1"  
 class="td11">              </td></tr></table>
 </div></div>
-         <!--l. 538--><p class="noindent" >and output the base code bits. In our example, we output
-         <!--l. 538--><math 
+         <!--l. 545--><p class="noindent" >and output the base code bits. In our example, we output
+         <!--l. 545--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mn>0</mn><msub><mrow 
 ><mn>1</mn></mrow><mrow 
@@ -2279,21 +2259,21 @@ display="inline" ><mn>0</mn><msub><mrow
 ></math>.
          </p></li>
          <li 
-  class="enumerate" id="x1-26006x3">Execute the Step 3 of the LS-JPEG encoding algorithm taking
-         <!--l. 539--><math 
+  class="enumerate" id="x1-25006x3">Execute the Step 3 of the LS-JPEG encoding algorithm taking
+         <!--l. 546--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >e</mi> <mo 
 class="MathClass-rel">=</mo></math>
          the AC coeﬃent. In our example, we output
-         <!--l. 540--><math 
+         <!--l. 547--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" > <mo 
 class="MathClass-bin">−</mo> <mn>3</mn> <mo 
 class="MathClass-bin">−</mo> <mn>2</mn> <mo 
 class="MathClass-rel">=</mo> <mo 
 class="MathClass-bin">−</mo><mn>4</mn></math> using a binary
-         number of <!--l. 541--><math 
+         number of <!--l. 548--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mi 
 >S</mi><mi 
@@ -2301,17 +2281,17 @@ display="inline" ><mi
 >S</mi><mi 
 >S</mi> <mo 
 class="MathClass-rel">=</mo> <mn>2</mn></math>
-         bits that is <!--l. 541--><math 
+         bits that is <!--l. 548--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mn>0</mn><msub><mrow 
 ><mn>0</mn></mrow><mrow 
 ><mn>2</mn></mrow></msub 
 ></math>.</li></ol>
      </li></ul>
-<!--l. 545--><p class="noindent" >The whole bit-stream for our example is: </p>
+<!--l. 552--><p class="noindent" >The whole bit-stream for our example is: </p>
 <div class="center" 
 >
-<!--l. 546--><p class="noindent" >
+<!--l. 553--><p class="noindent" >
 </p>
 <div class="tabular"> <table id="TBL-20" class="tabular" 
 cellspacing="0" cellpadding="0"  
@@ -2334,30 +2314,30 @@ class="td11"> 001  </td><td  style="text-align:center; white-space:nowrap;" id="
 class="td11"> 11110100  </td><td  style="text-align:center; white-space:nowrap;" id="TBL-20-1-8"  
 class="td11"> 1010  </td></tr></table>
 </div></div>
-<!--l. 552--><p class="indent" >   Finally, the block is encoded using only
-<!--l. 552--><math 
+<!--l. 559--><p class="indent" >   Finally, the block is encoded using only
+<!--l. 559--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mn>3</mn><mn>5</mn></math>
 bits. Therefore, the compression ratio is 15:1 approximately
-(<!--l. 553--><math 
+(<!--l. 560--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mn>0</mn><mo 
 class="MathClass-punc">.</mo><mn>5</mn><mn>5</mn></math>
 bits/pixel).
+</p><!--l. 562--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">15   </span> <a 
+ id="x1-2600015"></a>Progressive transmission</h3>
                                                                   
 
                                                                   
-</p><!--l. 555--><p class="noindent" >
-</p>
-   <h3 class="sectionHead"><span class="titlemark">15   </span> <a 
- id="x1-2700015"></a>Progressive transmission</h3>
      <ul class="itemize1">
      <li class="itemize">Very useful when the images are transmited over slow links.
      </li>
      <li class="itemize">There are three positilities:
          <ol  class="enumerate1" >
          <li 
-  class="enumerate" id="x1-27002x1"><span 
+  class="enumerate" id="x1-26002x1"><span 
 class="ecbx-1000">Progressive transmission based on spectral selection:</span>
              <ul class="itemize2">
              <li class="itemize">All the low frequency coeﬃcients are transmitted before than the
@@ -2366,7 +2346,7 @@ class="ecbx-1000">Progressive transmission based on spectral selection:</span>
              <li class="itemize">Provides up to 64 scans.</li></ul>
          </li>
          <li 
-  class="enumerate" id="x1-27004x2"><span 
+  class="enumerate" id="x1-26004x2"><span 
 class="ecbx-1000">Progressive transmission based on bit-plane selection:</span>
              <ul class="itemize2">
              <li class="itemize">The most signiﬁcant bit-planes of all coeﬃcients are transmitted
@@ -2375,7 +2355,7 @@ class="ecbx-1000">Progressive transmission based on bit-plane selection:</span>
              <li class="itemize">Provides up to 11 scans.</li></ul>
          </li>
          <li 
-  class="enumerate" id="x1-27006x3"><span 
+  class="enumerate" id="x1-26006x3"><span 
 class="ecbx-1000">Progressive transmission based on a mixture of the last</span>
          <span 
 class="ecbx-1000">progressions:</span>
@@ -2388,44 +2368,44 @@ class="ecbx-1000">progressions:</span>
              <li class="itemize">Up to 704 scans.</li></ul>
          </li></ol>
      </li></ul>
-<!--l. 585--><p class="noindent" >
+<!--l. 592--><p class="noindent" >
 </p>
    <h3 class="sectionHead"><span class="titlemark">16   </span> <a 
- id="x1-2800016"></a>The hierarchical algorithm</h3>
-                                                                  
-
-                                                                  
+ id="x1-2700016"></a>The hierarchical algorithm</h3>
      <ul class="itemize1">
      <li class="itemize">It is based on building a diﬀerential pyramid and after that, every level of
      the pyramid (residue image) is compressed using the losy encoder or the
      lossless encoder.
+                                                                  
+
+                                                                  
      </li>
      <li class="itemize">To create the pyramid we can use the following algorithm:
          <ol  class="enumerate1" >
          <li 
-  class="enumerate" id="x1-28002x1">Subsample (ﬁltering previously) the image in a factor of 2 in each
+  class="enumerate" id="x1-27002x1">Subsample (ﬁltering previously) the image in a factor of 2 in each
          dimension.
          </li>
          <li 
-  class="enumerate" id="x1-28004x2">Interpolate the subsampled image in a factor of 2 in each dimension.
+  class="enumerate" id="x1-27004x2">Interpolate the subsampled image in a factor of 2 in each dimension.
          </li>
          <li 
-  class="enumerate" id="x1-28006x3">Substract this image to the original one, obtaining a residue image
+  class="enumerate" id="x1-27006x3">Substract this image to the original one, obtaining a residue image
          that is the base of the pyramid (the high frequencies). Notice that if
          we add this image and the image obtained in the Step 1, we recover
          the original image.
          </li>
          <li 
-  class="enumerate" id="x1-28008x4">Repeat this process considering the subsampled image as the original
+  class="enumerate" id="x1-27008x4">Repeat this process considering the subsampled image as the original
          one.</li></ol>
      </li>
      <li class="itemize">This multi-resolution representation is useful in those cases where the
      original resolution of the image is too large to the actual display/printing
      system.</li></ul>
-<!--l. 608--><p class="noindent" >
+<!--l. 615--><p class="noindent" >
 </p>
    <h3 class="sectionHead"><span class="titlemark">17   </span> <a 
- id="x1-2900017"></a>Motion JPEG (M-JPEG)</h3>
+ id="x1-2800017"></a>Motion JPEG (M-JPEG)</h3>
      <ul class="itemize1">
      <li class="itemize">When each image of a sequece is compressed idependently using JPEG,
      we are using a Motion JPEG compressor.
@@ -2434,31 +2414,31 @@ class="ecbx-1000">progressions:</span>
      compressed image cound be diﬀerent:</li></ul>
 <div class="center" 
 >
-<!--l. 614--><p class="noindent" >
-</p><!--l. 615--><p class="noindent" ><div style="text-align:center;"> <img width=800 src="graphics/M-JPEG_ir.svg" /> </div>  </p></div>
+<!--l. 621--><p class="noindent" >
+</p><!--l. 622--><p class="noindent" ><div style="text-align:center;"> <img width=800 src="graphics/M-JPEG_ir.svg" /> </div>  </p></div>
                                                                   
 
                                                                   
-<!--l. 618--><p class="noindent" >
+<!--l. 625--><p class="noindent" >
 </p>
    <h3 class="likesectionHead"><a 
- id="x1-3000017"></a>Lena <!--l. 618--><math 
+ id="x1-2900017"></a>Lena <!--l. 625--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mn>5</mn><mn>1</mn><mn>2</mn> <mo 
 class="MathClass-bin">×</mo> <mn>5</mn><mn>1</mn><mn>2</mn></math>
 RGB original</h3>
 <div class="center" 
 >
-<!--l. 619--><p class="noindent" >
-</p><!--l. 620--><p class="noindent" ><div style="text-align:center;"> <img src="graphics/lena_rgb.png" /> </div>  </p></div>
-<!--l. 623--><p class="noindent" >
+<!--l. 626--><p class="noindent" >
+</p><!--l. 627--><p class="noindent" ><div style="text-align:center;"> <img src="graphics/lena_rgb.png" /> </div>  </p></div>
+<!--l. 630--><p class="noindent" >
 </p>
    <h3 class="likesectionHead"><a 
- id="x1-3100017"></a>Lena at <!--l. 623--><math 
+ id="x1-3000017"></a>Lena at <!--l. 630--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mn>1</mn><mo 
 class="MathClass-punc">.</mo><mn>0</mn></math>
-bpp (<!--l. 623--><math 
+bpp (<!--l. 630--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mstyle 
 class="text"><mtext  >PSNR</mtext></mstyle> <mo 
@@ -2467,16 +2447,16 @@ class="MathClass-punc">.</mo><mn>8</mn><mn>5</mn></math>
 dB)</h3>
 <div class="center" 
 >
-<!--l. 624--><p class="noindent" >
-</p><!--l. 625--><p class="noindent" ><div style="text-align:center;"> <img src="graphics/lena_10.jpg" /> </div>  </p></div>
-<!--l. 628--><p class="noindent" >
+<!--l. 631--><p class="noindent" >
+</p><!--l. 632--><p class="noindent" ><div style="text-align:center;"> <img src="graphics/lena_10.jpg" /> </div>  </p></div>
+<!--l. 635--><p class="noindent" >
 </p>
    <h3 class="likesectionHead"><a 
- id="x1-3200017"></a>Lena at <!--l. 628--><math 
+ id="x1-3100017"></a>Lena at <!--l. 635--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mn>0</mn><mo 
 class="MathClass-punc">.</mo><mn>5</mn></math>
-bpp (<!--l. 628--><math 
+bpp (<!--l. 635--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mstyle 
 class="text"><mtext  >PSNR</mtext></mstyle> <mo 
@@ -2485,16 +2465,16 @@ class="MathClass-punc">.</mo><mn>9</mn><mn>1</mn></math>
 dB)</h3>
 <div class="center" 
 >
-<!--l. 629--><p class="noindent" >
-</p><!--l. 630--><p class="noindent" ><div style="text-align:center;"> <img src="graphics/lena_05.jpg" /> </div>  </p></div>
-<!--l. 633--><p class="noindent" >
+<!--l. 636--><p class="noindent" >
+</p><!--l. 637--><p class="noindent" ><div style="text-align:center;"> <img src="graphics/lena_05.jpg" /> </div>  </p></div>
+<!--l. 640--><p class="noindent" >
 </p>
    <h3 class="likesectionHead"><a 
- id="x1-3300017"></a>Lena at <!--l. 633--><math 
+ id="x1-3200017"></a>Lena at <!--l. 640--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mn>0</mn><mo 
 class="MathClass-punc">.</mo><mn>4</mn></math>
-bpp (<!--l. 633--><math 
+bpp (<!--l. 640--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mstyle 
 class="text"><mtext  >PSNR</mtext></mstyle> <mo 
@@ -2506,16 +2486,16 @@ dB)</h3>
                                                                   
 <div class="center" 
 >
-<!--l. 634--><p class="noindent" >
-</p><!--l. 635--><p class="noindent" ><div style="text-align:center;"> <img src="graphics/lena_04.jpg" /> </div>  </p></div>
-<!--l. 638--><p class="noindent" >
+<!--l. 641--><p class="noindent" >
+</p><!--l. 642--><p class="noindent" ><div style="text-align:center;"> <img src="graphics/lena_04.jpg" /> </div>  </p></div>
+<!--l. 645--><p class="noindent" >
 </p>
    <h3 class="likesectionHead"><a 
- id="x1-3400017"></a>Lena at <!--l. 638--><math 
+ id="x1-3300017"></a>Lena at <!--l. 645--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mn>0</mn><mo 
 class="MathClass-punc">.</mo><mn>3</mn></math>
-bpp (<!--l. 638--><math 
+bpp (<!--l. 645--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mstyle 
 class="text"><mtext  >PSNR</mtext></mstyle> <mo 
@@ -2524,16 +2504,16 @@ class="MathClass-punc">.</mo><mn>9</mn><mn>7</mn></math>
 dB)</h3>
 <div class="center" 
 >
-<!--l. 639--><p class="noindent" >
-</p><!--l. 640--><p class="noindent" ><div style="text-align:center;"> <img src="graphics/lena_03.jpg" /> </div>  </p></div>
-<!--l. 643--><p class="noindent" >
+<!--l. 646--><p class="noindent" >
+</p><!--l. 647--><p class="noindent" ><div style="text-align:center;"> <img src="graphics/lena_03.jpg" /> </div>  </p></div>
+<!--l. 650--><p class="noindent" >
 </p>
    <h3 class="likesectionHead"><a 
- id="x1-3500017"></a>Lena at <!--l. 643--><math 
+ id="x1-3400017"></a>Lena at <!--l. 650--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mn>0</mn><mo 
 class="MathClass-punc">.</mo><mn>2</mn></math>
-bpp (<!--l. 643--><math 
+bpp (<!--l. 650--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mstyle 
 class="text"><mtext  >PSNR</mtext></mstyle> <mo 
@@ -2542,16 +2522,16 @@ class="MathClass-punc">.</mo><mn>6</mn><mn>4</mn></math>
 dB)</h3>
 <div class="center" 
 >
-<!--l. 644--><p class="noindent" >
-</p><!--l. 645--><p class="noindent" ><div style="text-align:center;"> <img src="graphics/lena_02.jpg" /> </div>  </p></div>
-<!--l. 648--><p class="noindent" >
+<!--l. 651--><p class="noindent" >
+</p><!--l. 652--><p class="noindent" ><div style="text-align:center;"> <img src="graphics/lena_02.jpg" /> </div>  </p></div>
+<!--l. 655--><p class="noindent" >
 </p>
    <h3 class="likesectionHead"><a 
- id="x1-3600017"></a>Lena at <!--l. 648--><math 
+ id="x1-3500017"></a>Lena at <!--l. 655--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mn>0</mn><mo 
 class="MathClass-punc">.</mo><mn>1</mn></math>
-bpp (<!--l. 648--><math 
+bpp (<!--l. 655--><math 
  xmlns="http://www.w3.org/1998/Math/MathML"  
 display="inline" ><mstyle 
 class="text"><mtext  >PSNR</mtext></mstyle> <mo 
@@ -2560,15 +2540,15 @@ class="MathClass-punc">.</mo><mn>2</mn><mn>9</mn></math>
 dB)</h3>
 <div class="center" 
 >
-<!--l. 649--><p class="noindent" >
-</p><!--l. 650--><p class="noindent" ><div style="text-align:center;"> <img src="graphics/lena_01.jpg" /> </div>  </p></div>
+<!--l. 656--><p class="noindent" >
+</p><!--l. 657--><p class="noindent" ><div style="text-align:center;"> <img src="graphics/lena_01.jpg" /> </div>  </p></div>
                                                                   
 
                                                                   
-<!--l. 653--><p class="noindent" >
+<!--l. 660--><p class="noindent" >
 </p>
    <h3 class="sectionHead"><span class="titlemark">18   </span> <a 
- id="x1-3700018"></a>Lab</h3>
+ id="x1-3600018"></a>Lab</h3>
      <ul class="itemize1">
      <li class="itemize">Download and compile the <a 
 href="http://www.ace.ual.es/~vruiz/docencia/doctorado/snr.c" ><span 
@@ -2580,10 +2560,10 @@ href="http://www.ace.ual.es/~vruiz/images/" >the Image Compression Corpus</a>, b
                                                                   
 
                                                                   
-     <div class="verbatim" id="verbatim-2">
+     <div class="verbatim" id="verbatim-1">
      # bpp MSE
 </div>
-     <!--l. 663--><p class="nopar" > where the bpp (bit per pixel) is the result of compute the resulting bit-rate
+     <!--l. 670--><p class="nopar" > where the bpp (bit per pixel) is the result of compute the resulting bit-rate
      after compress and decompress the images using the command line tools <span 
 class="ectt-1000">cjpeg</span>
      and <span 
@@ -2595,7 +2575,7 @@ class="ectt-1000">gnuplot </span>to draw the rate-distortion curve of JPEG for e
 <!--l. 1--><p class="noindent" >
 </p>
    <h3 class="likesectionHead"><a 
- id="x1-3800018"></a>References</h3>
+ id="x1-3700018"></a>References</h3>
 <!--l. 1--><p class="noindent" >
    </p><div class="thebibliography">
    <p class="bibitem" ><span class="biblabel">
@@ -2624,7 +2604,7 @@ class="ecti-1000">Communications of the ACM</span>, 34(4):30 – 44, April 1991.
 </p>
    </div>
 <a 
- id="Q1-1-39"></a>
+ id="Q1-1-38"></a>
     
 </body> 
 </html>

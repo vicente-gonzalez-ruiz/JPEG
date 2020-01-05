@@ -1,1 +1,1 @@
-[Click me](https://cdn.rawgit.com/vicente-gonzalez-ruiz/JPEG/master/index.html).
+[Click me](https://vicente-gonzalez-ruiz.github.io/JPEG/).

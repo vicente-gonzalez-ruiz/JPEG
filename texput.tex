@@ -11,8 +11,14 @@
 \item Eligible compression quality between $0-100$ \cite{Wallace91}.
 \item Visually lossless reconstructions of color images for
   compression ratios about $1$ bits/pixel (bpp).
-\item Based on the Discrete Cosine Transform (DCT).
-\item Several working modes: lossy, lossless and hierarchical.
+\item Based on the
+  \href{https://en.wikipedia.org/wiki/Discrete_cosine_transform}{Discrete
+    Cosine Transform (DCT)}.
+\item Several working modes:
+  \href{https://en.wikipedia.org/wiki/Lossy_compression}{lossy},
+  \href{https://en.wikipedia.org/wiki/Lossless_compression}{lossless}
+  and
+  \href{https://www.ece.ucdavis.edu/cerl/reliablejpeg/compression/}{hierarchical}.
 \end{itemize}
 
 \section{Lossless JPEG \cite{JPEG-LS}}
@@ -212,30 +218,31 @@
   significant bits of $0111_2$ are supposed to be $1$.
 \end{itemize}
 
-\section*{Lab}
-\begin{enumerate}
-\item Download \url{ftp.cs.cornell.edu:/pub/multimed/ljpg.tar.Z} and
-  compile it.
-\item Fill the table
-\begin{verbatim}
-  Codec | lena boats pepers zelda Average
---------+--------------------------------
-      : |    :     :      :     :       :
-ls-jpeg | ....  ....   ....  ....    ....
-\end{verbatim}
-\end{enumerate}
+%\section*{Lab}
+%\begin{enumerate}
+%\item Download LS-JPEG from
+%  \url{http://www.cs.cornell.edu/Info/Projects/zeno/Projects/LJPG.html}
+%  and compile it.
+%\item Fill the table
+%%\begin{verbatim}
+%  Codec | lena boats pepers zelda Average
+%%--------+--------------------------------
+%      : |    :     :      :     :       :
+%ls-jpeg | ....  ....   ....  ....    ....
+%\end{verbatim}
+%\end{enumerate}
 
 \section{Lossy JPEG}
-\noindent Para una imagen RGB, el algoritmo básico consiste en:
+\noindent For a RGB image, the baseline algorithm consist of:
 \begin{enumerate}
-\item Convertir la imagen al dominio YCbCr.
-\item Submuestrear la crominancia.
-\item Desplazar cada componente al rango $[-128,127]$.
-\item Para cada componente (Y, Cb y Cr):
+\item Transform the image from the RGB to the YCbCr domain.
+\item Subsample the crominance (CrCb).
+\item Shift each color component to the range $[-128,127]$.
+\item For each component (Y, Cb y Cr):
   \begin{enumerate}
-  \item Aplicar la ($8\times 8$)-DCT a cada componente.
-  \item Cuantificar los coeficientes DCT.
-  \item Codificar entrópicamente los coeficientes cuantificados.
+  \item Apply the ($8\times 8$)-DCT to each component.
+  \item Quantize the DCT coefficients.
+  \item Entropy encode the quantized coefficients. 
   \end{enumerate}
 \end{enumerate}
 
@@ -251,7 +258,7 @@ ls-jpeg | ....  ....   ....  ....    ....
 \section{8x8 2D-DCT}
 \begin{itemize}
 \item Every component is
-  \href{http://www.ual.es/~vruiz/docencia/JPEG/index.html#x1-160008}{DCT-transformed}
+  \href{https://vicente-gonzalez-ruiz.github.io/image_transformations_for_coding/#x1-2800019}{DCT-transformed}
   in blocks of $8\times 8$ pixels.
 \end{itemize}
 
