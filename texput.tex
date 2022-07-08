@@ -1,3 +1,5 @@
+% Emacs, this is -*-latex-*-
+
 \title{\href{https://jpeg.org/jpeg/index.html}{The JPEG standard (ISO/IEC 10918-1)}}
 \maketitle
 \tableofcontents
@@ -624,37 +626,37 @@ compression ratio is 15:1 approximately ($0.55$ bits/pixel).
 
 \section*{Lena $512\times 512$ RGB original}
 \begin{center}
-  \png{lena_rgb}
+  \png{lena_rgb}{800}
 \end{center}
 
 \section*{Lena at $1.0$ bpp ($\text{PSNR}=32.85$ dB)}
 \begin{center}
-  \jpg{lena_10}
+  \jpg{lena_10}{800}
 \end{center}
 
 \section*{Lena at $0.5$ bpp ($\text{PSNR}=30.91$ dB)}
 \begin{center}
-  \jpg{lena_05}
+  \jpg{lena_05}{800}
 \end{center}
 
 \section*{Lena at $0.4$ bpp ($\text{PSNR}=30.09$ dB)}
 \begin{center}
-  \jpg{lena_04}
+  \jpg{lena_04}{800}
 \end{center}
 
 \section*{Lena at $0.3$ bpp ($\text{PSNR}=28.97$ dB)}
 \begin{center}
-  \jpg{lena_03}
+  \jpg{lena_03}{800}
 \end{center}
 
 \section*{Lena at $0.2$ bpp ($\text{PSNR}=26.64$ dB)}
 \begin{center}
-  \jpg{lena_02}
+  \jpg{lena_02}{800}
 \end{center}
 
 \section*{Lena at $0.1$ bpp ($\text{PSNR}=21.29$ dB)}
 \begin{center}
-  \jpg{lena_01}
+  \jpg{lena_01}{800}
 \end{center}
 
 \section{Lab}
@@ -693,5 +695,7 @@ mplayer -loop 0 -fs archivo_video
     player} (\texttt{www.videolan.org}).
 \end{comment}
 
+\section{Resources}
+\renewcommand{\addcontentsline}[3]{}% Remove functionality of \addcontentsline
 %\bibliographystyle{plain}
 \bibliography{JPEG,image-standards}
